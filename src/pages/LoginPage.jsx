@@ -71,7 +71,7 @@ function LoginPage() {
                 {/* Mascot */}
                 <div className="mb-6 text-center">
                     <img
-                        src="/src/Assets/Maskot-Klevia.png"
+                        src="/Assets/Maskot-Klevia.png"
                         alt="KLEVIA Mascot"
                         className="w-36 h-36 mx-auto object-contain drop-shadow-lg animate-bounce-slow"
                     />

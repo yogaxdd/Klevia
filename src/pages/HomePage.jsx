@@ -151,16 +151,16 @@ function HomePage() {
                         <div className="relative h-44 w-full bg-gradient-to-br from-primary/30 to-primary/10">
                             {/* Subject Mascot Image */}
                             {user.subject === 'bahasa' && (
-                                <img src="/src/Assets/bind.jpeg" alt="Bahasa Indonesia" className="absolute inset-0 w-full h-full object-cover" />
+                                <img src="/Assets/bind.jpeg" alt="Bahasa Indonesia" className="absolute inset-0 w-full h-full object-cover" />
                             )}
                             {user.subject === 'english' && (
-                                <img src="/src/Assets/bing.jpeg" alt="Bahasa Inggris" className="absolute inset-0 w-full h-full object-cover" />
+                                <img src="/Assets/bing.jpeg" alt="Bahasa Inggris" className="absolute inset-0 w-full h-full object-cover" />
                             )}
                             {user.subject === 'ipa' && (
-                                <img src="/src/Assets/ipa.png" alt="IPA" className="absolute inset-0 w-full h-full object-cover" />
+                                <img src="/Assets/ipa.png" alt="IPA" className="absolute inset-0 w-full h-full object-cover" />
                             )}
                             {user.subject === 'matematika' && (
-                                <img src="/src/Assets/mtk.jpeg" alt="Matematika" className="absolute inset-0 w-full h-full object-cover" />
+                                <img src="/Assets/mtk.jpeg" alt="Matematika" className="absolute inset-0 w-full h-full object-cover" />
                             )}
 
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>

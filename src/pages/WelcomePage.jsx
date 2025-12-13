@@ -49,7 +49,7 @@ function WelcomePage() {
                 {/* Mascot Image */}
                 <div className="mb-6">
                     <img
-                        src="/src/Assets/Selamat-Datang.png"
+                        src="/Assets/Selamat-Datang.png"
                         alt="KLEVIA Mascot"
                         className="w-48 h-48 object-contain drop-shadow-lg animate-bounce-slow"
                         onError={(e) => {

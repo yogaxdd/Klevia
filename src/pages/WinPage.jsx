@@ -51,7 +51,7 @@ function WinPage() {
                 {/* Mascot Image */}
                 <div className="mb-6 animate-bounceIn" style={{ animationDelay: '0.1s' }}>
                     <img
-                        src={passed ? '/src/Assets/Win.png' : '/src/Assets/Salah.png'}
+                        src={passed ? '/Assets/Win.png' : '/Assets/Salah.png'}
                         alt={passed ? 'Win Mascot' : 'Try Again Mascot'}
                         className="w-40 h-40 mx-auto object-contain drop-shadow-lg"
                     />

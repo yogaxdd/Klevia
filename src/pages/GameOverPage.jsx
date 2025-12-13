@@ -10,7 +10,7 @@ function GameOverPage() {
                 {/* Mascot Image */}
                 <div className="mb-6 animate-bounceIn" style={{ animationDelay: '0.1s' }}>
                     <img
-                        src="/src/Assets/Salah.png"
+                        src="/Assets/Salah.png"
                         alt="Game Over Mascot"
                         className="w-40 h-40 mx-auto object-contain drop-shadow-lg"
                     />
