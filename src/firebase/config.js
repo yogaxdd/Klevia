@@ -4,13 +4,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCfdajcor0lTEKzUo2kvp133OaMqB5MccU",
-    authDomain: "klevia-393cf.firebaseapp.com",
-    projectId: "klevia-393cf",
-    storageBucket: "klevia-393cf.firebasestorage.app",
-    messagingSenderId: "972580965612",
-    appId: "1:972580965612:web:5b3cde8e7c8badce63e9c9",
-    measurementId: "G-5J1T6GVDNX"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
