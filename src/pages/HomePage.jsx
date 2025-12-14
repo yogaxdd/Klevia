@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { lessons } from '../data/lessons';
+import { useAuth } from '../firebase/AuthContext';
+import { lessons } from '../data/allLessons';
 import BottomNav from '../components/BottomNav';
 import Card from '../components/Card';
 import ProgressBar from '../components/ProgressBar';
@@ -10,6 +11,7 @@ import StreakDisplay from '../components/StreakDisplay';
 function HomePage() {
     const navigate = useNavigate();
     const { user, progress, streak } = useApp();
+    const { currentUser } = useAuth();
 
     const isPremium = user.isPremium && new Date(user.premiumExpiry) > new Date();
 
@@ -92,13 +94,21 @@ function HomePage() {
                     {/* Profile */}
                     <div className="flex gap-3 items-center">
                         <div
-                            className={`h-12 w-12 rounded-full flex items-center justify-center border-2 shadow-sm cursor-pointer ${isPremium
+                            className={`h-12 w-12 rounded-full flex items-center justify-center border-2 shadow-sm cursor-pointer overflow-hidden ${isPremium
                                 ? 'bg-gradient-to-br from-primary/20 to-green-100 border-primary/30'
                                 : 'bg-primary/20 border-white'
                                 }`}
                             onClick={() => navigate('/profile')}
                         >
-                            <span className={`material-symbols-outlined text-2xl ${isPremium ? 'text-primary' : 'text-primary'}`}>person</span>
+                            {currentUser?.photoURL ? (
+                                <img
+                                    src={currentUser.photoURL}
+                                    alt="Profile"
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <span className={`material-symbols-outlined text-2xl ${isPremium ? 'text-primary' : 'text-primary'}`}>person</span>
+                            )}
                         </div>
                     </div>
                 </header>

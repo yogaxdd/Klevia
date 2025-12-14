@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useAuth } from '../firebase/AuthContext';
 import { getAchievementsWithStatus } from '../data/achievements';
 import BottomNav from '../components/BottomNav';
 import Card from '../components/Card';
@@ -9,6 +10,8 @@ import Button from '../components/Button';
 function ProfilePage() {
     const navigate = useNavigate();
     const { user, streak, progress } = useApp();
+    const { currentUser } = useAuth();
+
 
     const isPremium = user.isPremium && new Date(user.premiumExpiry) > new Date();
 
@@ -66,17 +69,26 @@ function ProfilePage() {
                     )}
 
                     {/* Avatar */}
-                    <div className={`mb-4 flex h-24 w-24 items-center justify-center rounded-full mx-auto border-4 shadow-lg ${isPremium
+                    <div className={`mb-4 flex h-24 w-24 items-center justify-center rounded-full mx-auto border-4 shadow-lg overflow-hidden ${isPremium
                         ? 'bg-gradient-to-br from-primary/20 to-green-100 border-primary/30'
                         : 'bg-primary/20 border-white'
                         }`}>
-                        <span
-                            className={`material-symbols-outlined ${isPremium ? 'text-yellow-600' : 'text-primary'}`}
-                            style={{ fontSize: '48px' }}
-                        >
-                            person
-                        </span>
+                        {currentUser?.photoURL ? (
+                            <img
+                                src={currentUser.photoURL}
+                                alt="Profile"
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <span
+                                className={`material-symbols-outlined ${isPremium ? 'text-yellow-600' : 'text-primary'}`}
+                                style={{ fontSize: '48px' }}
+                            >
+                                person
+                            </span>
+                        )}
                     </div>
+
 
                     {/* Name with Crown */}
                     <div className="flex items-center justify-center gap-2">

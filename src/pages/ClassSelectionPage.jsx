@@ -11,6 +11,9 @@ function ClassSelectionPage() {
         { id: 7, label: 'Kelas 7', description: 'SMP Kelas VII' },
         { id: 8, label: 'Kelas 8', description: 'SMP Kelas VIII' },
         { id: 9, label: 'Kelas 9', description: 'SMP Kelas IX' },
+        { id: 10, label: 'Kelas 10', description: 'SMA Kelas X' },
+        { id: 11, label: 'Kelas 11', description: 'SMA Kelas XI' },
+        { id: 12, label: 'Kelas 12', description: 'SMA Kelas XII' },
     ];
 
     const handleSelectClass = (kelasId) => {

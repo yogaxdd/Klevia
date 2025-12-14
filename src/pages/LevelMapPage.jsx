@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { lessons } from '../data/lessons';
+import { lessons } from '../data/allLessons';
 import BottomNav from '../components/BottomNav';
 import Card from '../components/Card';
 
@@ -50,6 +50,15 @@ function LevelMapPage() {
             ipa: 'IPA',
             bahasa: 'Bahasa Indonesia',
             english: 'Bahasa Inggris',
+            biologi: 'Biologi',
+            kimia: 'Kimia',
+            fisika: 'Fisika',
+            ekonomi: 'Ekonomi',
+            sosiologi: 'Sosiologi',
+            geografi: 'Geografi',
+            sejarah: 'Sejarah',
+            pkn: 'PKN',
+            informatika: 'Informatika',
         };
         return labels[subject] || 'Pelajaran';
     };
@@ -72,19 +81,27 @@ function LevelMapPage() {
                         Pilih pelajaran untuk mulai belajar
                     </p>
 
-                    {/* Progress Badge */}
-                    <div className="mt-4 p-3 bg-primary/10 rounded-xl flex items-center justify-between">
+                    {/* Progress Badge - Clickable to change subject */}
+                    <button
+                        onClick={() => navigate('/select-subject')}
+                        className="mt-4 p-3 bg-primary/10 rounded-xl flex items-center justify-between w-full hover:bg-primary/20 transition-colors group"
+                    >
                         <div className="flex items-center gap-2">
                             <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>
                                 school
                             </span>
-                            <span className="font-medium text-text-main">{getSubjectLabel(user.subject)}</span>
+                            <span className="font-medium text-text-main">
+                                {getSubjectLabel(user.subject)} {user.kelas ? `Kelas ${user.kelas}` : ''}
+                            </span>
+                            <span className="material-symbols-outlined text-gray-400 text-sm group-hover:text-primary transition-colors">
+                                edit
+                            </span>
                         </div>
                         <div className="text-sm">
                             <span className="font-bold text-primary">{completedCount}</span>
                             <span className="text-text-secondary">/{totalLessons} selesai</span>
                         </div>
-                    </div>
+                    </button>
 
                     {/* All Complete Message */}
                     {completedCount === totalLessons && totalLessons > 0 && (
@@ -112,8 +129,8 @@ function LevelMapPage() {
                                     hoverable={status !== 'locked'}
                                     onClick={() => handleLessonClick(lesson, index)}
                                     className={`relative transition-all duration-300 ${status === 'locked'
-                                            ? 'opacity-50 cursor-not-allowed'
-                                            : 'hover-lift cursor-pointer'
+                                        ? 'opacity-50 cursor-not-allowed'
+                                        : 'hover-lift cursor-pointer'
                                         }`}
                                 >
                                     <div className="flex items-center gap-4">
@@ -148,7 +165,7 @@ function LevelMapPage() {
                                             <div className="flex items-center gap-2 mt-2">
                                                 {status === 'completed' ? (
                                                     <span className="text-xs font-medium text-primary">
-                                                        ✅ Selesai {lessonProgress?.score}/{lessonProgress?.totalQuestions || lesson.questionsCount} • +{lesson.xpReward} XP
+                                                        Selesai {lessonProgress?.score}/{lessonProgress?.totalQuestions || lesson.questionsCount} • +{lesson.xpReward} XP
                                                     </span>
                                                 ) : status === 'locked' ? (
                                                     <span className="text-xs text-gray-400">
@@ -179,18 +196,52 @@ function LevelMapPage() {
                             );
                         })}
 
-                        {/* Empty state */}
-                        {filteredLessons.length === 0 && (
+                        {/* Empty state - belum pilih kelas */}
+                        {filteredLessons.length === 0 && !user.kelas && (
+                            <div className="text-center py-10 animate-fadeIn">
+                                <span className="material-symbols-outlined text-gray-300 text-5xl mb-4">
+                                    school
+                                </span>
+                                <p className="text-text-secondary mb-1">Kamu belum memilih kelas</p>
+                                <p className="text-sm text-text-secondary mb-3">Pilih kelas dulu untuk melihat materi</p>
+                                <button
+                                    className="text-primary font-medium hover:underline"
+                                    onClick={() => navigate('/select-class')}
+                                >
+                                    Pilih kelas
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Empty state - sudah pilih kelas tapi belum pilih subject */}
+                        {filteredLessons.length === 0 && user.kelas && !user.subject && (
                             <div className="text-center py-10 animate-fadeIn">
                                 <span className="material-symbols-outlined text-gray-300 text-5xl mb-4">
                                     menu_book
                                 </span>
-                                <p className="text-text-secondary">Belum ada pelajaran tersedia</p>
+                                <p className="text-text-secondary mb-1">Belum ada pelajaran tersedia</p>
+                                <p className="text-sm text-text-secondary mb-3">Pilih mata pelajaran untuk mulai belajar</p>
+                                <button
+                                    className="text-primary font-medium hover:underline"
+                                    onClick={() => navigate('/select-subject')}
+                                >
+                                    Pilih mata pelajaran
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Empty state - sudah pilih keduanya tapi tidak ada materi */}
+                        {filteredLessons.length === 0 && user.kelas && user.subject && (
+                            <div className="text-center py-10 animate-fadeIn">
+                                <span className="material-symbols-outlined text-gray-300 text-5xl mb-4">
+                                    menu_book
+                                </span>
+                                <p className="text-text-secondary">Materi untuk {getSubjectLabel(user.subject)} Kelas {user.kelas} belum tersedia</p>
                                 <button
                                     className="text-primary font-medium mt-2 hover:underline"
                                     onClick={() => navigate('/select-subject')}
                                 >
-                                    Pilih mata pelajaran
+                                    Ganti mata pelajaran
                                 </button>
                             </div>
                         )}

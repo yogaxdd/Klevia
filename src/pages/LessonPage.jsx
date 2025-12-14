@@ -1,12 +1,79 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
-import { questions } from '../data/questions';
-import { lessons } from '../data/lessons';
+import { questions } from '../data/allQuestions';
+import { lessons } from '../data/allLessons';
+import { gradeEssayAnswer, getSubjectLabel } from '../services/geminiService';
 import ProgressBar from '../components/ProgressBar';
 import HeartDisplay from '../components/HeartDisplay';
 import OptionCard from '../components/OptionCard';
 import Button from '../components/Button';
+
+// Fisher-Yates shuffle untuk mengacak array
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+// Fungsi untuk mengacak opsi jawaban dan menyesuaikan correctAnswer
+function shuffleQuestionOptions(question) {
+    // Skip shuffling for essay questions
+    if (question.type === 'essay') {
+        return question;
+    }
+
+    const originalOptions = question.options;
+    const correctAnswerText = originalOptions[question.correctAnswer];
+
+    // Buat array dengan index untuk tracking
+    const optionsWithIndex = originalOptions.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+
+    // Shuffle options
+    const shuffledOptions = shuffleArray(optionsWithIndex);
+
+    // Temukan index baru dari jawaban yang benar
+    const newCorrectAnswer = shuffledOptions.findIndex(opt => opt.text === correctAnswerText);
+
+    return {
+        ...question,
+        options: shuffledOptions.map(opt => opt.text),
+        correctAnswer: newCorrectAnswer
+    };
+}
+
+// Convert some multiple choice questions to essay (random ~20-40%)
+function convertToEssayQuestions(questionsArr) {
+    if (!questionsArr || questionsArr.length === 0) return questionsArr;
+
+    // Determine how many to convert (1-2 out of 5)
+    const numToConvert = Math.min(2, Math.max(1, Math.floor(questionsArr.length * 0.3)));
+
+    // Get random indices to convert
+    const indices = [];
+    while (indices.length < numToConvert) {
+        const idx = Math.floor(Math.random() * questionsArr.length);
+        if (!indices.includes(idx)) {
+            indices.push(idx);
+        }
+    }
+
+    return questionsArr.map((q, idx) => {
+        if (indices.includes(idx) && q.options && q.options.length > 0) {
+            // Convert to essay
+            return {
+                ...q,
+                type: 'essay',
+                expectedAnswer: q.options[q.correctAnswer], // Use correct answer as expected
+                maxLength: 200
+            };
+        }
+        return { ...q, type: q.type || 'multiple_choice' };
+    });
+}
 
 function LessonPage() {
     const navigate = useNavigate();
@@ -15,16 +82,31 @@ function LessonPage() {
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [essayAnswer, setEssayAnswer] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null);
+    const [aiFeedback, setAiFeedback] = useState('');
+    const [isGrading, setIsGrading] = useState(false);
     const [score, setScore] = useState(0);
     const [showShake, setShowShake] = useState(false);
     const [questionKey, setQuestionKey] = useState(0);
 
-    const lessonQuestions = questions[lessonId] || [];
+    const rawLessonQuestions = questions[lessonId] || [];
     const lesson = lessons.find(l => l.id === parseInt(lessonId));
+
+    // Shuffle semua soal, convert some to essay, dan acak opsi jawaban
+    const lessonQuestions = useMemo(() => {
+        // Shuffle urutan soal
+        const shuffledQuestions = shuffleArray(rawLessonQuestions);
+        // Convert some to essay
+        const withEssay = convertToEssayQuestions(shuffledQuestions);
+        // Shuffle options in multiple choice questions
+        return withEssay.map(q => shuffleQuestionOptions(q));
+    }, [lessonId, rawLessonQuestions.length]);
+
     const currentQuestion = lessonQuestions[currentQuestionIndex];
     const totalQuestions = lessonQuestions.length;
+    const isEssayQuestion = currentQuestion?.type === 'essay';
 
     // Reset hearts when starting lesson
     useEffect(() => {
@@ -43,7 +125,12 @@ function LessonPage() {
         setSelectedAnswer(index);
     };
 
-    const handleCheck = () => {
+    const handleEssayChange = (e) => {
+        if (isAnswered) return;
+        setEssayAnswer(e.target.value);
+    };
+
+    const handleCheckMultipleChoice = () => {
         if (selectedAnswer === null) return;
 
         const correct = selectedAnswer === currentQuestion.correctAnswer;
@@ -54,9 +141,49 @@ function LessonPage() {
             setScore(prev => prev + 1);
         } else {
             loseHeart();
-            // Trigger shake animation
             setShowShake(true);
             setTimeout(() => setShowShake(false), 500);
+        }
+    };
+
+    const handleCheckEssay = async () => {
+        if (!essayAnswer.trim() || essayAnswer.trim().length < 5) return;
+
+        setIsGrading(true);
+        try {
+            const result = await gradeEssayAnswer(
+                currentQuestion.question,
+                currentQuestion.expectedAnswer,
+                essayAnswer,
+                getSubjectLabel(lesson?.subject || '')
+            );
+
+            setIsCorrect(result.isCorrect);
+            setAiFeedback(result.feedback);
+            setIsAnswered(true);
+
+            if (result.isCorrect) {
+                setScore(prev => prev + 1);
+            } else {
+                loseHeart();
+                setShowShake(true);
+                setTimeout(() => setShowShake(false), 500);
+            }
+        } catch (error) {
+            console.error('Grading error:', error);
+            setAiFeedback('Terjadi kesalahan saat memeriksa jawaban.');
+            setIsAnswered(true);
+            setIsCorrect(false);
+        } finally {
+            setIsGrading(false);
+        }
+    };
+
+    const handleCheck = () => {
+        if (isEssayQuestion) {
+            handleCheckEssay();
+        } else {
+            handleCheckMultipleChoice();
         }
     };
 
@@ -64,33 +191,31 @@ function LessonPage() {
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setSelectedAnswer(null);
+            setEssayAnswer('');
             setIsAnswered(false);
             setIsCorrect(null);
-            setQuestionKey(prev => prev + 1); // Trigger re-animation
+            setAiFeedback('');
+            setQuestionKey(prev => prev + 1);
         } else {
-            // Lesson completed - calculate XP based on correct answers
+            // Lesson completed
             const baseXP = lesson?.xpReward || 50;
             const xpPerQuestion = baseXP / totalQuestions;
             const xpEarned = Math.round(xpPerQuestion * score);
 
-            // Check if passed (minimum 50% correct)
             const percentage = (score / totalQuestions) * 100;
             const passed = percentage >= 50;
 
-            // Check if user will level up
             const currentXP = user.xp || 0;
             const currentLevel = user.level || 1;
             const newTotalXP = currentXP + xpEarned;
             const newLevel = Math.floor(newTotalXP / 100) + 1;
             const willLevelUp = passed && newLevel > currentLevel;
 
-            // Only give XP and mark complete if passed
             if (passed) {
                 addXP(xpEarned);
                 completeLesson(lessonId, score, totalQuestions);
             }
 
-            // Navigate to level up page first if leveling up, otherwise to win page
             if (willLevelUp) {
                 navigate('/level-up', {
                     state: {
@@ -129,13 +254,18 @@ function LessonPage() {
     }
 
     const labels = ['A', 'B', 'C', 'D'];
-    const correctAnswerText = currentQuestion.options[currentQuestion.correctAnswer];
+    const correctAnswerText = isEssayQuestion
+        ? currentQuestion.expectedAnswer
+        : currentQuestion.options?.[currentQuestion.correctAnswer];
+
+    const canCheck = isEssayQuestion
+        ? essayAnswer.trim().length >= 5
+        : selectedAnswer !== null;
 
     return (
         <div className="bg-background min-h-screen flex flex-col relative">
             {/* Top Bar */}
             <div className="flex items-center justify-between px-4 py-3 bg-background shrink-0">
-                {/* Close Button */}
                 <button
                     onClick={handleClose}
                     className="flex items-center justify-center p-2 text-gray-400 hover:bg-gray-200 rounded-full transition-colors"
@@ -143,7 +273,6 @@ function LessonPage() {
                     <span className="material-symbols-outlined text-2xl">close</span>
                 </button>
 
-                {/* Progress Bar */}
                 <div className="flex-1 mx-4">
                     <ProgressBar
                         value={currentQuestionIndex + 1}
@@ -152,16 +281,28 @@ function LessonPage() {
                     />
                 </div>
 
-                {/* Hearts */}
                 <HeartDisplay hearts={currentHearts} />
             </div>
 
             {/* Main Content */}
             <div className={`flex-1 overflow-y-auto no-scrollbar p-4 flex flex-col items-center w-full max-w-md mx-auto ${isAnswered && !isCorrect ? 'pb-72' : ''}`}>
+                {/* Question Type Badge */}
+                <div className="w-full mb-2">
+                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${isEssayQuestion
+                        ? 'bg-purple-100 text-purple-700'
+                        : 'bg-blue-100 text-blue-700'
+                        }`}>
+                        <span className="material-symbols-outlined text-sm">
+                            {isEssayQuestion ? 'edit_note' : 'quiz'}
+                        </span>
+                        {isEssayQuestion ? 'Isian' : 'Pilihan Ganda'}
+                    </span>
+                </div>
+
                 {/* Question Section */}
                 <div className="w-full mb-6">
                     <h2 className="text-lg font-bold text-text-main mb-4 leading-tight">
-                        Pilihlah jawaban yang paling tepat.
+                        {isEssayQuestion ? 'Jawablah pertanyaan berikut:' : 'Pilihlah jawaban yang paling tepat.'}
                     </h2>
 
                     {/* Question Card */}
@@ -177,33 +318,60 @@ function LessonPage() {
                     </div>
                 </div>
 
-                {/* Answer Options */}
-                <div
-                    key={`opts-${questionKey}`}
-                    className={`w-full flex flex-col gap-3 pb-4 stagger-children ${showShake ? 'animate-shake' : ''}`}
-                >
-                    {currentQuestion.options.map((option, index) => (
-                        <OptionCard
-                            key={`${questionKey}-${index}`}
-                            label={labels[index]}
-                            text={option}
-                            selected={selectedAnswer === index}
-                            correct={isAnswered ? (
-                                index === currentQuestion.correctAnswer ? true :
-                                    selectedAnswer === index ? false : null
-                            ) : null}
-                            onClick={() => handleSelectAnswer(index)}
-                            disabled={isAnswered}
-                        />
-                    ))}
-                </div>
+                {/* Answer Section */}
+                {isEssayQuestion ? (
+                    /* Essay Input */
+                    <div className={`w-full pb-4 ${showShake ? 'animate-shake' : ''}`}>
+                        <div className="bg-white rounded-2xl shadow-soft border border-gray-100 p-4">
+                            <textarea
+                                value={essayAnswer}
+                                onChange={handleEssayChange}
+                                placeholder="Tuliskan jawabanmu di sini..."
+                                disabled={isAnswered || isGrading}
+                                maxLength={currentQuestion.maxLength || 300}
+                                className="w-full h-32 p-3 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+                            />
+                            <div className="flex justify-between items-center mt-2">
+                                <span className="text-xs text-gray-400">
+                                    {essayAnswer.length}/{currentQuestion.maxLength || 300}
+                                </span>
+                                {isGrading && (
+                                    <span className="text-xs text-primary flex items-center gap-1">
+                                        <span className="material-symbols-outlined text-sm animate-spin">autorenew</span>
+                                        AI sedang memeriksa...
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    /* Multiple Choice Options */
+                    <div
+                        key={`opts-${questionKey}`}
+                        className={`w-full flex flex-col gap-3 pb-4 stagger-children ${showShake ? 'animate-shake' : ''}`}
+                    >
+                        {currentQuestion.options?.map((option, index) => (
+                            <OptionCard
+                                key={`${questionKey}-${index}`}
+                                label={labels[index]}
+                                text={option}
+                                selected={selectedAnswer === index}
+                                correct={isAnswered ? (
+                                    index === currentQuestion.correctAnswer ? true :
+                                        selectedAnswer === index ? false : null
+                                ) : null}
+                                onClick={() => handleSelectAnswer(index)}
+                                disabled={isAnswered}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* Correct Answer - Bottom Sheet (Green) */}
             {isAnswered && isCorrect && (
                 <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
                     <div className="bg-[#e8f8ed] border-t-4 border-primary p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
-                        {/* Status Header */}
                         <div className="flex items-center gap-3 mb-4">
                             <div className="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-white shadow-sm shrink-0">
                                 <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
@@ -212,13 +380,14 @@ function LessonPage() {
                             </div>
                             <div>
                                 <h3 className="text-primary text-xl font-bold tracking-tight">
-                                    Benar! 🎉
+                                    Jawaban Benar! 🎉
                                 </h3>
-                                <p className="text-green-700 text-sm">Jawaban kamu tepat sekali!</p>
+                                <p className="text-green-700 text-sm">
+                                    {aiFeedback || 'Jawaban kamu tepat sekali!'}
+                                </p>
                             </div>
                         </div>
 
-                        {/* Action Button */}
                         <button
                             onClick={handleNext}
                             className="w-full bg-primary hover:bg-[#2fd165] active:scale-[0.98] text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-primary/20 transition-all duration-200 flex items-center justify-center gap-2"
@@ -230,45 +399,41 @@ function LessonPage() {
                 </div>
             )}
 
-            {/* Incorrect Answer - Bottom Sheet (Orange/Soft) */}
+            {/* Incorrect Answer - Bottom Sheet (Red for essay, Orange for MC) */}
             {isAnswered && !isCorrect && (
                 <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
-                    <div className="bg-[#fef3eb] border-t-4 border-[#F4A261] p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
-                        {/* Status Header */}
+                    <div className={`${isEssayQuestion ? 'bg-red-50 border-red-400' : 'bg-[#fef3eb] border-[#F4A261]'} border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]`}>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-[#F4A261] text-white shadow-sm shrink-0">
+                            <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isEssayQuestion ? 'bg-red-500' : 'bg-[#F4A261]'} text-white shadow-sm shrink-0`}>
                                 <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                                    priority_high
+                                    {isEssayQuestion ? 'close' : 'priority_high'}
                                 </span>
                             </div>
                             <div>
-                                <h3 className="text-[#c26d2b] text-xl font-bold tracking-tight">
-                                    Jawaban kurang tepat
+                                <h3 className={`${isEssayQuestion ? 'text-red-600' : 'text-[#c26d2b]'} text-xl font-bold tracking-tight`}>
+                                    Jawaban Kurang Tepat
                                 </h3>
-                                <p className="text-[#a67c52] text-sm">Jangan menyerah, tetap semangat! 💪</p>
+                                <p className={`${isEssayQuestion ? 'text-red-500' : 'text-[#a67c52]'} text-sm`}>
+                                    {aiFeedback || 'Jangan menyerah, tetap semangat! 💪'}
+                                </p>
                             </div>
                         </div>
 
                         {/* Correct Answer Card */}
-                        <div className="bg-white rounded-2xl p-4 border border-[#F4A261]/20 mb-4 shadow-sm">
+                        <div className="bg-white rounded-2xl p-4 border border-gray-200 mb-4 shadow-sm">
                             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">
                                 Jawaban yang benar:
                             </p>
-                            <div className="flex items-center gap-3 mb-3">
-                                <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/20 text-primary font-bold text-sm">
-                                    {labels[currentQuestion.correctAnswer]}
-                                </div>
-                                <p className="text-primary text-lg font-bold">{correctAnswerText}</p>
+                            <div className="flex items-start gap-3">
+                                {!isEssayQuestion && (
+                                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/20 text-primary font-bold text-sm shrink-0">
+                                        {labels[currentQuestion.correctAnswer]}
+                                    </div>
+                                )}
+                                <p className="text-primary text-base font-medium leading-relaxed">{correctAnswerText}</p>
                             </div>
-                            {/* Explanation */}
-                            {currentQuestion.explanation && (
-                                <p className="text-gray-600 text-sm leading-relaxed">
-                                    {currentQuestion.explanation}
-                                </p>
-                            )}
                         </div>
 
-                        {/* Action Button */}
                         <button
                             onClick={handleNext}
                             className="w-full bg-primary hover:bg-[#2fd165] active:scale-[0.98] text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-primary/20 transition-all duration-200 flex items-center justify-center gap-2"
@@ -289,9 +454,16 @@ function LessonPage() {
                             size="lg"
                             fullWidth
                             onClick={handleCheck}
-                            disabled={selectedAnswer === null}
+                            disabled={!canCheck || isGrading}
                         >
-                            PERIKSA
+                            {isGrading ? (
+                                <span className="flex items-center gap-2">
+                                    <span className="material-symbols-outlined animate-spin">autorenew</span>
+                                    MEMERIKSA...
+                                </span>
+                            ) : (
+                                'PERIKSA'
+                            )}
                         </Button>
                     </div>
                 </div>

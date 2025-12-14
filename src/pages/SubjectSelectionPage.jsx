@@ -21,6 +21,7 @@ function SubjectSelectionPage() {
             icon: 'science',
             color: 'bg-green-100',
             iconColor: 'text-green-600',
+            grades: [7, 8, 9], // Only for SMP
         },
         {
             id: 'bahasa',
@@ -36,7 +37,85 @@ function SubjectSelectionPage() {
             color: 'bg-purple-100',
             iconColor: 'text-purple-600',
         },
+        {
+            id: 'biologi',
+            label: 'Biologi',
+            icon: 'genetics',
+            color: 'bg-lime-100',
+            iconColor: 'text-lime-600',
+            grades: [10, 11, 12], // Only for SMA
+        },
+        {
+            id: 'kimia',
+            label: 'Kimia',
+            icon: 'experiment',
+            color: 'bg-amber-100',
+            iconColor: 'text-amber-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'fisika',
+            label: 'Fisika',
+            icon: 'bolt',
+            color: 'bg-cyan-100',
+            iconColor: 'text-cyan-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'ekonomi',
+            label: 'Ekonomi',
+            icon: 'payments',
+            color: 'bg-yellow-100',
+            iconColor: 'text-yellow-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'sosiologi',
+            label: 'Sosiologi',
+            icon: 'groups',
+            color: 'bg-pink-100',
+            iconColor: 'text-pink-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'geografi',
+            label: 'Geografi',
+            icon: 'public',
+            color: 'bg-teal-100',
+            iconColor: 'text-teal-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'sejarah',
+            label: 'Sejarah',
+            icon: 'history_edu',
+            color: 'bg-stone-100',
+            iconColor: 'text-stone-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'pkn',
+            label: 'PKN',
+            icon: 'gavel',
+            color: 'bg-red-100',
+            iconColor: 'text-red-600',
+            grades: [10, 11, 12],
+        },
+        {
+            id: 'informatika',
+            label: 'Informatika',
+            icon: 'code',
+            color: 'bg-indigo-100',
+            iconColor: 'text-indigo-600',
+            grades: [10, 11, 12],
+        },
     ];
+
+    // Filter subjects based on selected grade
+    const filteredSubjects = subjects.filter(subject => {
+        if (!subject.grades) return true; // Available for all grades
+        return subject.grades.includes(user.kelas);
+    });
 
     const handleSelectSubject = (subjectId) => {
         updateUser({ subject: subjectId });
@@ -69,8 +148,8 @@ function SubjectSelectionPage() {
             </div>
 
             {/* Subject Options */}
-            <div className="grid grid-cols-2 gap-4 flex-1">
-                {subjects.map((subject) => (
+            <div className="grid grid-cols-2 gap-4 flex-1 content-start">
+                {filteredSubjects.map((subject) => (
                     <Card
                         key={subject.id}
                         hoverable
