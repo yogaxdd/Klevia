@@ -24,6 +24,7 @@ function ProfileSetupPage() {
 
         await updateUserData({
             displayName: formData.displayName,
+            name: formData.displayName, // Keep name in sync with displayName
             gender: formData.gender,
             birthDate: formData.birthDate,
             profileCompleted: true,

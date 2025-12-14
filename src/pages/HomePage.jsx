@@ -240,8 +240,21 @@ function HomePage() {
                                 <span className="material-symbols-outlined">menu_book</span>
                             </div>
                             <div>
-                                <h4 className="font-bold text-text-main leading-tight">Ringkasan</h4>
-                                <p className="text-xs text-text-secondary mt-1">Review materi</p>
+                                <h4 className="font-bold text-text-main leading-tight">Mulai Belajar</h4>
+                                <p className="text-xs text-text-secondary mt-1">Pilih level yang ingin kamu coba</p>
+                            </div>
+                        </button>
+
+                        <button
+                            className="flex flex-col items-start gap-3 rounded-2xl bg-amber-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-amber-200"
+                            onClick={() => navigate('/leaderboard')}
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-amber-600 shadow-sm">
+                                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-text-main leading-tight">Leaderboard</h4>
+                                <p className="text-xs text-text-secondary mt-1">Lihat peringkatmu</p>
                             </div>
                         </button>
                     </div>

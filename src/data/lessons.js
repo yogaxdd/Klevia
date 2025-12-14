@@ -7,28 +7,28 @@ export const lessons = [
     // KELAS 7
     // ============================================
 
-    // MATEMATIKA - Kelas 7
-    { id: 101, title: "Bilangan Bulat", subject: "matematika", grade: 7, description: "Operasi penjumlahan dan pengurangan bilangan bulat", questionsCount: 5, xpReward: 50, order: 1 },
-    { id: 102, title: "Pecahan", subject: "matematika", grade: 7, description: "Operasi hitung pecahan biasa dan desimal", questionsCount: 6, xpReward: 55, order: 2 },
-    { id: 103, title: "Bentuk Aljabar", subject: "matematika", grade: 7, description: "Pengenalan variabel dan konstanta", questionsCount: 5, xpReward: 50, order: 3 },
+    // MATEMATIKA - Kelas 7 (10 materi, 7-10 soal per materi)
+    { id: 101, title: "Bilangan Bulat", subject: "matematika", grade: 7, description: "Operasi penjumlahan dan pengurangan bilangan bulat", questionsCount: 10, xpReward: 70, order: 1 },
+    { id: 102, title: "Pecahan", subject: "matematika", grade: 7, description: "Operasi hitung pecahan biasa dan desimal", questionsCount: 10, xpReward: 70, order: 2 },
+    { id: 103, title: "Bentuk Aljabar", subject: "matematika", grade: 7, description: "Pengenalan variabel dan konstanta", questionsCount: 10, xpReward: 70, order: 3 },
     { id: 104, title: "Perbandingan", subject: "matematika", grade: 7, description: "Perbandingan senilai dan berbalik nilai", questionsCount: 7, xpReward: 60, order: 4 },
-    { id: 1005, title: "Himpunan", subject: "matematika", grade: 7, description: "Pengertian dan notasi himpunan", questionsCount: 5, xpReward: 50, order: 5 },
+    { id: 1005, title: "Himpunan", subject: "matematika", grade: 7, description: "Pengertian dan notasi himpunan", questionsCount: 10, xpReward: 70, order: 5 },
     { id: 1006, title: "Garis dan Sudut", subject: "matematika", grade: 7, description: "Jenis-jenis garis dan sudut", questionsCount: 8, xpReward: 65, order: 6 },
     { id: 1007, title: "Segiempat", subject: "matematika", grade: 7, description: "Persegi, persegi panjang, dan layang-layang", questionsCount: 6, xpReward: 55, order: 7 },
     { id: 1008, title: "Segitiga", subject: "matematika", grade: 7, description: "Keliling dan luas segitiga", questionsCount: 5, xpReward: 50, order: 8 },
     { id: 1009, title: "Data dan Statistika", subject: "matematika", grade: 7, description: "Mean, median, modus", questionsCount: 7, xpReward: 60, order: 9 },
     { id: 1010, title: "Peluang", subject: "matematika", grade: 7, description: "Pengertian peluang sederhana", questionsCount: 5, xpReward: 50, order: 10 },
 
-    // IPA - Kelas 7
-    { id: 105, title: "Pengukuran", subject: "ipa", grade: 7, description: "Besaran pokok dan satuan SI", questionsCount: 5, xpReward: 50, order: 1 },
+    // IPA - Kelas 7 (7-10 soal per materi)
+    { id: 105, title: "Pengukuran", subject: "ipa", grade: 7, description: "Besaran pokok dan satuan SI", questionsCount: 10, xpReward: 70, order: 1 },
     { id: 106, title: "Klasifikasi Makhluk Hidup", subject: "ipa", grade: 7, description: "Ciri-ciri dan pengelompokan makhluk hidup", questionsCount: 6, xpReward: 55, order: 2 },
-    { id: 107, title: "Zat dan Karakteristiknya", subject: "ipa", grade: 7, description: "Sifat zat padat, cair, dan gas", questionsCount: 5, xpReward: 50, order: 3 },
+    { id: 107, title: "Zat dan Karakteristiknya", subject: "ipa", grade: 7, description: "Sifat zat padat, cair, dan gas", questionsCount: 10, xpReward: 70, order: 3 },
     { id: 108, title: "Suhu dan Kalor", subject: "ipa", grade: 7, description: "Pengukuran suhu dan perpindahan kalor", questionsCount: 7, xpReward: 60, order: 4 },
     { id: 1011, title: "Ekosistem", subject: "ipa", grade: 7, description: "Komponen dan interaksi ekosistem", questionsCount: 5, xpReward: 50, order: 5 },
     { id: 1012, title: "Pencemaran Lingkungan", subject: "ipa", grade: 7, description: "Dampak dan pencegahan pencemaran", questionsCount: 6, xpReward: 55, order: 6 },
-    { id: 1013, title: "Energi", subject: "ipa", grade: 7, description: "Bentuk-bentuk energi", questionsCount: 5, xpReward: 50, order: 7 },
+    { id: 1013, title: "Energi", subject: "ipa", grade: 7, description: "Bentuk-bentuk energi", questionsCount: 10, xpReward: 70, order: 7 },
     { id: 1014, title: "Tata Surya", subject: "ipa", grade: 7, description: "Planet dan benda langit", questionsCount: 8, xpReward: 65, order: 8 },
-    { id: 1015, title: "Lapisan Bumi", subject: "ipa", grade: 7, description: "Struktur bumi dan lapisan atmosfer", questionsCount: 5, xpReward: 50, order: 9 },
+    { id: 1015, title: "Lapisan Bumi", subject: "ipa", grade: 7, description: "Struktur bumi dan lapisan atmosfer", questionsCount: 10, xpReward: 70, order: 9 },
     { id: 1016, title: "Perubahan Iklim", subject: "ipa", grade: 7, description: "Pemanasan global dan dampaknya", questionsCount: 6, xpReward: 55, order: 10 },
 
     // BAHASA INDONESIA - Kelas 7
@@ -59,34 +59,34 @@ export const lessons = [
     // KELAS 8
     // ============================================
 
-    // MATEMATIKA - Kelas 8
-    { id: 201, title: "Sistem Koordinat", subject: "matematika", grade: 8, description: "Koordinat kartesius dan kuadran", questionsCount: 5, xpReward: 60, order: 1 },
+    // MATEMATIKA - Kelas 8 (7-10 soal per materi)
+    { id: 201, title: "Sistem Koordinat", subject: "matematika", grade: 8, description: "Koordinat kartesius dan kuadran", questionsCount: 10, xpReward: 70, order: 1 },
     { id: 202, title: "Relasi dan Fungsi", subject: "matematika", grade: 8, description: "Pengertian relasi, fungsi, dan grafiknya", questionsCount: 6, xpReward: 65, order: 2 },
     { id: 203, title: "Persamaan Linear Dua Variabel", subject: "matematika", grade: 8, description: "PLDV dan grafik garis lurus", questionsCount: 7, xpReward: 70, order: 3 },
-    { id: 204, title: "Teorema Pythagoras", subject: "matematika", grade: 8, description: "Hubungan sisi-sisi segitiga siku-siku", questionsCount: 5, xpReward: 60, order: 4 },
+    { id: 204, title: "Teorema Pythagoras", subject: "matematika", grade: 8, description: "Hubungan sisi-sisi segitiga siku-siku", questionsCount: 10, xpReward: 70, order: 4 },
     { id: 2005, title: "Lingkaran", subject: "matematika", grade: 8, description: "Keliling dan luas lingkaran", questionsCount: 6, xpReward: 65, order: 5 },
     { id: 2006, title: "Bangun Ruang Sisi Datar", subject: "matematika", grade: 8, description: "Kubus, balok, dan prisma", questionsCount: 8, xpReward: 75, order: 6 },
-    { id: 2007, title: "Statistika", subject: "matematika", grade: 8, description: "Diagram dan ukuran pemusatan data", questionsCount: 5, xpReward: 60, order: 7 },
+    { id: 2007, title: "Statistika", subject: "matematika", grade: 8, description: "Diagram dan ukuran pemusatan data", questionsCount: 10, xpReward: 80, order: 7 },
     { id: 2008, title: "Peluang", subject: "matematika", grade: 8, description: "Frekuensi relatif dan peluang", questionsCount: 6, xpReward: 65, order: 8 },
-    { id: 2009, title: "Pola Bilangan", subject: "matematika", grade: 8, description: "Barisan dan deret aritmatika", questionsCount: 5, xpReward: 60, order: 9 },
+    { id: 2009, title: "Pola Bilangan", subject: "matematika", grade: 8, description: "Barisan dan deret aritmatika", questionsCount: 10, xpReward: 80, order: 9 },
     { id: 2010, title: "Gradien", subject: "matematika", grade: 8, description: "Kemiringan garis lurus", questionsCount: 5, xpReward: 60, order: 10 },
 
-    // IPA - Kelas 8
+    // IPA - Kelas 8 (8-10 soal per materi)
     { id: 205, title: "Gerak Benda", subject: "ipa", grade: 8, description: "Gerak lurus beraturan dan berubah beraturan", questionsCount: 6, xpReward: 65, order: 1 },
     { id: 206, title: "Gaya dan Hukum Newton", subject: "ipa", grade: 8, description: "Hukum I, II, III Newton", questionsCount: 7, xpReward: 70, order: 2 },
-    { id: 207, title: "Usaha dan Energi", subject: "ipa", grade: 8, description: "Energi kinetik dan potensial", questionsCount: 5, xpReward: 60, order: 3 },
+    { id: 207, title: "Usaha dan Energi", subject: "ipa", grade: 8, description: "Energi kinetik dan potensial", questionsCount: 10, xpReward: 80, order: 3 },
     { id: 208, title: "Tekanan Zat", subject: "ipa", grade: 8, description: "Tekanan zat padat, cair, dan gas", questionsCount: 6, xpReward: 65, order: 4 },
-    { id: 2011, title: "Sistem Pernapasan", subject: "ipa", grade: 8, description: "Organ pernapasan manusia", questionsCount: 5, xpReward: 60, order: 5 },
+    { id: 2011, title: "Sistem Pernapasan", subject: "ipa", grade: 8, description: "Organ pernapasan manusia", questionsCount: 10, xpReward: 80, order: 5 },
     { id: 2012, title: "Sistem Pencernaan", subject: "ipa", grade: 8, description: "Organ pencernaan dan enzim", questionsCount: 7, xpReward: 70, order: 6 },
     { id: 2013, title: "Sistem Peredaran Darah", subject: "ipa", grade: 8, description: "Jantung dan pembuluh darah", questionsCount: 6, xpReward: 65, order: 7 },
-    { id: 2014, title: "Getaran dan Gelombang", subject: "ipa", grade: 8, description: "Periode, frekuensi, dan amplitudo", questionsCount: 5, xpReward: 60, order: 8 },
-    { id: 2015, title: "Bunyi", subject: "ipa", grade: 8, description: "Sifat gelombang bunyi", questionsCount: 5, xpReward: 60, order: 9 },
+    { id: 2014, title: "Getaran dan Gelombang", subject: "ipa", grade: 8, description: "Periode, frekuensi, dan amplitudo", questionsCount: 10, xpReward: 80, order: 8 },
+    { id: 2015, title: "Bunyi", subject: "ipa", grade: 8, description: "Sifat gelombang bunyi", questionsCount: 10, xpReward: 80, order: 9 },
     { id: 2016, title: "Cahaya", subject: "ipa", grade: 8, description: "Pemantulan dan pembiasan cahaya", questionsCount: 6, xpReward: 65, order: 10 },
 
-    // BAHASA INDONESIA - Kelas 8
-    { id: 209, title: "Teks Berita", subject: "bahasa", grade: 8, description: "Struktur dan unsur berita 5W+1H", questionsCount: 5, xpReward: 60, order: 1 },
+    // BAHASA INDONESIA - Kelas 8 (8-10 soal per materi)
+    { id: 209, title: "Teks Berita", subject: "bahasa", grade: 8, description: "Struktur dan unsur berita 5W+1H", questionsCount: 10, xpReward: 80, order: 1 },
     { id: 210, title: "Teks Iklan", subject: "bahasa", grade: 8, description: "Slogan dan poster", questionsCount: 6, xpReward: 65, order: 2 },
-    { id: 211, title: "Teks Eksposisi", subject: "bahasa", grade: 8, description: "Argumen dan fakta pendukung", questionsCount: 5, xpReward: 60, order: 3 },
+    { id: 211, title: "Teks Eksposisi", subject: "bahasa", grade: 8, description: "Argumen dan fakta pendukung", questionsCount: 10, xpReward: 80, order: 3 },
     { id: 212, title: "Teks Puisi", subject: "bahasa", grade: 8, description: "Unsur batin dan fisik puisi", questionsCount: 7, xpReward: 70, order: 4 },
     { id: 2017, title: "Teks Ulasan", subject: "bahasa", grade: 8, description: "Review buku dan film", questionsCount: 5, xpReward: 60, order: 5 },
     { id: 2018, title: "Teks Persuasi", subject: "bahasa", grade: 8, description: "Membujuk pembaca", questionsCount: 6, xpReward: 65, order: 6 },
@@ -111,10 +111,10 @@ export const lessons = [
     // KELAS 9
     // ============================================
 
-    // MATEMATIKA - Kelas 9
-    { id: 301, title: "Perpangkatan dan Bentuk Akar", subject: "matematika", grade: 9, description: "Operasi bilangan berpangkat dan akar", questionsCount: 6, xpReward: 70, order: 1 },
+    // MATEMATIKA - Kelas 9 (7-10 soal per materi)
+    { id: 301, title: "Perpangkatan dan Bentuk Akar", subject: "matematika", grade: 9, description: "Operasi bilangan berpangkat dan akar", questionsCount: 10, xpReward: 80, order: 1 },
     { id: 302, title: "Persamaan Kuadrat", subject: "matematika", grade: 9, description: "Menentukan akar persamaan kuadrat", questionsCount: 7, xpReward: 75, order: 2 },
-    { id: 303, title: "Fungsi Kuadrat", subject: "matematika", grade: 9, description: "Grafik parabola dan titik puncak", questionsCount: 5, xpReward: 70, order: 3 },
+    { id: 303, title: "Fungsi Kuadrat", subject: "matematika", grade: 9, description: "Grafik parabola dan titik puncak", questionsCount: 10, xpReward: 80, order: 3 },
     { id: 304, title: "Kesebangunan dan Kekongruenan", subject: "matematika", grade: 9, description: "Sifat bangun yang sebangun", questionsCount: 6, xpReward: 75, order: 4 },
     { id: 3005, title: "Bangun Ruang Sisi Lengkung", subject: "matematika", grade: 9, description: "Tabung, kerucut, dan bola", questionsCount: 8, xpReward: 80, order: 5 },
     { id: 3006, title: "Transformasi Geometri", subject: "matematika", grade: 9, description: "Translasi, rotasi, refleksi", questionsCount: 5, xpReward: 70, order: 6 },

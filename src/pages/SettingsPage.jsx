@@ -34,7 +34,10 @@ function SettingsPage() {
 
     const handleSaveName = () => {
         if (tempName.trim()) {
-            updateUser({ name: tempName.trim() });
+            updateUser({
+                name: tempName.trim(),
+                displayName: tempName.trim() // Keep displayName in sync with name
+            });
         }
         setIsEditing(false);
     };
@@ -255,7 +258,7 @@ function SettingsPage() {
 
                 {/* App Info */}
                 <section className="px-6 py-8 text-center">
-                    <p className="text-xs text-text-secondary">KLEVIA v1.0.0</p>
+                    <p className="text-xs text-text-secondary">KLEVIA v1.5.0</p>
                     <p className="text-xs text-text-secondary mt-1">Belajar Jadi Mudah</p>
                 </section>
             </div>

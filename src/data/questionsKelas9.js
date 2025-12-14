@@ -6,7 +6,7 @@ export const questionsKelas9 = {
     // KELAS 9 - MATEMATIKA
     // ============================================
 
-    // 301: Perpangkatan dan Bentuk Akar (6 soal)
+    // 301: Perpangkatan dan Bentuk Akar (10 soal)
     301: [
         { question: "2³ = ...", options: ["8", "6", "9", "27"], correctAnswer: 0 },
         { question: "√49 = ...", options: ["7", "6", "8", "9"], correctAnswer: 0 },
@@ -14,6 +14,10 @@ export const questionsKelas9 = {
         { question: "9^(1/2) = ...", options: ["3", "4.5", "81", "18"], correctAnswer: 0 },
         { question: "(2³)² = ...", options: ["64", "32", "12", "6"], correctAnswer: 0 },
         { question: "³√27 = ...", options: ["3", "9", "27", "81"], correctAnswer: 0 },
+        { question: "4° = ...", options: ["1", "0", "4", "tidak ada"], correctAnswer: 0 },
+        { question: "2⁻² = ...", options: ["1/4", "4", "-4", "-1/4"], correctAnswer: 0 },
+        { question: "√100 + √25 = ...", options: ["15", "125", "12.5", "10"], correctAnswer: 0 },
+        { question: "(3²)^(1/2) = ...", options: ["3", "9", "4.5", "6"], correctAnswer: 0 },
     ],
 
     // 302: Persamaan Kuadrat (7 soal)
@@ -27,13 +31,18 @@ export const questionsKelas9 = {
         { question: "Hasil kali akar x² - 7x + 12 = 0 adalah...", options: ["12", "7", "-12", "-7"], correctAnswer: 0 },
     ],
 
-    // 303: Fungsi Kuadrat (5 soal)
+    // 303: Fungsi Kuadrat (10 soal)
     303: [
         { question: "Grafik fungsi kuadrat berbentuk...", options: ["parabola", "garis lurus", "lingkaran", "elips"], correctAnswer: 0 },
         { question: "Jika a > 0 pada f(x) = ax² + bx + c, parabola...", options: ["terbuka ke atas", "terbuka ke bawah", "datar", "tidak ada"], correctAnswer: 0 },
         { question: "Titik puncak parabola disebut juga...", options: ["vertex", "fokus", "direktris", "asimtot"], correctAnswer: 0 },
         { question: "Sumbu simetri parabola y = x² - 4x + 3 adalah x = ...", options: ["2", "4", "3", "1"], correctAnswer: 0 },
         { question: "Nilai minimum/maksimum fungsi kuadrat ada di...", options: ["titik puncak", "sumbu x", "sumbu y", "titik potong"], correctAnswer: 0 },
+        { question: "Jika a < 0, parabola memiliki titik...", options: ["maksimum", "minimum", "belok", "tidak ada"], correctAnswer: 0 },
+        { question: "Titik potong parabola dengan sumbu x disebut...", options: ["akar", "puncak", "fokus", "vertex"], correctAnswer: 0 },
+        { question: "Koordinat titik puncak y = x² - 2x + 1 adalah...", options: ["(1, 0)", "(0, 1)", "(1, 1)", "(-1, 0)"], correctAnswer: 0 },
+        { question: "Fungsi y = x² memiliki titik puncak di...", options: ["(0, 0)", "(1, 1)", "(0, 1)", "(1, 0)"], correctAnswer: 0 },
+        { question: "Grafik y = (x-2)² adalah pergeseran y = x² sebesar...", options: ["2 ke kanan", "2 ke kiri", "2 ke atas", "2 ke bawah"], correctAnswer: 0 },
     ],
 
     // 304: Kesebangunan dan Kekongruenan (6 soal)
@@ -58,13 +67,18 @@ export const questionsKelas9 = {
         { question: "Selimut kerucut berbentuk...", options: ["juring lingkaran", "persegi", "segitiga", "lingkaran penuh"], correctAnswer: 0 },
     ],
 
-    // 3006: Transformasi Geometri (5 soal)
+    // 3006: Transformasi Geometri (10 soal)
     3006: [
         { question: "Translasi adalah transformasi berupa...", options: ["pergeseran", "pemutaran", "pencerminan", "perkalian"], correctAnswer: 0 },
         { question: "Rotasi adalah transformasi berupa...", options: ["pemutaran", "pergeseran", "pencerminan", "perbesaran"], correctAnswer: 0 },
         { question: "Refleksi terhadap sumbu Y mengubah (x, y) menjadi...", options: ["(-x, y)", "(x, -y)", "(-x, -y)", "(y, x)"], correctAnswer: 0 },
         { question: "Dilatasi dapat mengubah...", options: ["ukuran bangun", "bentuk bangun", "warna bangun", "jenis bangun"], correctAnswer: 0 },
         { question: "Rotasi 90° searah jarum jam mengubah (x, y) menjadi...", options: ["(y, -x)", "(-y, x)", "(-x, -y)", "(x, y)"], correctAnswer: 0 },
+        { question: "Refleksi terhadap sumbu X mengubah (x, y) menjadi...", options: ["(x, -y)", "(-x, y)", "(-x, -y)", "(y, x)"], correctAnswer: 0 },
+        { question: "Translasi oleh (3, -2) mengubah (1, 4) menjadi...", options: ["(4, 2)", "(3, 4)", "(-2, 6)", "(1, 2)"], correctAnswer: 0 },
+        { question: "Rotasi 180° mengubah (x, y) menjadi...", options: ["(-x, -y)", "(x, y)", "(-x, y)", "(x, -y)"], correctAnswer: 0 },
+        { question: "Dilatasi dengan faktor 2 mengubah (3, 4) menjadi...", options: ["(6, 8)", "(1.5, 2)", "(3, 4)", "(5, 6)"], correctAnswer: 0 },
+        { question: "Refleksi terhadap garis y = x mengubah (a, b) menjadi...", options: ["(b, a)", "(-a, -b)", "(a, -b)", "(-b, -a)"], correctAnswer: 0 },
     ],
 
     // 3007: Barisan dan Deret (6 soal)
@@ -77,13 +91,18 @@ export const questionsKelas9 = {
         { question: "Rumus suku ke-n barisan geometri adalah...", options: ["Un = a × r^(n-1)", "Un = a + (n-1)b", "Un = n × a", "Un = a/n"], correctAnswer: 0 },
     ],
 
-    // 3008: Statistika Lanjut (5 soal)
+    // 3008: Statistika Lanjut (10 soal)
     3008: [
         { question: "Kuartil bawah (Q1) membagi data menjadi...", options: ["25% di bawah, 75% di atas", "50% - 50%", "75% - 25%", "10% - 90%"], correctAnswer: 0 },
         { question: "Median sama dengan...", options: ["Q2", "Q1", "Q3", "mean"], correctAnswer: 0 },
         { question: "Persentil ke-50 sama dengan...", options: ["median", "Q1", "Q3", "modus"], correctAnswer: 0 },
         { question: "Jangkauan interkuartil = ...", options: ["Q3 - Q1", "Q3 + Q1", "Q2 - Q1", "Q3 × Q1"], correctAnswer: 0 },
         { question: "Simpangan baku mengukur...", options: ["sebaran data dari rata-rata", "nilai tengah", "nilai terbanyak", "jarak data"], correctAnswer: 0 },
+        { question: "Varians adalah...", options: ["kuadrat simpangan baku", "akar simpangan baku", "mean", "median"], correctAnswer: 0 },
+        { question: "Desil membagi data menjadi...", options: ["10 bagian sama", "4 bagian", "2 bagian", "100 bagian"], correctAnswer: 0 },
+        { question: "Q3 disebut juga...", options: ["kuartil atas", "kuartil bawah", "median", "modus"], correctAnswer: 0 },
+        { question: "Persentil ke-75 sama dengan...", options: ["Q3", "Q1", "Q2", "median"], correctAnswer: 0 },
+        { question: "Persentil ke-25 sama dengan...", options: ["Q1", "Q2", "Q3", "median"], correctAnswer: 0 },
     ],
 
     // 3009: Peluang Lanjut (6 soal)
@@ -130,13 +149,18 @@ export const questionsKelas9 = {
         { question: "Kromosom seks laki-laki adalah...", options: ["XY", "XX", "YY", "XXY"], correctAnswer: 0 },
     ],
 
-    // 307: Listrik Statis (5 soal)
+    // 307: Listrik Statis (10 soal)
     307: [
         { question: "Muatan sejenis akan...", options: ["tolak-menolak", "tarik-menarik", "netral", "bergabung"], correctAnswer: 0 },
         { question: "Elektron bermuatan...", options: ["negatif", "positif", "netral", "tidak ada muatan"], correctAnswer: 0 },
         { question: "Proton bermuatan...", options: ["positif", "negatif", "netral", "tidak ada muatan"], correctAnswer: 0 },
         { question: "Hukum Coulomb tentang...", options: ["gaya listrik antar muatan", "arus listrik", "hambatan", "tegangan"], correctAnswer: 0 },
         { question: "Benda netral memiliki jumlah elektron dan proton yang...", options: ["sama", "berbeda", "tidak ada", "hanya elektron"], correctAnswer: 0 },
+        { question: "Muatan tidak sejenis akan...", options: ["tarik-menarik", "tolak-menolak", "netral", "menghilang"], correctAnswer: 0 },
+        { question: "Neutron bermuatan...", options: ["netral", "positif", "negatif", "tidak tentu"], correctAnswer: 0 },
+        { question: "Satuan muatan listrik adalah...", options: ["Coulomb", "Ampere", "Volt", "Ohm"], correctAnswer: 0 },
+        { question: "Proses perpindahan elektron disebut...", options: ["konduksi", "radiasi", "konveksi", "isolasi"], correctAnswer: 0 },
+        { question: "Contoh penerapan listrik statis adalah...", options: ["penangkal petir", "kipas angin", "TV", "kulkas"], correctAnswer: 0 },
     ],
 
     // 308: Listrik Dinamis (6 soal)
@@ -149,13 +173,18 @@ export const questionsKelas9 = {
         { question: "Rangkaian paralel memiliki tegangan yang...", options: ["sama di semua cabang", "berbeda di tiap cabang", "tidak ada", "nol"], correctAnswer: 0 },
     ],
 
-    // 3011: Kemagnetan (5 soal)
+    // 3011: Kemagnetan (10 soal)
     3011: [
         { question: "Kutub magnet yang sejenis akan...", options: ["tolak-menolak", "tarik-menarik", "netral", "bergabung"], correctAnswer: 0 },
         { question: "Magnet memiliki kutub...", options: ["utara dan selatan", "timur dan barat", "positif dan negatif", "atas dan bawah"], correctAnswer: 0 },
         { question: "Besi dapat dijadikan magnet dengan cara...", options: ["induksi, gosokan, elektromagnet", "dibakar", "dipanaskan", "dilarutkan"], correctAnswer: 0 },
         { question: "Medan magnet Bumi digunakan pada...", options: ["kompas", "termometer", "barometer", "voltmeter"], correctAnswer: 0 },
         { question: "Elektromagnet adalah magnet yang dibuat dengan...", options: ["arus listrik", "gosokan", "pemanasan", "pendinginan"], correctAnswer: 0 },
+        { question: "Kutub magnet tidak dapat dipisahkan karena...", options: ["sifat magnet", "tidak ada alat", "terlalu keras", "berbahaya"], correctAnswer: 0 },
+        { question: "Bahan yang dapat ditarik magnet disebut...", options: ["feromagnetik", "diamagnetik", "paramagnetik", "non-magnetik"], correctAnswer: 0 },
+        { question: "Contoh bahan feromagnetik adalah...", options: ["besi", "kayu", "plastik", "karet"], correctAnswer: 0 },
+        { question: "Medan magnet paling kuat di...", options: ["kutub", "tengah", "samping", "belakang"], correctAnswer: 0 },
+        { question: "Magnet permanen adalah magnet yang...", options: ["tidak mudah hilang kemagnetannya", "dibuat sementara", "dari listrik", "dari gosokan saja"], correctAnswer: 0 },
     ],
 
     // 3012: Induksi Elektromagnetik (6 soal)
@@ -196,26 +225,36 @@ export const questionsKelas9 = {
         { question: "Konservasi tanah bertujuan untuk...", options: ["menjaga kesuburan tanah", "menambang", "membangun", "menebang"], correctAnswer: 0 },
     ],
 
-    // 3016: Teknologi Ramah Lingkungan (5 soal)
+    // 3016: Teknologi Ramah Lingkungan (10 soal)
     3016: [
         { question: "Contoh energi terbarukan adalah...", options: ["matahari, angin, air", "batu bara", "minyak bumi", "gas alam"], correctAnswer: 0 },
         { question: "Panel surya mengubah energi...", options: ["matahari menjadi listrik", "angin menjadi listrik", "air menjadi listrik", "panas bumi menjadi listrik"], correctAnswer: 0 },
         { question: "Kincir angin memanfaatkan energi...", options: ["angin", "matahari", "air", "panas bumi"], correctAnswer: 0 },
         { question: "Biogas dihasilkan dari...", options: ["fermentasi sampah organik", "pembakaran batu bara", "destilasi minyak", "nuklir"], correctAnswer: 0 },
         { question: "Keuntungan energi terbarukan adalah...", options: ["tidak habis dan ramah lingkungan", "murah dan banyak polusi", "berbahaya", "tidak dapat diperbaharui"], correctAnswer: 0 },
+        { question: "PLTA memanfaatkan energi...", options: ["air", "matahari", "angin", "batu bara"], correctAnswer: 0 },
+        { question: "Geothermal berasal dari...", options: ["panas bumi", "matahari", "angin", "air"], correctAnswer: 0 },
+        { question: "Reduce, Reuse, Recycle adalah konsep...", options: ["pengelolaan sampah", "polusi", "pemanasan global", "energi nuklir"], correctAnswer: 0 },
+        { question: "Kelebihan mobil listrik adalah...", options: ["tidak ada emisi gas buang", "lebih bising", "boros bahan bakar", "polusi tinggi"], correctAnswer: 0 },
+        { question: "Green technology bertujuan untuk...", options: ["melindungi lingkungan", "mengeksploitasi alam", "meningkatkan polusi", "mengurangi efisiensi"], correctAnswer: 0 },
     ],
 
     // ============================================
     // KELAS 9 - BAHASA INDONESIA
     // ============================================
 
-    // 309: Teks Laporan Percobaan (5 soal)
+    // 309: Teks Laporan Percobaan (10 soal)
     309: [
         { question: "Teks laporan percobaan berisi...", options: ["hasil percobaan ilmiah", "cerita fiksi", "puisi", "pantun"], correctAnswer: 0 },
         { question: "Struktur laporan percobaan adalah...", options: ["tujuan - alat/bahan - langkah - hasil - kesimpulan", "tesis - argumen", "orientasi - komplikasi", "definisi - deskripsi"], correctAnswer: 0 },
         { question: "Bagian yang menjelaskan proses percobaan adalah...", options: ["langkah kerja", "tujuan", "kesimpulan", "daftar alat"], correctAnswer: 0 },
         { question: "Kesimpulan berisi...", options: ["hasil akhir percobaan", "daftar alat", "langkah kerja", "tujuan"], correctAnswer: 0 },
         { question: "Ciri kebahasaan laporan percobaan adalah...", options: ["objektif dan ilmiah", "puitis", "emotif", "persuasif"], correctAnswer: 0 },
+        { question: "Hipotesis adalah...", options: ["dugaan sementara", "hasil akhir", "daftar alat", "langkah kerja"], correctAnswer: 0 },
+        { question: "Variabel kontrol adalah...", options: ["yang dijaga tetap", "yang diubah", "yang diukur", "yang dihilangkan"], correctAnswer: 0 },
+        { question: "Variabel bebas adalah...", options: ["yang diubah-ubah", "yang dijaga tetap", "yang diukur", "yang dihilangkan"], correctAnswer: 0 },
+        { question: "Variabel terikat adalah...", options: ["yang diamati/diukur", "yang diubah", "yang dijaga", "yang dihilangkan"], correctAnswer: 0 },
+        { question: "Metode ilmiah diawali dengan...", options: ["observasi dan identifikasi masalah", "kesimpulan", "hasil", "presentasi"], correctAnswer: 0 },
     ],
 
     // 310: Teks Pidato Persuasif (6 soal)
@@ -318,13 +357,18 @@ export const questionsKelas9 = {
         { question: "'Yet' digunakan dalam kalimat...", options: ["negatif dan tanya", "positif saja", "semua kalimat", "tidak pernah"], correctAnswer: 0 },
     ],
 
-    // 314: Passive Voice (5 soal)
+    // 314: Passive Voice (10 soal)
     314: [
         { question: "Rumus passive voice adalah...", options: ["to be + V3", "V1 + to be", "V2 + ing", "have + V1"], correctAnswer: 0 },
         { question: "'The book was written by her' adalah kalimat...", options: ["pasif", "aktif", "imperatif", "interogatif"], correctAnswer: 0 },
         { question: "Active: She writes a letter. Passive: ...", options: ["A letter is written by her", "She is written", "A letter writes her", "Her writes a letter"], correctAnswer: 0 },
         { question: "Passive voice simple present menggunakan...", options: ["is/am/are + V3", "was/were + V3", "will be + V3", "has been + V3"], correctAnswer: 0 },
         { question: "'The cake was eaten' - 'eaten' adalah...", options: ["V3", "V1", "V2", "V-ing"], correctAnswer: 0 },
+        { question: "Passive past tense menggunakan...", options: ["was/were + V3", "is/am/are + V3", "will be + V3", "has been + V3"], correctAnswer: 0 },
+        { question: "Active: They built the house. Passive: ...", options: ["The house was built by them", "They was built", "The house built them", "Built the house they"], correctAnswer: 0 },
+        { question: "'By' dalam passive voice menunjukkan...", options: ["pelaku", "objek", "waktu", "tempat"], correctAnswer: 0 },
+        { question: "Passive future menggunakan...", options: ["will be + V3", "was + V3", "is + V3", "have + V3"], correctAnswer: 0 },
+        { question: "'The window was broken' dalam bentuk aktif: ...", options: ["Someone broke the window", "The window broke someone", "Broken the window", "Was broken window"], correctAnswer: 0 },
     ],
 
     // 315: Procedure Text (6 soal)

@@ -5,23 +5,33 @@ export const questionsSMA = {
     // MATEMATIKA - Kelas 10
     // ============================================
 
-    // 10101: Fungsi, Persamaan, dan Pertidaksamaan Eksponen
+    // 10101: Fungsi, Persamaan, dan Pertidaksamaan Eksponen (10 soal)
     10101: [
         { question: "2³ × 2⁴ = ...", options: ["2⁷", "2¹²", "4⁷", "8"], correctAnswer: 0 },
         { question: "5⁰ = ...", options: ["1", "0", "5", "undefined"], correctAnswer: 0 },
         { question: "(3²)³ = ...", options: ["3⁶", "3⁵", "9³", "27"], correctAnswer: 0 },
         { question: "Jika 2ˣ = 16, maka x = ...", options: ["4", "3", "5", "2"], correctAnswer: 0 },
         { question: "4⁻² = ...", options: ["1/16", "16", "-16", "-8"], correctAnswer: 0 },
+        { question: "8^(2/3) = ...", options: ["4", "2", "8", "16"], correctAnswer: 0 },
+        { question: "(2³)² ÷ 2² = ...", options: ["2⁴", "2⁸", "2⁵", "2³"], correctAnswer: 0 },
+        { question: "Jika 3^(2x) = 81, maka x = ...", options: ["2", "4", "3", "1"], correctAnswer: 0 },
+        { question: "27^(1/3) = ...", options: ["3", "9", "27", "1"], correctAnswer: 0 },
+        { question: "Grafik fungsi eksponen y = 2^x selalu melalui titik...", options: ["(0, 1)", "(1, 0)", "(0, 0)", "(1, 1)"], correctAnswer: 0 },
     ],
-    // 10102: Logaritma
+    // 10102: Logaritma (10 soal)
     10102: [
         { question: "log₁₀ 1000 = ...", options: ["3", "2", "4", "100"], correctAnswer: 0 },
         { question: "log₂ 8 = ...", options: ["3", "2", "4", "8"], correctAnswer: 0 },
         { question: "log₁₀ 1 = ...", options: ["0", "1", "10", "undefined"], correctAnswer: 0 },
         { question: "Jika log x = 2, maka x = ...", options: ["100", "20", "2", "10"], correctAnswer: 0 },
         { question: "log a + log b = ...", options: ["log(ab)", "log(a+b)", "log(a/b)", "log(a-b)"], correctAnswer: 0 },
+        { question: "log a - log b = ...", options: ["log(a/b)", "log(a-b)", "log(ab)", "log(a+b)"], correctAnswer: 0 },
+        { question: "2 log 5 = ...", options: ["log 25", "log 10", "log 7", "log 2.5"], correctAnswer: 0 },
+        { question: "log₃ 27 = ...", options: ["3", "9", "27", "1"], correctAnswer: 0 },
+        { question: "log₅ 125 = ...", options: ["3", "5", "25", "2"], correctAnswer: 0 },
+        { question: "Jika log 2 = 0,301 dan log 3 = 0,477, maka log 6 = ...", options: ["0,778", "0,176", "1,431", "0,602"], correctAnswer: 0 },
     ],
-    // 10103: Barisan dan Deret
+    // 10103: Barisan dan Deret (10 soal)
     10103: [
         { question: "Suku ke-5 barisan 2, 5, 8, 11, ... adalah ...", options: ["14", "13", "15", "17"], correctAnswer: 0 },
         { question: "Beda pada barisan aritmetika 3, 7, 11, 15, ... adalah ...", options: ["4", "3", "5", "2"], correctAnswer: 0 },
@@ -29,24 +39,36 @@ export const questionsSMA = {
         { question: "Rasio deret geometri 2, 6, 18, 54, ... adalah ...", options: ["3", "4", "2", "6"], correctAnswer: 0 },
         { question: "Rumus suku ke-n barisan aritmetika adalah ...", options: ["Un = a + (n-1)b", "Un = a × rⁿ⁻¹", "Un = n²", "Un = 2n"], correctAnswer: 0 },
         { question: "Suku ke-4 deret geometri 3, 6, 12, ... adalah ...", options: ["24", "18", "36", "48"], correctAnswer: 0 },
+        { question: "Jumlah 10 suku pertama barisan aritmetika 2,5,8,11,... adalah...", options: ["155", "145", "165", "135"], correctAnswer: 0 },
+        { question: "Suku tengah barisan aritmetika 3, 7, 11, 15, 19 adalah...", options: ["11", "7", "15", "9"], correctAnswer: 0 },
+        { question: "Jumlah tak hingga deret geometri 8+4+2+1+... adalah...", options: ["16", "15", "14", "32"], correctAnswer: 0 },
+        { question: "Suku ke-8 barisan geometri 2, 4, 8, 16, ... adalah...", options: ["256", "128", "512", "64"], correctAnswer: 0 },
     ],
-    // 10104: Pengayaan: Notasi Sigma
+    // 10104: Pengayaan: Notasi Sigma (8 soal)
     10104: [
         { question: "Σᵢ₌₁³ i = ...", options: ["6", "3", "9", "1"], correctAnswer: 0 },
         { question: "Σᵢ₌₁⁴ 2 = ...", options: ["8", "2", "4", "6"], correctAnswer: 0 },
         { question: "Notasi sigma digunakan untuk ...", options: ["menjumlahkan barisan", "mengalikan", "membagi", "mengurangi"], correctAnswer: 0 },
         { question: "Σᵢ₌₁² i² = 1² + 2² = ...", options: ["5", "3", "4", "6"], correctAnswer: 0 },
         { question: "Σᵢ₌₁⁵ 1 = ...", options: ["5", "1", "0", "15"], correctAnswer: 0 },
+        { question: "Σᵢ₌₁⁴ i = ...", options: ["10", "4", "8", "6"], correctAnswer: 0 },
+        { question: "Σᵢ₌₁³ 2i = ...", options: ["12", "6", "8", "10"], correctAnswer: 0 },
+        { question: "Σᵢ₌₂⁴ (i+1) = ...", options: ["12", "9", "10", "15"], correctAnswer: 0 },
     ],
-    // 10105: Vektor
+    // 10105: Vektor (10 soal)
     10105: [
         { question: "Vektor memiliki ...", options: ["besar dan arah", "besar saja", "arah saja", "warna"], correctAnswer: 0 },
         { question: "Vektor satuan memiliki besar ...", options: ["1", "0", "2", "10"], correctAnswer: 0 },
         { question: "Resultan vektor A dan B ditemukan dengan ...", options: ["aturan jajar genjang", "pembagian", "akar", "logaritma"], correctAnswer: 0 },
         { question: "Vektor nol memiliki besar ...", options: ["0", "1", "tak hingga", "negatif"], correctAnswer: 0 },
         { question: "Dot product dua vektor tegak lurus adalah ...", options: ["0", "1", "maksimum", "tidak ada"], correctAnswer: 0 },
+        { question: "Jika a = (2,3) dan b = (1,4), maka a + b = ...", options: ["(3, 7)", "(2, 7)", "(3, 4)", "(1, 3)"], correctAnswer: 0 },
+        { question: "Vektor posisi titik P(3,4) dari O adalah...", options: ["3i + 4j", "3 + 4", "7", "12"], correctAnswer: 0 },
+        { question: "Besar vektor a = (3, 4) adalah...", options: ["5", "7", "12", "25"], correctAnswer: 0 },
+        { question: "2(3i + 2j) = ...", options: ["6i + 4j", "5i + 4j", "6i + 2j", "3i + 4j"], correctAnswer: 0 },
+        { question: "Vektor berlawanan dari (2, -3) adalah...", options: ["(-2, 3)", "(2, 3)", "(-2, -3)", "(3, -2)"], correctAnswer: 0 },
     ],
-    // 10106: Konsep Dasar Trigonometri
+    // 10106: Konsep Dasar Trigonometri (10 soal)
     10106: [
         { question: "sin 30° = ...", options: ["1/2", "√3/2", "1", "0"], correctAnswer: 0 },
         { question: "cos 60° = ...", options: ["1/2", "√3/2", "0", "1"], correctAnswer: 0 },
@@ -54,16 +76,25 @@ export const questionsSMA = {
         { question: "sin² θ + cos² θ = ...", options: ["1", "0", "2", "sin θ"], correctAnswer: 0 },
         { question: "Dalam segitiga siku-siku, sin = ...", options: ["depan/miring", "samping/miring", "depan/samping", "miring/depan"], correctAnswer: 0 },
         { question: "cos 0° = ...", options: ["1", "0", "-1", "1/2"], correctAnswer: 0 },
+        { question: "tan 0° = ...", options: ["0", "1", "tidak terdefinisi", "-1"], correctAnswer: 0 },
+        { question: "sin 90° = ...", options: ["1", "0", "-1", "1/2"], correctAnswer: 0 },
+        { question: "cos 90° = ...", options: ["0", "1", "-1", "1/2"], correctAnswer: 0 },
+        { question: "tan 90° = ...", options: ["tidak terdefinisi", "0", "1", "∞"], correctAnswer: 0 },
     ],
-    // 10107: Pengayaan: Fungsi, Persamaan, dan Pertidaksamaan Linear
+    // 10107: Pengayaan: Fungsi, Persamaan, dan Pertidaksamaan Linear (10 soal)
     10107: [
         { question: "Bentuk umum fungsi linear adalah ...", options: ["f(x) = ax + b", "f(x) = ax²", "f(x) = a/x", "f(x) = aˣ"], correctAnswer: 0 },
         { question: "Jika f(x) = 2x + 3, maka f(2) = ...", options: ["7", "5", "6", "8"], correctAnswer: 0 },
         { question: "Gradien garis y = 3x - 2 adalah ...", options: ["3", "-2", "2", "-3"], correctAnswer: 0 },
         { question: "Grafik fungsi linear berbentuk ...", options: ["garis lurus", "parabola", "lingkaran", "hiperbola"], correctAnswer: 0 },
         { question: "Titik potong y = x + 1 dengan sumbu y adalah ...", options: ["(0, 1)", "(1, 0)", "(0, 0)", "(1, 1)"], correctAnswer: 0 },
+        { question: "Jika f(x) = 5x - 10, maka f(3) = ...", options: ["5", "15", "10", "0"], correctAnswer: 0 },
+        { question: "Dua garis sejajar memiliki gradien yang ...", options: ["sama", "berbeda", "berlawanan tanda", "berkebalikan"], correctAnswer: 0 },
+        { question: "Dua garis tegak lurus memiliki hasil kali gradien ...", options: ["-1", "1", "0", "tidak tentu"], correctAnswer: 0 },
+        { question: "Persamaan garis melalui (0,0) dengan gradien 2 adalah...", options: ["y = 2x", "y = x + 2", "y = 2", "x = 2"], correctAnswer: 0 },
+        { question: "Jika 2x + 5 > 11, maka x > ...", options: ["3", "2", "5", "8"], correctAnswer: 0 },
     ],
-    // 10108: Sistem Persamaan Linear
+    // 10108: Sistem Persamaan Linear (10 soal)
     10108: [
         { question: "Jika x + y = 5 dan x - y = 1, maka x = ...", options: ["3", "2", "4", "1"], correctAnswer: 0 },
         { question: "SPLDV memiliki ... variabel", options: ["2", "1", "3", "4"], correctAnswer: 0 },
@@ -71,16 +102,25 @@ export const questionsSMA = {
         { question: "Jika 2x + y = 7 dan x = 2, maka y = ...", options: ["3", "4", "5", "2"], correctAnswer: 0 },
         { question: "Sistem 3 persamaan 3 variabel disebut ...", options: ["SPLTV", "SPLDV", "SPL", "SPLK"], correctAnswer: 0 },
         { question: "Substitusi berarti ...", options: ["mengganti nilai", "menghilangkan", "menambah", "membagi"], correctAnswer: 0 },
+        { question: "Jika x + y = 10 dan x - y = 2, maka y = ...", options: ["4", "6", "3", "5"], correctAnswer: 0 },
+        { question: "3x + 2y = 12 dan x = 2, maka y = ...", options: ["3", "4", "2", "6"], correctAnswer: 0 },
+        { question: "SPLDV punya solusi tunggal jika kedua garis...", options: ["berpotongan", "sejajar", "berimpit", "tidak ada"], correctAnswer: 0 },
+        { question: "SPLDV tidak punya solusi jika kedua garis...", options: ["sejajar", "berpotongan", "berimpit", "tegak lurus"], correctAnswer: 0 },
     ],
-    // 10109: Program Linear
+    // 10109: Program Linear (10 soal)
     10109: [
         { question: "Program linear digunakan untuk ...", options: ["optimasi", "menghitung luas", "mencari akar", "menggambar"], correctAnswer: 0 },
         { question: "Fungsi objektif adalah ...", options: ["fungsi yang dioptimalkan", "fungsi kendala", "fungsi konstan", "fungsi acak"], correctAnswer: 0 },
         { question: "Daerah feasible adalah ...", options: ["daerah yang memenuhi semua kendala", "daerah luar", "daerah kosong", "daerah negatif"], correctAnswer: 0 },
         { question: "Nilai optimum dicari pada ...", options: ["titik pojok daerah feasible", "titik tengah", "titik acak", "garis tengah"], correctAnswer: 0 },
         { question: "Contoh soal program linear adalah ...", options: ["maksimum keuntungan", "mencari gradien", "menghitung sin", "mencari log"], correctAnswer: 0 },
+        { question: "Kendala x ≥ 0 dan y ≥ 0 membatasi daerah di...", options: ["kuadran I", "kuadran II", "kuadran III", "kuadran IV"], correctAnswer: 0 },
+        { question: "Jika f(x,y) = 2x + 3y, maka f(1,2) = ...", options: ["8", "5", "6", "7"], correctAnswer: 0 },
+        { question: "Pertidaksamaan x + y ≤ 10 adalah contoh...", options: ["kendala", "fungsi objektif", "solusi", "variabel"], correctAnswer: 0 },
+        { question: "Titik ekstrem adalah...", options: ["titik sudut daerah feasible", "titik tengah", "titik luar", "garis batas"], correctAnswer: 0 },
+        { question: "Untuk mencari nilai minimum, kita pilih titik dengan...", options: ["nilai f terkecil", "nilai f terbesar", "sembarang", "rata-rata"], correctAnswer: 0 },
     ],
-    // 10110: Fungsi, Persamaan, dan Pertidaksamaan Kuadrat
+    // 10110: Fungsi, Persamaan, dan Pertidaksamaan Kuadrat (10 soal)
     10110: [
         { question: "Bentuk umum fungsi kuadrat adalah ...", options: ["f(x) = ax² + bx + c", "f(x) = ax + b", "f(x) = a/x", "f(x) = √x"], correctAnswer: 0 },
         { question: "Grafik fungsi kuadrat berbentuk ...", options: ["parabola", "garis lurus", "lingkaran", "hiperbola"], correctAnswer: 0 },
@@ -88,26 +128,38 @@ export const questionsSMA = {
         { question: "Rumus abc untuk mencari akar adalah ...", options: ["x = (-b ± √D) / 2a", "x = -b/a", "x = c/a", "x = a+b+c"], correctAnswer: 0 },
         { question: "Sumbu simetri parabola y = ax² + bx + c adalah ...", options: ["x = -b/2a", "x = b/2a", "x = c/a", "x = 0"], correctAnswer: 0 },
         { question: "Jika a > 0, parabola terbuka ke ...", options: ["atas", "bawah", "kanan", "kiri"], correctAnswer: 0 },
+        { question: "Jika D = 0, persamaan kuadrat memiliki...", options: ["satu akar kembar", "dua akar berbeda", "tidak ada akar real", "akar kompleks"], correctAnswer: 0 },
+        { question: "Titik puncak parabola disebut juga...", options: ["vertex", "fokus", "direktriks", "asimtot"], correctAnswer: 0 },
+        { question: "Akar persamaan x² - 5x + 6 = 0 adalah...", options: ["2 dan 3", "1 dan 6", "3 dan 3", "-2 dan -3"], correctAnswer: 0 },
+        { question: "Jika a < 0, parabola memiliki titik...", options: ["maksimum", "minimum", "belok", "stasioner"], correctAnswer: 0 },
     ],
-    // 10111: Sistem Persamaan Linear-Kuadrat Dua Variabel
+    // 10111: Sistem Persamaan Linear-Kuadrat Dua Variabel (8 soal)
     10111: [
         { question: "SPLKDV adalah sistem yang memuat persamaan ...", options: ["linear dan kuadrat", "linear saja", "kuadrat saja", "kubik"], correctAnswer: 0 },
         { question: "Grafik persamaan kuadrat berpotongan dengan garis di ...", options: ["0, 1, atau 2 titik", "selalu 1 titik", "selalu 2 titik", "tidak pernah"], correctAnswer: 0 },
         { question: "Metode penyelesaian SPLKDV adalah ...", options: ["substitusi", "diferensial", "integral", "limit"], correctAnswer: 0 },
         { question: "Jika D < 0 pada SPLKDV, maka ...", options: ["tidak ada solusi real", "satu solusi", "dua solusi", "banyak solusi"], correctAnswer: 0 },
         { question: "SPtLKDV menggunakan tanda ...", options: ["pertidaksamaan (<, >, ≤, ≥)", "persamaan (=)", "integral", "limit"], correctAnswer: 0 },
+        { question: "Jika garis menyinggung parabola, maka D = ...", options: ["0", "positif", "negatif", "tidak ada"], correctAnswer: 0 },
+        { question: "Jika garis memotong parabola di 2 titik, maka D...", options: ["> 0", "< 0", "= 0", "tidak tentu"], correctAnswer: 0 },
+        { question: "Jika garis tidak memotong parabola, maka D...", options: ["< 0", "> 0", "= 0", "tidak tentu"], correctAnswer: 0 },
     ],
-    // 10112: Statistika Deskriptif
+    // 10112: Statistika Deskriptif (10 soal)
     10112: [
         { question: "Mean dari 2, 4, 6 adalah ...", options: ["4", "3", "5", "6"], correctAnswer: 0 },
         { question: "Median adalah nilai ...", options: ["tengah", "rata-rata", "terbanyak", "terkecil"], correctAnswer: 0 },
         { question: "Modus adalah nilai yang ...", options: ["paling sering muncul", "terbesar", "terkecil", "tengah"], correctAnswer: 0 },
         { question: "Range = ...", options: ["nilai max - nilai min", "mean - median", "modus + mean", "quartil"], correctAnswer: 0 },
         { question: "Simpangan baku mengukur ...", options: ["penyebaran data", "pusat data", "warna data", "jumlah data"], correctAnswer: 0 },
+        { question: "Quartil membagi data menjadi...", options: ["4 bagian sama", "2 bagian", "3 bagian", "5 bagian"], correctAnswer: 0 },
+        { question: "Q2 sama dengan...", options: ["median", "mean", "modus", "range"], correctAnswer: 0 },
+        { question: "Desil membagi data menjadi...", options: ["10 bagian sama", "100 bagian", "5 bagian", "4 bagian"], correctAnswer: 0 },
+        { question: "Persentil ke-50 sama dengan...", options: ["median", "mean", "modus", "Q1"], correctAnswer: 0 },
+        { question: "Data 1,2,3,4,5 memiliki median...", options: ["3", "4", "2.5", "3.5"], correctAnswer: 0 },
     ],
 
     // ============================================
-    // BAHASA INDONESIA - Kelas 10
+    // BAHASA INDONESIA - Kelas 10 (8-10 soal per materi)
     // ============================================
     10201: [
         { question: "Teks laporan observasi berisi ...", options: ["hasil pengamatan objek", "cerita fiksi", "pendapat subjektif", "langkah kerja"], correctAnswer: 0 },
@@ -115,6 +167,11 @@ export const questionsSMA = {
         { question: "Struktur laporan observasi: definisi umum - ...", options: ["deskripsi bagian - simpulan", "komplikasi - resolusi", "tesis - argumen", "orientasi - krisis"], correctAnswer: 0 },
         { question: "Teks laporan observasi menggunakan kalimat ...", options: ["definisi", "perintah", "tanya", "seru"], correctAnswer: 0 },
         { question: "Contoh topik laporan observasi adalah ...", options: ["deskripsi hewan/tumbuhan", "novel fiksi", "puisi", "drama"], correctAnswer: 0 },
+        { question: "Kata kerja yang sering digunakan dalam laporan observasi...", options: ["adalah, merupakan, termasuk", "ayo, mari, silakan", "betapa, alangkah", "namun, tetapi"], correctAnswer: 0 },
+        { question: "Teks laporan observasi bersifat...", options: ["ilmiah dan objektif", "fiktif", "imajinatif", "subjektif"], correctAnswer: 0 },
+        { question: "Simpulan dalam laporan observasi berisi...", options: ["ringkasan hasil pengamatan", "pendapat pribadi", "cerita fiksi", "langkah kerja"], correctAnswer: 0 },
+        { question: "Deskripsi bagian dalam laporan observasi menjelaskan...", options: ["ciri-ciri objek secara rinci", "pendapat penulis", "cerita fiksi", "prosedur"], correctAnswer: 0 },
+        { question: "Teks laporan observasi berbeda dengan prosedur karena...", options: ["tidak berisi langkah kerja", "berisi cerita", "subjektif", "imajinatif"], correctAnswer: 0 },
     ],
     10202: [
         { question: "Teks anekdot mengandung ...", options: ["humor dan kritik sosial", "langkah kerja", "fakta ilmiah", "cerita serius"], correctAnswer: 0 },
@@ -122,6 +179,9 @@ export const questionsSMA = {
         { question: "Tujuan anekdot adalah ...", options: ["menghibur dan mengkritik", "menjelaskan prosedur", "meyakinkan", "mendeskripsikan"], correctAnswer: 0 },
         { question: "Krisis dalam anekdot adalah ...", options: ["masalah/konflik", "pengenalan", "penyelesaian", "kesimpulan"], correctAnswer: 0 },
         { question: "Anekdot biasanya mengkritik ...", options: ["tokoh publik/kebijakan", "alam", "cuaca", "makanan"], correctAnswer: 0 },
+        { question: "Reaksi dalam anekdot adalah...", options: ["tanggapan terhadap krisis", "awal cerita", "akhir cerita", "konflik"], correctAnswer: 0 },
+        { question: "Koda dalam anekdot berisi...", options: ["pesan moral atau simpulan", "awal cerita", "konflik", "pengenalan"], correctAnswer: 0 },
+        { question: "Anekdot menggunakan humor untuk...", options: ["menyampaikan kritik halus", "menakuti pembaca", "membuat sedih", "membuat bingung"], correctAnswer: 0 },
     ],
     10203: [
         { question: "Hikayat adalah cerita ...", options: ["Melayu klasik", "modern", "fiksi ilmiah", "horor"], correctAnswer: 0 },
@@ -161,6 +221,9 @@ export const questionsSMA = {
         { question: "Adjective describes ...", options: ["noun", "verb", "adverb", "preposition"], correctAnswer: 0 },
         { question: "Adverb modifies ...", options: ["verb, adjective, or another adverb", "only noun", "only verb", "nothing"], correctAnswer: 0 },
         { question: "'Beautiful' is an example of ...", options: ["adjective", "noun", "verb", "adverb"], correctAnswer: 0 },
+        { question: "'Quickly' is an example of ...", options: ["adverb", "adjective", "noun", "verb"], correctAnswer: 0 },
+        { question: "Preposition shows ...", options: ["relationship between words", "action", "description", "emotion"], correctAnswer: 0 },
+        { question: "Conjunction connects ...", options: ["words, phrases, or clauses", "only nouns", "only verbs", "nothing"], correctAnswer: 0 },
     ],
     10302: [
         { question: "Simple present tense is used for ...", options: ["habitual actions", "past events", "future plans", "ongoing actions"], correctAnswer: 0 },

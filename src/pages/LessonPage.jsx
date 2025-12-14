@@ -85,6 +85,7 @@ function LessonPage() {
     const [essayAnswer, setEssayAnswer] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null);
+    const [isPartial, setIsPartial] = useState(false);
     const [aiFeedback, setAiFeedback] = useState('');
     const [isGrading, setIsGrading] = useState(false);
     const [score, setScore] = useState(0);
@@ -159,11 +160,16 @@ function LessonPage() {
             );
 
             setIsCorrect(result.isCorrect);
+            setIsPartial(result.isPartial || false);
             setAiFeedback(result.feedback);
             setIsAnswered(true);
 
             if (result.isCorrect) {
+                // Full score for correct answer
                 setScore(prev => prev + 1);
+            } else if (result.isPartial) {
+                // Half score for partial answer
+                setScore(prev => prev + 0.5);
             } else {
                 loseHeart();
                 setShowShake(true);
@@ -174,6 +180,7 @@ function LessonPage() {
             setAiFeedback('Terjadi kesalahan saat memeriksa jawaban.');
             setIsAnswered(true);
             setIsCorrect(false);
+            setIsPartial(false);
         } finally {
             setIsGrading(false);
         }
@@ -399,22 +406,22 @@ function LessonPage() {
                 </div>
             )}
 
-            {/* Incorrect Answer - Bottom Sheet (Red for essay, Orange for MC) */}
+            {/* Partial or Incorrect Answer - Bottom Sheet */}
             {isAnswered && !isCorrect && (
                 <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
-                    <div className={`${isEssayQuestion ? 'bg-red-50 border-red-400' : 'bg-[#fef3eb] border-[#F4A261]'} border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]`}>
+                    <div className={`${isPartial ? 'bg-amber-50 border-amber-400' : (isEssayQuestion ? 'bg-red-50 border-red-400' : 'bg-[#fef3eb] border-[#F4A261]')} border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]`}>
                         <div className="flex items-center gap-3 mb-4">
-                            <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isEssayQuestion ? 'bg-red-500' : 'bg-[#F4A261]'} text-white shadow-sm shrink-0`}>
+                            <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isPartial ? 'bg-amber-500' : (isEssayQuestion ? 'bg-red-500' : 'bg-[#F4A261]')} text-white shadow-sm shrink-0`}>
                                 <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                                    {isEssayQuestion ? 'close' : 'priority_high'}
+                                    {isPartial ? 'info' : (isEssayQuestion ? 'close' : 'priority_high')}
                                 </span>
                             </div>
                             <div>
-                                <h3 className={`${isEssayQuestion ? 'text-red-600' : 'text-[#c26d2b]'} text-xl font-bold tracking-tight`}>
-                                    Jawaban Kurang Tepat
+                                <h3 className={`${isPartial ? 'text-amber-600' : (isEssayQuestion ? 'text-red-600' : 'text-[#c26d2b]')} text-xl font-bold tracking-tight`}>
+                                    {isPartial ? 'Jawaban Hampir Benar! 👍' : 'Jawaban Kurang Tepat'}
                                 </h3>
-                                <p className={`${isEssayQuestion ? 'text-red-500' : 'text-[#a67c52]'} text-sm`}>
-                                    {aiFeedback || 'Jangan menyerah, tetap semangat! 💪'}
+                                <p className={`${isPartial ? 'text-amber-700' : (isEssayQuestion ? 'text-red-500' : 'text-[#a67c52]')} text-sm`}>
+                                    {aiFeedback || (isPartial ? 'Bagus! Kamu dapat setengah nilai.' : 'Jangan menyerah, tetap semangat! 💪')}
                                 </p>
                             </div>
                         </div>

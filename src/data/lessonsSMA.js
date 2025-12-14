@@ -6,30 +6,31 @@ export const lessonsSMA = [
     // KELAS 10
     // ============================================
 
-    // MATEMATIKA - Kelas 10 (12 materi)
-    { id: 10101, title: "Fungsi, Persamaan, dan Pertidaksamaan Eksponen", subject: "matematika", grade: 10, description: "Sifat eksponen dan penerapannya", questionsCount: 5, xpReward: 70, order: 1 },
-    { id: 10102, title: "Logaritma", subject: "matematika", grade: 10, description: "Sifat-sifat logaritma", questionsCount: 5, xpReward: 70, order: 2 },
-    { id: 10103, title: "Barisan dan Deret", subject: "matematika", grade: 10, description: "Barisan aritmetika dan geometri", questionsCount: 6, xpReward: 75, order: 3 },
-    { id: 10104, title: "Pengayaan: Notasi Sigma", subject: "matematika", grade: 10, description: "Notasi sigma dan penerapannya", questionsCount: 5, xpReward: 70, order: 4 },
-    { id: 10105, title: "Vektor", subject: "matematika", grade: 10, description: "Operasi vektor dalam ruang", questionsCount: 5, xpReward: 70, order: 5 },
-    { id: 10106, title: "Konsep Dasar Trigonometri", subject: "matematika", grade: 10, description: "Sin, cos, tan dan aplikasinya", questionsCount: 6, xpReward: 75, order: 6 },
-    { id: 10107, title: "Pengayaan: Fungsi, Persamaan, dan Pertidaksamaan Linear", subject: "matematika", grade: 10, description: "Fungsi linear dan grafiknya", questionsCount: 5, xpReward: 70, order: 7 },
-    { id: 10108, title: "Sistem Persamaan Linear", subject: "matematika", grade: 10, description: "SPLDV dan SPLTV", questionsCount: 6, xpReward: 75, order: 8 },
-    { id: 10109, title: "Program Linear", subject: "matematika", grade: 10, description: "Optimasi dengan pertidaksamaan", questionsCount: 5, xpReward: 70, order: 9 },
-    { id: 10110, title: "Fungsi, Persamaan, dan Pertidaksamaan Kuadrat", subject: "matematika", grade: 10, description: "Fungsi kuadrat dan grafiknya", questionsCount: 6, xpReward: 75, order: 10 },
-    { id: 10111, title: "Sistem Persamaan Linear-Kuadrat Dua Variabel", subject: "matematika", grade: 10, description: "SPLKDV dan SPtLKDV", questionsCount: 5, xpReward: 70, order: 11 },
-    { id: 10112, title: "Statistika Deskriptif", subject: "matematika", grade: 10, description: "Ukuran pemusatan dan penyebaran", questionsCount: 5, xpReward: 70, order: 12 },
+    // MATEMATIKA - Kelas 10 (12 materi, 8-10 soal per materi)
+    { id: 10101, title: "Fungsi, Persamaan, dan Pertidaksamaan Eksponen", subject: "matematika", grade: 10, description: "Sifat eksponen dan penerapannya", questionsCount: 10, xpReward: 85, order: 1 },
+    { id: 10102, title: "Logaritma", subject: "matematika", grade: 10, description: "Sifat-sifat logaritma", questionsCount: 10, xpReward: 85, order: 2 },
+    { id: 10103, title: "Barisan dan Deret", subject: "matematika", grade: 10, description: "Barisan aritmetika dan geometri", questionsCount: 10, xpReward: 85, order: 3 },
+    { id: 10104, title: "Pengayaan: Notasi Sigma", subject: "matematika", grade: 10, description: "Notasi sigma dan penerapannya", questionsCount: 8, xpReward: 80, order: 4 },
+    { id: 10105, title: "Vektor", subject: "matematika", grade: 10, description: "Operasi vektor dalam ruang", questionsCount: 10, xpReward: 85, order: 5 },
+    { id: 10106, title: "Konsep Dasar Trigonometri", subject: "matematika", grade: 10, description: "Sin, cos, tan dan aplikasinya", questionsCount: 10, xpReward: 85, order: 6 },
+    { id: 10107, title: "Pengayaan: Fungsi, Persamaan, dan Pertidaksamaan Linear", subject: "matematika", grade: 10, description: "Fungsi linear dan grafiknya", questionsCount: 10, xpReward: 85, order: 7 },
+    { id: 10108, title: "Sistem Persamaan Linear", subject: "matematika", grade: 10, description: "SPLDV dan SPLTV", questionsCount: 10, xpReward: 85, order: 8 },
+    { id: 10109, title: "Program Linear", subject: "matematika", grade: 10, description: "Optimasi dengan pertidaksamaan", questionsCount: 10, xpReward: 85, order: 9 },
+    { id: 10110, title: "Fungsi, Persamaan, dan Pertidaksamaan Kuadrat", subject: "matematika", grade: 10, description: "Fungsi kuadrat dan grafiknya", questionsCount: 10, xpReward: 85, order: 10 },
+    { id: 10111, title: "Sistem Persamaan Linear-Kuadrat Dua Variabel", subject: "matematika", grade: 10, description: "SPLKDV dan SPtLKDV", questionsCount: 8, xpReward: 80, order: 11 },
+    { id: 10112, title: "Statistika Deskriptif", subject: "matematika", grade: 10, description: "Ukuran pemusatan dan penyebaran", questionsCount: 10, xpReward: 85, order: 12 },
 
-    // BAHASA INDONESIA - Kelas 10 (6 materi)
-    { id: 10201, title: "Laporan Hasil Observasi", subject: "bahasa", grade: 10, description: "Struktur dan ciri kebahasaan", questionsCount: 5, xpReward: 70, order: 1 },
-    { id: 10202, title: "Teks Anekdot", subject: "bahasa", grade: 10, description: "Humor dalam kritik sosial", questionsCount: 5, xpReward: 70, order: 2 },
+
+    // BAHASA INDONESIA - Kelas 10 (6 materi, 8-10 soal per materi)
+    { id: 10201, title: "Laporan Hasil Observasi", subject: "bahasa", grade: 10, description: "Struktur dan ciri kebahasaan", questionsCount: 10, xpReward: 85, order: 1 },
+    { id: 10202, title: "Teks Anekdot", subject: "bahasa", grade: 10, description: "Humor dalam kritik sosial", questionsCount: 8, xpReward: 80, order: 2 },
     { id: 10203, title: "Hikayat", subject: "bahasa", grade: 10, description: "Sastra Melayu klasik", questionsCount: 5, xpReward: 70, order: 3 },
     { id: 10204, title: "Teks Negosiasi", subject: "bahasa", grade: 10, description: "Strategi negosiasi", questionsCount: 5, xpReward: 70, order: 4 },
     { id: 10205, title: "Biografi", subject: "bahasa", grade: 10, description: "Menulis dan menganalisis biografi", questionsCount: 5, xpReward: 70, order: 5 },
     { id: 10206, title: "Puisi", subject: "bahasa", grade: 10, description: "Menganalisis dan menulis puisi", questionsCount: 5, xpReward: 70, order: 6 },
 
-    // BAHASA INGGRIS - Kelas 10 (12 materi)
-    { id: 10301, title: "Parts of Speech", subject: "english", grade: 10, description: "Noun, verb, adjective, adverb", questionsCount: 5, xpReward: 70, order: 1 },
+    // BAHASA INGGRIS - Kelas 10 (12 materi, 8 soal per materi)
+    { id: 10301, title: "Parts of Speech", subject: "english", grade: 10, description: "Noun, verb, adjective, adverb", questionsCount: 8, xpReward: 80, order: 1 },
     { id: 10302, title: "Present Tenses", subject: "english", grade: 10, description: "Simple, continuous, perfect", questionsCount: 5, xpReward: 70, order: 2 },
     { id: 10303, title: "Comparison Degree", subject: "english", grade: 10, description: "Positive, comparative, superlative", questionsCount: 5, xpReward: 70, order: 3 },
     { id: 10304, title: "Descriptive Text", subject: "english", grade: 10, description: "Describing people and places", questionsCount: 5, xpReward: 70, order: 4 },

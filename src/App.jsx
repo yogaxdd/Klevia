@@ -18,6 +18,7 @@ import ProfilePage from './pages/ProfilePage'
 import SettingsPage from './pages/SettingsPage'
 import PremiumPage from './pages/PremiumPage'
 import AchievementsPage from './pages/AchievementsPage'
+import LeaderboardPage from './pages/LeaderboardPage'
 
 function App() {
     return (
@@ -70,6 +71,9 @@ function App() {
                                 } />
                                 <Route path="/achievements" element={
                                     <ProtectedRoute><AchievementsPage /></ProtectedRoute>
+                                } />
+                                <Route path="/leaderboard" element={
+                                    <ProtectedRoute><LeaderboardPage /></ProtectedRoute>
                                 } />
                             </Routes>
                         </div>

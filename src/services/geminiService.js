@@ -9,44 +9,61 @@ const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/
  * @param {string} expectedAnswer - The expected/correct answer context
  * @param {string} userAnswer - The user's submitted answer
  * @param {string} subject - The subject (e.g., "matematika", "sejarah")
- * @returns {Promise<{isCorrect: boolean, feedback: string}>}
+ * @returns {Promise<{isCorrect: boolean, isPartial: boolean, score: number, feedback: string}>}
  */
 export async function gradeEssayAnswer(question, expectedAnswer, userAnswer, subject = '') {
     if (!GEMINI_API_KEY) {
         console.error('Gemini API key not found');
         return {
             isCorrect: false,
+            isPartial: false,
+            score: 0,
             feedback: 'API key tidak dikonfigurasi. Hubungi administrator.'
         };
     }
 
     // Handle empty answers
-    if (!userAnswer || userAnswer.trim().length < 5) {
+    if (!userAnswer || userAnswer.trim().length < 3) {
         return {
             isCorrect: false,
+            isPartial: false,
+            score: 0,
             feedback: 'Jawaban terlalu pendek. Silakan berikan jawaban yang lebih lengkap.'
         };
     }
 
-    const systemPrompt = `Kamu adalah guru ${subject || 'mata pelajaran'} di Indonesia yang sedang menilai jawaban siswa SMA. Berikan penilaian yang adil dan feedback yang membangun.`;
+    const systemPrompt = `Kamu adalah guru ${subject || 'mata pelajaran'} di Indonesia yang sedang menilai jawaban siswa. Berikan penilaian yang TOLERAN.`;
 
     const userPrompt = `PERTANYAAN:
 ${question}
 
-KONTEKS JAWABAN YANG BENAR:
+JAWABAN YANG BENAR:
 ${expectedAnswer}
 
 JAWABAN SISWA:
 ${userAnswer}
 
-TUGAS:
-Nilai apakah jawaban siswa RELEVAN dan BENAR berdasarkan konteks jawaban yang benar.
-- Tidak perlu persis sama, yang penting inti jawabannya relevan dan menunjukkan pemahaman.
-- Berikan feedback yang membangun dalam bahasa Indonesia.
-- Jika salah, jelaskan secara singkat apa yang seharusnya benar.
+ATURAN PENILAIAN (IKUTI DENGAN KETAT):
 
-RESPONSE FORMAT (JSON only, no markdown):
-{"isCorrect": true/false, "feedback": "Penjelasan singkat dalam bahasa Indonesia (maksimal 2 kalimat)"}`;
+score: 1.0 (BENAR) jika:
+- Jawaban siswa sama persis dengan jawaban benar
+- Jawaban siswa sama tapi huruf besar/kecil berbeda (case insensitive) → contoh: "melamar pekerjaan" = "Melamar pekerjaan" = BENAR
+- Jawaban siswa menambahkan kata tidak penting di awal/akhir (untuk, adalah, yaitu, agar, supaya, dll) → contoh: "untuk melamar pekerjaan" vs "Melamar pekerjaan" = BENAR
+- INTI MAKNA jawaban sama meski susunan kata sedikit berbeda
+
+score: 0.5 (SETENGAH) jika:
+- Jawaban siswa BENAR tapi KURANG LENGKAP (ada bagian yang belum disebutkan)
+- Contoh: Jawaban benar "Pernyataan Umum, Deskripsi Bagian, Kesimpulan" tapi siswa menjawab "Pernyataan Umum, Deskripsi Bagian" (kurang Kesimpulan) = 0.5
+- Jawaban menyebutkan sebagian besar poin tapi tidak semua
+
+score: 0 (SALAH) jika:
+- Jawaban sama sekali salah
+- Jawaban tidak relevan dengan pertanyaan
+- Jawaban asal-asalan
+
+RESPONSE (JSON only):
+{"score": 0/0.5/1, "feedback": "Penjelasan singkat"}`;
+
 
     try {
         const response = await fetch(GEMINI_API_URL, {
@@ -84,19 +101,27 @@ RESPONSE FORMAT (JSON only, no markdown):
                 .trim();
 
             const parsed = JSON.parse(cleanedResponse);
+            const score = parseFloat(parsed.score) || 0;
+
             return {
-                isCorrect: parsed.isCorrect === true,
+                isCorrect: score >= 1,
+                isPartial: score === 0.5,
+                score: score,
                 feedback: parsed.feedback || 'Tidak ada feedback tersedia.'
             };
         } catch (parseError) {
             console.error('Failed to parse Gemini response:', textResponse);
-            // Fallback: try to extract meaning from text
-            const isCorrect = textResponse.toLowerCase().includes('"iscorrect": true') ||
-                textResponse.toLowerCase().includes('"iscorrect":true');
+            // Fallback: try to extract score from text
+            const hasScore1 = textResponse.includes('"score": 1') || textResponse.includes('"score":1');
+            const hasScore05 = textResponse.includes('"score": 0.5') || textResponse.includes('"score":0.5');
+
+            const score = hasScore1 ? 1 : (hasScore05 ? 0.5 : 0);
             return {
-                isCorrect,
-                feedback: isCorrect ?
-                    'Jawaban kamu sudah tepat!' :
+                isCorrect: score >= 1,
+                isPartial: score === 0.5,
+                score: score,
+                feedback: score >= 0.5 ?
+                    'Jawaban kamu sudah cukup tepat!' :
                     'Jawaban kurang tepat. Silakan pelajari materi kembali.'
             };
         }
@@ -105,6 +130,8 @@ RESPONSE FORMAT (JSON only, no markdown):
         console.error('Gemini API error:', error);
         return {
             isCorrect: false,
+            isPartial: false,
+            score: 0,
             feedback: 'Terjadi kesalahan saat memeriksa jawaban. Silakan coba lagi.'
         };
     }

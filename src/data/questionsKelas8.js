@@ -6,13 +6,18 @@ export const questionsKelas8 = {
     // KELAS 8 - MATEMATIKA
     // ============================================
 
-    // 201: Sistem Koordinat (5 soal)
+    // 201: Sistem Koordinat (10 soal)
     201: [
         { question: "Titik (3, -2) berada di kuadran...", options: ["IV", "I", "II", "III"], correctAnswer: 0 },
         { question: "Sumbu X disebut juga sumbu...", options: ["absis", "ordinat", "koordinat", "kartesius"], correctAnswer: 0 },
         { question: "Titik potong sumbu X dan Y adalah...", options: ["(0, 0)", "(1, 1)", "(0, 1)", "(1, 0)"], correctAnswer: 0 },
         { question: "Koordinat titik A(5, 3), nilai absis adalah...", options: ["5", "3", "8", "2"], correctAnswer: 0 },
         { question: "Titik (-4, 5) berada di kuadran...", options: ["II", "I", "III", "IV"], correctAnswer: 0 },
+        { question: "Titik (0, 5) terletak pada...", options: ["sumbu Y", "sumbu X", "kuadran I", "kuadran II"], correctAnswer: 0 },
+        { question: "Titik (-3, -4) berada di kuadran...", options: ["III", "I", "II", "IV"], correctAnswer: 0 },
+        { question: "Ordinat dari titik P(7, -2) adalah...", options: ["-2", "7", "5", "9"], correctAnswer: 0 },
+        { question: "Jarak titik A(3, 0) ke titik asal adalah...", options: ["3", "0", "6", "9"], correctAnswer: 0 },
+        { question: "Titik (5, 0) terletak pada...", options: ["sumbu X", "sumbu Y", "kuadran I", "kuadran IV"], correctAnswer: 0 },
     ],
 
     // 202: Relasi dan Fungsi (6 soal)
@@ -36,13 +41,18 @@ export const questionsKelas8 = {
         { question: "Koefisien x dalam 3x - 2y = 5 adalah...", options: ["3", "-2", "5", "0"], correctAnswer: 0 },
     ],
 
-    // 204: Teorema Pythagoras (5 soal)
+    // 204: Teorema Pythagoras (10 soal)
     204: [
         { question: "Dalam segitiga siku-siku dengan sisi 3 dan 4, hipotenusanya adalah...", options: ["5", "7", "12", "6"], correctAnswer: 0 },
         { question: "Rumus teorema Pythagoras adalah...", options: ["c² = a² + b²", "c = a + b", "c = ab", "c² = a² - b²"], correctAnswer: 0 },
         { question: "Jika a = 6, b = 8, maka c = ...", options: ["10", "14", "48", "7"], correctAnswer: 0 },
         { question: "Teorema Pythagoras berlaku untuk segitiga...", options: ["siku-siku", "sama sisi", "sama kaki", "sembarang"], correctAnswer: 0 },
         { question: "Sisi miring segitiga siku-siku disebut...", options: ["hipotenusa", "alas", "tinggi", "sisi tegak"], correctAnswer: 0 },
+        { question: "Jika c = 13 dan a = 5, maka b = ...", options: ["12", "8", "18", "10"], correctAnswer: 0 },
+        { question: "Triple Pythagoras yang benar adalah...", options: ["3, 4, 5", "2, 3, 4", "1, 2, 3", "4, 5, 6"], correctAnswer: 0 },
+        { question: "Jika a = 5, b = 12, maka c = ...", options: ["13", "17", "7", "60"], correctAnswer: 0 },
+        { question: "Segitiga dengan sisi 5, 12, 13 adalah segitiga...", options: ["siku-siku", "sama sisi", "sama kaki", "tumpul"], correctAnswer: 0 },
+        { question: "Jika c = 10 dan a = 6, maka b = ...", options: ["8", "4", "16", "14"], correctAnswer: 0 },
     ],
 
     // 2005: Lingkaran (6 soal)
@@ -67,13 +77,18 @@ export const questionsKelas8 = {
         { question: "Diagonal ruang kubus dengan rusuk 3 cm adalah...", options: ["3√3 cm", "3 cm", "9 cm", "6 cm"], correctAnswer: 0 },
     ],
 
-    // 2007: Statistika (5 soal)
+    // 2007: Statistika (10 soal)
     2007: [
         { question: "Diagram batang digunakan untuk...", options: ["membandingkan data", "menunjukkan persentase", "melihat tren", "menghitung rata-rata"], correctAnswer: 0 },
         { question: "Diagram lingkaran menunjukkan...", options: ["persentase", "tren waktu", "frekuensi", "nilai rata-rata"], correctAnswer: 0 },
         { question: "Rata-rata dari 10, 20, 30, 40 adalah...", options: ["25", "20", "30", "100"], correctAnswer: 0 },
         { question: "Histogram adalah diagram untuk data...", options: ["berkelompok", "tunggal", "nominal", "kategori"], correctAnswer: 0 },
         { question: "Ogive adalah kurva untuk...", options: ["frekuensi kumulatif", "frekuensi biasa", "rata-rata", "median"], correctAnswer: 0 },
+        { question: "Median dari data genap dicari dengan...", options: ["rata-rata 2 data tengah", "data pertama", "data terakhir", "data terbanyak"], correctAnswer: 0 },
+        { question: "Quartil membagi data menjadi ... bagian", options: ["4", "2", "3", "10"], correctAnswer: 0 },
+        { question: "Desil membagi data menjadi ... bagian", options: ["10", "4", "100", "5"], correctAnswer: 0 },
+        { question: "Simpangan rata-rata mengukur...", options: ["penyebaran data", "pusat data", "jumlah data", "panjang data"], correctAnswer: 0 },
+        { question: "Diagram garis digunakan untuk...", options: ["melihat tren waktu", "membandingkan kategori", "menunjukkan persentase", "data kategori"], correctAnswer: 0 },
     ],
 
     // 2008: Peluang (6 soal)
@@ -86,13 +101,18 @@ export const questionsKelas8 = {
         { question: "Peluang empirik berdasarkan...", options: ["percobaan", "teori", "rumus", "dugaan"], correctAnswer: 0 },
     ],
 
-    // 2009: Pola Bilangan (5 soal)
+    // 2009: Pola Bilangan (10 soal)
     2009: [
         { question: "Pola 2, 5, 8, 11, 14 memiliki beda...", options: ["3", "2", "5", "4"], correctAnswer: 0 },
         { question: "Suku ke-10 dari 3, 7, 11, 15, ... adalah...", options: ["39", "37", "41", "35"], correctAnswer: 0 },
         { question: "Rumus suku ke-n barisan aritmatika adalah...", options: ["a + (n-1)b", "a × n", "a + n", "a / n"], correctAnswer: 0 },
         { question: "1, 3, 9, 27, 81 adalah barisan...", options: ["geometri", "aritmatika", "fibonacci", "prima"], correctAnswer: 0 },
         { question: "Rasio barisan geometri 2, 6, 18, 54 adalah...", options: ["3", "4", "2", "6"], correctAnswer: 0 },
+        { question: "Barisan 1, 1, 2, 3, 5, 8 adalah barisan...", options: ["Fibonacci", "aritmatika", "geometri", "prima"], correctAnswer: 0 },
+        { question: "Suku ke-5 dari 2, 4, 8, 16, ... adalah...", options: ["32", "24", "64", "20"], correctAnswer: 0 },
+        { question: "Jumlah 5 suku pertama: 1+2+3+4+5 = ...", options: ["15", "10", "20", "25"], correctAnswer: 0 },
+        { question: "Rumus deret aritmatika adalah...", options: ["n/2 (a + Un)", "a × r^n", "n × a", "a + b"], correctAnswer: 0 },
+        { question: "Beda barisan 5, 10, 15, 20 adalah...", options: ["5", "10", "15", "2"], correctAnswer: 0 },
     ],
 
     // 2010: Gradien (5 soal)
@@ -129,13 +149,18 @@ export const questionsKelas8 = {
         { question: "Semakin besar massa, semakin besar...", options: ["kelembaman", "kecepatan", "percepatan", "waktu"], correctAnswer: 0 },
     ],
 
-    // 207: Usaha dan Energi (5 soal)
+    // 207: Usaha dan Energi (10 soal)
     207: [
         { question: "Rumus usaha adalah...", options: ["W = F × s", "W = F / s", "W = F + s", "W = s / F"], correctAnswer: 0 },
         { question: "Satuan usaha adalah...", options: ["Joule", "Newton", "Watt", "Pascal"], correctAnswer: 0 },
         { question: "Energi kinetik bergantung pada...", options: ["massa dan kecepatan", "tinggi saja", "waktu", "jarak"], correctAnswer: 0 },
         { question: "Rumus energi potensial adalah...", options: ["Ep = mgh", "Ep = ½mv²", "Ep = Fs", "Ep = P×t"], correctAnswer: 0 },
         { question: "Daya adalah...", options: ["usaha per waktu", "gaya per jarak", "energi per massa", "kecepatan per waktu"], correctAnswer: 0 },
+        { question: "Rumus energi kinetik adalah...", options: ["½mv²", "mgh", "Fs", "Pt"], correctAnswer: 0 },
+        { question: "Satuan daya adalah...", options: ["Watt", "Joule", "Newton", "Pascal"], correctAnswer: 0 },
+        { question: "Usaha bernilai nol jika...", options: ["arah gaya tegak lurus perpindahan", "ada gaya", "ada perpindahan", "gaya searah perpindahan"], correctAnswer: 0 },
+        { question: "1 kWh = ... Joule", options: ["3.600.000", "3.600", "360.000", "36.000"], correctAnswer: 0 },
+        { question: "Energi mekanik = ...", options: ["Ek + Ep", "Ek - Ep", "Ek × Ep", "Ek / Ep"], correctAnswer: 0 },
     ],
 
     // 208: Tekanan Zat (6 soal)
@@ -148,13 +173,18 @@ export const questionsKelas8 = {
         { question: "Hukum Archimedes tentang...", options: ["gaya apung", "tekanan udara", "tekanan padat", "gaya gesek"], correctAnswer: 0 },
     ],
 
-    // 2011: Sistem Pernapasan (5 soal)
+    // 2011: Sistem Pernapasan (10 soal)
     2011: [
         { question: "Organ utama pernapasan adalah...", options: ["paru-paru", "jantung", "lambung", "ginjal"], correctAnswer: 0 },
         { question: "Pertukaran O2 dan CO2 terjadi di...", options: ["alveolus", "bronkus", "trakea", "hidung"], correctAnswer: 0 },
         { question: "Diafragma berfungsi untuk...", options: ["membantu mengatur volume paru", "menyaring udara", "menghangatkan udara", "menghirup oksigen"], correctAnswer: 0 },
         { question: "Inspirasi adalah proses...", options: ["menghirup udara", "menghembuskan udara", "pertukaran gas", "penyaringan"], correctAnswer: 0 },
         { question: "Penyakit pada paru-paru akibat merokok adalah...", options: ["kanker paru", "maag", "diabetes", "stroke"], correctAnswer: 0 },
+        { question: "Ekspirasi adalah proses...", options: ["menghembuskan udara", "menghirup udara", "menyaring udara", "menghangatkan udara"], correctAnswer: 0 },
+        { question: "Bronkus adalah cabang dari...", options: ["trakea", "alveolus", "faring", "laring"], correctAnswer: 0 },
+        { question: "Kapasitas vital paru adalah...", options: ["udara maksimal yang dihirup dan dihembuskan", "udara sisa", "volume tidal", "udara cadangan"], correctAnswer: 0 },
+        { question: "Asma disebabkan oleh...", options: ["penyempitan saluran pernapasan", "infeksi bakteri", "kelebihan cairan", "tekanan darah tinggi"], correctAnswer: 0 },
+        { question: "Fungsi bulu hidung adalah...", options: ["menyaring debu", "menghangatkan udara", "menghirup O2", "mengeluarkan CO2"], correctAnswer: 0 },
     ],
 
     // 2012: Sistem Pencernaan (7 soal)
@@ -178,22 +208,32 @@ export const questionsKelas8 = {
         { question: "Golongan darah ditentukan oleh...", options: ["antigen pada sel darah merah", "jumlah sel darah", "warna darah", "kekentalan darah"], correctAnswer: 0 },
     ],
 
-    // 2014: Getaran dan Gelombang (5 soal)
+    // 2014: Getaran dan Gelombang (10 soal)
     2014: [
         { question: "Satu getaran penuh disebut...", options: ["periode", "frekuensi", "amplitudo", "panjang gelombang"], correctAnswer: 0 },
         { question: "Satuan frekuensi adalah...", options: ["Hertz", "meter", "detik", "Newton"], correctAnswer: 0 },
         { question: "Amplitudo adalah...", options: ["simpangan maksimum", "jumlah getaran", "waktu satu getaran", "kecepatan gelombang"], correctAnswer: 0 },
         { question: "Hubungan periode dan frekuensi adalah...", options: ["T = 1/f", "T = f", "T = 2f", "T = f²"], correctAnswer: 0 },
         { question: "Contoh gelombang transversal adalah...", options: ["gelombang tali", "gelombang bunyi", "gelombang air dalam", "gelombang seismik P"], correctAnswer: 0 },
+        { question: "Gelombang longitudinal adalah gelombang yang...", options: ["arah getarannya sejajar arah rambat", "tegak lurus arah rambat", "diam", "tidak merambat"], correctAnswer: 0 },
+        { question: "Panjang gelombang dilambangkan dengan...", options: ["λ (lambda)", "f", "T", "A"], correctAnswer: 0 },
+        { question: "Rumus cepat rambat gelombang adalah...", options: ["v = λ × f", "v = λ / f", "v = λ + f", "v = f / λ"], correctAnswer: 0 },
+        { question: "Contoh gelombang longitudinal adalah...", options: ["gelombang bunyi", "gelombang cahaya", "gelombang tali", "gelombang permukaan air"], correctAnswer: 0 },
+        { question: "Frekuensi adalah...", options: ["jumlah getaran per sekon", "waktu satu getaran", "simpangan maksimum", "kecepatan gelombang"], correctAnswer: 0 },
     ],
 
-    // 2015: Bunyi (5 soal)
+    // 2015: Bunyi (10 soal)
     2015: [
         { question: "Bunyi dapat merambat melalui...", options: ["zat padat, cair, dan gas", "ruang hampa", "gas saja", "cair saja"], correctAnswer: 0 },
         { question: "Bunyi yang terdengar oleh manusia memiliki frekuensi...", options: ["20-20.000 Hz", "di bawah 20 Hz", "di atas 20.000 Hz", "0-10 Hz"], correctAnswer: 0 },
         { question: "Ultrasonik adalah bunyi dengan frekuensi...", options: ["di atas 20.000 Hz", "di bawah 20 Hz", "20-20.000 Hz", "0 Hz"], correctAnswer: 0 },
         { question: "Kecepatan bunyi paling cepat pada...", options: ["zat padat", "zat cair", "gas", "hampa udara"], correctAnswer: 0 },
         { question: "Gema terjadi karena...", options: ["pemantulan bunyi", "pembiasan bunyi", "interferensi", "difraksi"], correctAnswer: 0 },
+        { question: "Infrasonik adalah bunyi dengan frekuensi...", options: ["di bawah 20 Hz", "di atas 20.000 Hz", "20-20.000 Hz", "100-1000 Hz"], correctAnswer: 0 },
+        { question: "Resonansi adalah...", options: ["ikut bergetarnya benda akibat frekuensi sama", "pemantulan bunyi", "pembiasan bunyi", "penyerapan bunyi"], correctAnswer: 0 },
+        { question: "Sumber bunyi adalah benda yang...", options: ["bergetar", "diam", "padat saja", "cair saja"], correctAnswer: 0 },
+        { question: "Bunyi tidak dapat merambat melalui...", options: ["ruang hampa", "udara", "air", "besi"], correctAnswer: 0 },
+        { question: "Kuat lemahnya bunyi ditentukan oleh...", options: ["amplitudo", "frekuensi", "panjang gelombang", "cepat rambat"], correctAnswer: 0 },
     ],
 
     // 2016: Cahaya (6 soal)
@@ -210,13 +250,18 @@ export const questionsKelas8 = {
     // KELAS 8 - BAHASA INDONESIA
     // ============================================
 
-    // 209: Teks Berita (5 soal)
+    // 209: Teks Berita (10 soal)
     209: [
         { question: "Unsur berita 5W+1H, 'What' artinya...", options: ["apa", "siapa", "kapan", "dimana"], correctAnswer: 0 },
         { question: "Struktur teks berita adalah...", options: ["judul - teras - tubuh - ekor", "tesis - argumen - simpulan", "orientasi - komplikasi", "identifikasi - deskripsi"], correctAnswer: 0 },
         { question: "Teras berita berisi...", options: ["inti berita", "detail berita", "komentar", "opini"], correctAnswer: 0 },
         { question: "Berita harus bersifat...", options: ["faktual dan aktual", "fiktif", "imajinatif", "persuasif"], correctAnswer: 0 },
         { question: "'When' dalam 5W+1H artinya...", options: ["kapan", "dimana", "siapa", "apa"], correctAnswer: 0 },
+        { question: "'Who' dalam 5W+1H artinya...", options: ["siapa", "apa", "kapan", "bagaimana"], correctAnswer: 0 },
+        { question: "'Where' dalam 5W+1H artinya...", options: ["dimana", "kapan", "siapa", "mengapa"], correctAnswer: 0 },
+        { question: "'Why' dalam 5W+1H artinya...", options: ["mengapa", "bagaimana", "apa", "kapan"], correctAnswer: 0 },
+        { question: "'How' dalam 5W+1H artinya...", options: ["bagaimana", "apa", "siapa", "kapan"], correctAnswer: 0 },
+        { question: "Berita hard news adalah berita yang...", options: ["aktual dan penting", "hiburan", "feature", "opini"], correctAnswer: 0 },
     ],
 
     // 210: Teks Iklan (6 soal)
@@ -229,13 +274,18 @@ export const questionsKelas8 = {
         { question: "Iklan layanan masyarakat bertujuan...", options: ["mengajak kebaikan", "menjual produk", "menghibur", "menceritakan"], correctAnswer: 0 },
     ],
 
-    // 211: Teks Eksposisi (5 soal)
+    // 211: Teks Eksposisi (10 soal)
     211: [
         { question: "Teks eksposisi berisi...", options: ["pendapat dan argumen", "cerita fiksi", "langkah kerja", "deskripsi objek"], correctAnswer: 0 },
         { question: "Struktur teks eksposisi adalah...", options: ["tesis - argumen - penegasan ulang", "orientasi - komplikasi", "definisi - deskripsi", "judul - isi"], correctAnswer: 0 },
         { question: "Tesis adalah...", options: ["pendapat utama penulis", "fakta pendukung", "kesimpulan", "contoh"], correctAnswer: 0 },
         { question: "Argumen dalam eksposisi berisi...", options: ["alasan dan bukti", "cerita", "dongeng", "puisi"], correctAnswer: 0 },
         { question: "Ciri kebahasaan eksposisi adalah...", options: ["kata hubung kausalitas", "kata seru", "onomatope", "majas"], correctAnswer: 0 },
+        { question: "Contoh kata hubung kausalitas adalah...", options: ["karena, sebab, oleh karena itu", "dan, serta, juga", "tetapi, namun", "jika, apabila"], correctAnswer: 0 },
+        { question: "Penegasan ulang dalam eksposisi berisi...", options: ["kesimpulan pendapat", "cerita baru", "argumen tambahan", "data baru"], correctAnswer: 0 },
+        { question: "Eksposisi berbeda dari persuasi karena...", options: ["tidak mengajak bertindak", "mengajak bertindak", "menceritakan", "mendeskripsikan"], correctAnswer: 0 },
+        { question: "Fakta dalam eksposisi berfungsi untuk...", options: ["mendukung argumen", "menghibur", "menakut-nakuti", "menceritakan"], correctAnswer: 0 },
+        { question: "Contoh teks eksposisi adalah...", options: ["artikel opini", "cerpen", "puisi", "resep"], correctAnswer: 0 },
     ],
 
     // 212: Teks Puisi (7 soal)
@@ -319,13 +369,18 @@ export const questionsKelas8 = {
         { question: "The sun ... in the east", options: ["rises", "rise", "rising", "rose"], correctAnswer: 0 },
     ],
 
-    // 214: Simple Past Tense (5 soal)
+    // 214: Simple Past Tense (10 soal)
     214: [
         { question: "I ... to school yesterday", options: ["went", "go", "goes", "going"], correctAnswer: 0 },
         { question: "Simple past menggunakan...", options: ["V2", "V1", "V3", "V-ing"], correctAnswer: 0 },
         { question: "She ... a book last night", options: ["read", "reads", "reading", "reader"], correctAnswer: 0 },
         { question: "They ... not come to the party", options: ["did", "do", "does", "are"], correctAnswer: 0 },
         { question: "... you watch the movie?", options: ["Did", "Do", "Does", "Are"], correctAnswer: 0 },
+        { question: "We ... a great time yesterday", options: ["had", "have", "has", "having"], correctAnswer: 0 },
+        { question: "He ... the exam last week", options: ["passed", "pass", "passes", "passing"], correctAnswer: 0 },
+        { question: "The cat ... on the sofa yesterday", options: ["slept", "sleep", "sleeps", "sleeping"], correctAnswer: 0 },
+        { question: "I ... breakfast this morning", options: ["ate", "eat", "eats", "eating"], correctAnswer: 0 },
+        { question: "They ... to music last night", options: ["listened", "listen", "listens", "listening"], correctAnswer: 0 },
     ],
 
     // 215: Comparison Degree (7 soal)
@@ -339,13 +394,18 @@ export const questionsKelas8 = {
         { question: "My bag is ... than yours", options: ["heavier", "heaviest", "heavy", "more heavy"], correctAnswer: 0 },
     ],
 
-    // 216: Recount Text (5 soal)
+    // 216: Recount Text (10 soal)
     216: [
         { question: "Recount text menceritakan...", options: ["pengalaman masa lalu", "langkah membuat", "pendapat", "berita terkini"], correctAnswer: 0 },
         { question: "Struktur recount text adalah...", options: ["orientation - events - reorientation", "tesis - argumen", "identification - description", "goal - materials - steps"], correctAnswer: 0 },
         { question: "Recount text menggunakan tense...", options: ["past tense", "present tense", "future tense", "present perfect"], correctAnswer: 0 },
         { question: "Contoh recount text adalah...", options: ["diary", "resep", "iklan", "berita"], correctAnswer: 0 },
         { question: "Orientation berisi...", options: ["pengenalan tokoh dan latar", "kejadian utama", "kesimpulan", "opini"], correctAnswer: 0 },
+        { question: "Events berisi...", options: ["urutan kejadian", "pengenalan", "kesimpulan", "opini"], correctAnswer: 0 },
+        { question: "Reorientation berisi...", options: ["penutup atau kesan", "pengenalan", "konflik", "solusi"], correctAnswer: 0 },
+        { question: "Personal recount adalah...", options: ["pengalaman pribadi penulis", "berita umum", "cerita fiksi", "iklan"], correctAnswer: 0 },
+        { question: "Time connectives contohnya...", options: ["first, then, after that", "because, so", "but, however", "and, or"], correctAnswer: 0 },
+        { question: "Biographical recount menceritakan...", options: ["riwayat hidup seseorang", "pengalaman pribadi", "cerita fiksi", "langkah kerja"], correctAnswer: 0 },
     ],
 
     // 2023: Narrative Text (6 soal)
