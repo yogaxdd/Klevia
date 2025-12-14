@@ -6,7 +6,7 @@ function Card({
     onClick = null,
     hoverable = false,
 }) {
-    const baseStyling = 'bg-white rounded-2xl shadow-card border border-gray-100';
+    const baseStyling = 'bg-card-bg rounded-2xl shadow-card border border-border-color';
 
     const paddingSizes = {
         none: '',

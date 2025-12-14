@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../firebase/AuthContext';
@@ -11,7 +12,41 @@ import StreakDisplay from '../components/StreakDisplay';
 function HomePage() {
     const navigate = useNavigate();
     const { user, progress, streak } = useApp();
-    const { currentUser } = useAuth();
+    const { currentUser, userData } = useAuth();
+
+    const [dailyQuizDone, setDailyQuizDone] = useState(false);
+    const [countdown, setCountdown] = useState('');
+
+    // Check if daily quiz is done and calculate countdown
+    useEffect(() => {
+        const checkDailyQuiz = () => {
+            const today = new Date().toISOString().split('T')[0];
+            const lastQuizDate = userData?.dailyQuiz?.lastCompleted;
+
+            if (lastQuizDate === today) {
+                setDailyQuizDone(true);
+
+                // Calculate time until midnight
+                const now = new Date();
+                const midnight = new Date();
+                midnight.setHours(24, 0, 0, 0);
+
+                const diff = midnight - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                setCountdown(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+            } else {
+                setDailyQuizDone(false);
+                setCountdown('');
+            }
+        };
+
+        checkDailyQuiz();
+        const interval = setInterval(checkDailyQuiz, 1000);
+        return () => clearInterval(interval);
+    }, [userData]);
 
     const isPremium = user.isPremium && new Date(user.premiumExpiry) > new Date();
 
@@ -30,6 +65,15 @@ function HomePage() {
             ipa: 'IPA',
             bahasa: 'Bahasa Indonesia',
             english: 'Bahasa Inggris',
+            biologi: 'Biologi',
+            kimia: 'Kimia',
+            fisika: 'Fisika',
+            ekonomi: 'Ekonomi',
+            sosiologi: 'Sosiologi',
+            geografi: 'Geografi',
+            sejarah: 'Sejarah',
+            pkn: 'PKn',
+            informatika: 'Informatika',
         };
         return labels[subject] || 'Pelajaran';
     };
@@ -60,11 +104,11 @@ function HomePage() {
                 <header className="flex items-center justify-between px-6 pt-10 pb-4">
                     <div className="flex flex-col gap-1.5 flex-1">
                         <p className="text-sm text-text-secondary font-medium">{getGreeting()},</p>
-                        <div className="flex items-center gap-2">
-                            <h1 className="text-2xl font-bold text-text-main leading-none">{user.name}</h1>
+                        <div className="flex items-center gap-1.5">
+                            <h1 className="text-2xl font-bold text-text-main leading-none truncate max-w-[180px]">{user.name}</h1>
                             {isPremium && (
                                 <span
-                                    className="material-symbols-outlined text-primary"
+                                    className="material-symbols-outlined text-primary flex-shrink-0"
                                     style={{ fontSize: '20px', fontVariationSettings: "'FILL' 1" }}
                                     title="Premium Member"
                                 >
@@ -159,19 +203,29 @@ function HomePage() {
                     <Card padding="none" className="overflow-hidden">
                         {/* Card Image with Subject Mascot */}
                         <div className="relative h-44 w-full bg-gradient-to-br from-primary/30 to-primary/10">
-                            {/* Subject Mascot Image */}
-                            {user.subject === 'bahasa' && (
-                                <img src="/Assets/bind.jpeg" alt="Bahasa Indonesia" className="absolute inset-0 w-full h-full object-cover" />
-                            )}
-                            {user.subject === 'english' && (
-                                <img src="/Assets/bing.jpeg" alt="Bahasa Inggris" className="absolute inset-0 w-full h-full object-cover" />
-                            )}
-                            {user.subject === 'ipa' && (
-                                <img src="/Assets/ipa.png" alt="IPA" className="absolute inset-0 w-full h-full object-cover" />
-                            )}
-                            {user.subject === 'matematika' && (
-                                <img src="/Assets/mtk.jpeg" alt="Matematika" className="absolute inset-0 w-full h-full object-cover" />
-                            )}
+                            {/* Subject Banner Image */}
+                            {(() => {
+                                const bannerMap = {
+                                    bahasa: '/Assets/bind.jpeg',
+                                    english: '/Assets/bing.jpeg',
+                                    ipa: '/Assets/ipa.png',
+                                    matematika: '/Assets/mtk.jpeg',
+                                    biologi: '/Assets/biologi.png',
+                                    kimia: '/Assets/kimia.png',
+                                    fisika: '/Assets/fisika.png',
+                                    ekonomi: '/Assets/ekonomi.png',
+                                    sosiologi: '/Assets/sosiologi.png',
+                                    geografi: '/Assets/geografi.png',
+                                    sejarah: '/Assets/sejarah.png',
+                                    pkn: '/Assets/pkn.png',
+                                    informatika: '/Assets/informatika.png',
+                                };
+                                const bannerSrc = bannerMap[user.subject];
+                                if (bannerSrc) {
+                                    return <img src={bannerSrc} alt={getSubjectLabel(user.subject)} className="absolute inset-0 w-full h-full object-cover" />;
+                                }
+                                return null;
+                            })()}
 
                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                             <div className="absolute top-4 right-4 rounded-lg bg-white/20 backdrop-blur-md px-2 py-1 text-xs font-bold text-white border border-white/30">
@@ -220,15 +274,26 @@ function HomePage() {
                 <section className="px-6 py-2">
                     <div className="grid grid-cols-2 gap-4">
                         <button
-                            className="flex flex-col items-start gap-3 rounded-2xl bg-blue-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-blue-200"
-                            onClick={() => navigate('/levels')}
+                            className={`flex flex-col items-start gap-3 rounded-2xl p-4 text-left transition-transform border border-transparent ${dailyQuizDone
+                                ? 'bg-gray-100 cursor-not-allowed opacity-60'
+                                : 'bg-blue-50 active:scale-95 hover:border-blue-200'
+                                }`}
+                            onClick={() => !dailyQuizDone && navigate('/daily-quiz')}
+                            disabled={dailyQuizDone}
                         >
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-blue-600 shadow-sm">
-                                <span className="material-symbols-outlined">quiz</span>
+                            <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ${dailyQuizDone ? 'text-gray-400' : 'text-blue-600'
+                                }`}>
+                                <span className="material-symbols-outlined">
+                                    {dailyQuizDone ? 'check_circle' : 'quiz'}
+                                </span>
                             </div>
                             <div>
-                                <h4 className="font-bold text-text-main leading-tight">Kuis Harian</h4>
-                                <p className="text-xs text-text-secondary mt-1">Asah kemampuanmu</p>
+                                <h4 className={`font-bold leading-tight ${dailyQuizDone ? 'text-gray-500' : 'text-text-main'}`}>
+                                    {dailyQuizDone ? 'Selesai!' : 'Kuis Harian'}
+                                </h4>
+                                <p className={`text-xs mt-1 ${dailyQuizDone ? 'text-gray-400' : 'text-text-secondary'}`}>
+                                    {dailyQuizDone ? `Buka: ${countdown}` : '5 soal, +100 XP'}
+                                </p>
                             </div>
                         </button>
 
@@ -257,6 +322,38 @@ function HomePage() {
                                 <p className="text-xs text-text-secondary mt-1">Lihat peringkatmu</p>
                             </div>
                         </button>
+
+                        <button
+                            className="flex flex-col items-start gap-3 rounded-2xl bg-purple-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-purple-200"
+                            onClick={() => nextLesson && navigate(`/practice/${nextLesson.id}`)}
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm">
+                                <span className="material-symbols-outlined">fitness_center</span>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-text-main leading-tight">Mode Latihan</h4>
+                                <p className="text-xs text-text-secondary mt-1">Tanpa nyawa</p>
+                            </div>
+                        </button>
+
+                        {/* Review Wrong Answers Button - only show if there are wrong answers */}
+                        {(userData?.wrongAnswers?.length || 0) > 0 && (
+                            <button
+                                className="flex flex-col items-start gap-3 rounded-2xl bg-red-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-red-200"
+                                onClick={() => navigate('/review-wrong')}
+                            >
+                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-red-600 shadow-sm relative">
+                                    <span className="material-symbols-outlined">replay</span>
+                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                                        {userData?.wrongAnswers?.length}
+                                    </span>
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-text-main leading-tight">Review Salah</h4>
+                                    <p className="text-xs text-text-secondary mt-1">Pelajari kembali</p>
+                                </div>
+                            </button>
+                        )}
                     </div>
                 </section>
 

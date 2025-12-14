@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class',
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
@@ -9,16 +10,18 @@ export default {
             colors: {
                 "primary": "#36e270",
                 "primary-hover": "#2fd165",
-                "background": "#f6f8f6",
+                "background": "var(--color-background)",
                 "background-dark": "#112117",
-                "surface": "#ffffff",
+                "surface": "var(--color-surface)",
                 "surface-dark": "#1c2a23",
-                "text-main": "#111713",
-                "text-secondary": "#637588",
+                "text-main": "var(--color-text-main)",
+                "text-secondary": "var(--color-text-secondary)",
                 "soft-blue": "#BFD7EA",
                 "soft-green": "#A8D5BA",
                 "soft-orange": "#F4A261",
                 "soft-red": "#EF4444",
+                "card-bg": "var(--color-card-bg)",
+                "border-color": "var(--color-border)",
             },
             fontFamily: {
                 "display": ["Lexend", "sans-serif"],

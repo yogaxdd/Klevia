@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../firebase/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import BottomNav from '../components/BottomNav';
 import Card from '../components/Card';
 import Button from '../components/Button';
@@ -10,6 +11,7 @@ function SettingsPage() {
     const navigate = useNavigate();
     const { settings, updateSettings, resetAll, user, updateUser } = useApp();
     const { currentUser, logout, isAuthenticated } = useAuth();
+    const { isDarkMode, toggleTheme } = useTheme();
     const [showResetModal, setShowResetModal] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
@@ -157,6 +159,39 @@ function SettingsPage() {
                                         className={`
                       inline-block h-5 w-5 rounded-full bg-white shadow-sm transform transition-transform
                       ${settings.soundEnabled ? 'translate-x-6' : 'translate-x-1'}
+                    `}
+                                    />
+                                </button>
+                            </div>
+                        </Card>
+
+                        {/* Dark Mode Toggle */}
+                        <Card>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${isDarkMode ? 'bg-indigo-900' : 'bg-indigo-100'}`}>
+                                        <span className={`material-symbols-outlined ${isDarkMode ? 'text-indigo-300' : 'text-indigo-600'}`}>
+                                            {isDarkMode ? 'dark_mode' : 'light_mode'}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-text-main">Mode Gelap</p>
+                                        <p className="text-sm text-text-secondary">
+                                            {isDarkMode ? 'Aktif' : 'Nonaktif'}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={toggleTheme}
+                                    className={`
+                    relative inline-flex h-7 w-12 items-center rounded-full transition-colors
+                    ${isDarkMode ? 'bg-indigo-600' : 'bg-gray-300'}
+                  `}
+                                >
+                                    <span
+                                        className={`
+                      inline-block h-5 w-5 rounded-full bg-white shadow-sm transform transition-transform
+                      ${isDarkMode ? 'translate-x-6' : 'translate-x-1'}
                     `}
                                     />
                                 </button>

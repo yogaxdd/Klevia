@@ -49,6 +49,12 @@ export function AppProvider({ children }) {
     // Update settings (local only for now)
     const updateSettings = useCallback((updates) => {
         setSettings(prev => ({ ...prev, ...updates }));
+        // Sync sound setting with soundService
+        if (updates.soundEnabled !== undefined) {
+            import('../services/soundService').then(module => {
+                module.default.setEnabled(updates.soundEnabled);
+            });
+        }
     }, []);
 
     // Add XP

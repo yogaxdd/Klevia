@@ -43,6 +43,7 @@ const defaultUserData = {
     progress: {
         lessons: {},
     },
+    wrongAnswers: [], // Store wrong answers for review
     profileCompleted: false,
     displayName: 'Pelajar',
     gender: null,

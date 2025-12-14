@@ -1,9 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { useAuth } from '../firebase/AuthContext';
 import { questions } from '../data/allQuestions';
 import { lessons } from '../data/allLessons';
 import { gradeEssayAnswer, getSubjectLabel } from '../services/geminiService';
+import soundService from '../services/soundService';
 import ProgressBar from '../components/ProgressBar';
 import HeartDisplay from '../components/HeartDisplay';
 import OptionCard from '../components/OptionCard';
@@ -79,6 +81,7 @@ function LessonPage() {
     const navigate = useNavigate();
     const { lessonId } = useParams();
     const { user, currentHearts, loseHeart, resetHearts, addXP, completeLesson } = useApp();
+    const { userData, updateUserData } = useAuth();
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -140,10 +143,32 @@ function LessonPage() {
 
         if (correct) {
             setScore(prev => prev + 1);
+            soundService.playCorrect();
         } else {
             loseHeart();
             setShowShake(true);
+            soundService.playWrong();
             setTimeout(() => setShowShake(false), 500);
+
+            // Save wrong answer for review (only MCQ, limit to 50)
+            const existingWrongAnswers = userData?.wrongAnswers || [];
+            const alreadyExists = existingWrongAnswers.some(
+                wa => wa.question === currentQuestion.question
+            );
+
+            if (!alreadyExists && existingWrongAnswers.length < 50) {
+                const wrongAnswer = {
+                    question: currentQuestion.question,
+                    options: currentQuestion.options,
+                    correctAnswer: currentQuestion.correctAnswer,
+                    lessonId: parseInt(lessonId),
+                    lessonTitle: lesson?.title || 'Unknown',
+                    addedAt: new Date().toISOString()
+                };
+                updateUserData({
+                    wrongAnswers: [...existingWrongAnswers, wrongAnswer]
+                });
+            }
         }
     };
 
@@ -167,12 +192,15 @@ function LessonPage() {
             if (result.isCorrect) {
                 // Full score for correct answer
                 setScore(prev => prev + 1);
+                soundService.playCorrect();
             } else if (result.isPartial) {
                 // Half score for partial answer
                 setScore(prev => prev + 0.5);
+                soundService.playCorrect(); // Still plays correct for partial
             } else {
                 loseHeart();
                 setShowShake(true);
+                soundService.playWrong();
                 setTimeout(() => setShowShake(false), 500);
             }
         } catch (error) {
