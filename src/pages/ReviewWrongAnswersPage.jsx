@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../firebase/AuthContext';
 import soundService from '../services/soundService';
+import ProgressBar from '../components/ProgressBar';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import OptionCard from '../components/OptionCard';
@@ -15,10 +16,14 @@ function ReviewWrongAnswersPage() {
     const [isAnswered, setIsAnswered] = useState(false);
     const [isCorrect, setIsCorrect] = useState(null);
     const [masteredCount, setMasteredCount] = useState(0);
+    const [showShake, setShowShake] = useState(false);
 
     const wrongAnswers = userData?.wrongAnswers || [];
-
     const currentQuestion = wrongAnswers[currentIndex];
+
+    // Labels for options
+    const labels = ['A', 'B', 'C', 'D'];
+    const correctAnswerText = currentQuestion?.options?.[currentQuestion.correctAnswer];
 
     const handleSelectAnswer = (index) => {
         if (isAnswered) return;
@@ -41,15 +46,17 @@ function ReviewWrongAnswersPage() {
             updateUserData({ wrongAnswers: updatedWrongAnswers });
         } else {
             soundService.playWrong();
+            setShowShake(true);
+            setTimeout(() => setShowShake(false), 500);
         }
     };
 
     const handleNext = () => {
-        // If we answered correctly, the array was shortened, so don't increment
+        // If we answered correctly, the array was shortened
         const newWrongAnswers = userData?.wrongAnswers || [];
 
         if (isCorrect) {
-            // Array was shortened, check if there are more
+            // Array was shortened
             if (currentIndex < newWrongAnswers.length) {
                 // Stay at same index (next item shifted down)
             } else if (newWrongAnswers.length > 0) {
@@ -76,7 +83,7 @@ function ReviewWrongAnswersPage() {
     if (wrongAnswers.length === 0) {
         return (
             <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
-                <div className="text-center">
+                <div className="text-center animate-fadeIn">
                     <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
                         <span
                             className="material-symbols-outlined text-green-600"
@@ -98,64 +105,75 @@ function ReviewWrongAnswersPage() {
     }
 
     return (
-        <div className="min-h-screen bg-background flex flex-col">
-            {/* Header */}
-            <header className="px-4 pt-6 pb-4">
-                <div className="flex items-center gap-4 mb-4">
-                    <button
-                        onClick={() => navigate('/home')}
-                        className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-100 hover:bg-gray-200"
-                    >
-                        <span className="material-symbols-outlined text-text-main">close</span>
-                    </button>
+        <div className="bg-background min-h-screen flex flex-col relative">
+            {/* Top Bar - Matches LessonPage structure */}
+            <div className="flex items-center justify-between px-4 py-3 bg-background shrink-0">
+                <button
+                    onClick={() => navigate('/home')}
+                    className="flex items-center justify-center p-2 text-gray-400 hover:bg-gray-200 rounded-full transition-colors"
+                >
+                    <span className="material-symbols-outlined text-2xl">close</span>
+                </button>
 
-                    <div className="flex-1">
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-red-500 transition-all duration-300"
-                                style={{ width: `${((currentIndex + 1) / wrongAnswers.length) * 100}%` }}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Review Badge */}
-                    <div className="flex items-center gap-1 bg-red-100 text-red-600 px-2 py-1 rounded-lg">
-                        <span className="material-symbols-outlined text-sm">replay</span>
-                        <span className="text-xs font-bold">{wrongAnswers.length}</span>
-                    </div>
+                <div className="flex-1 mx-4">
+                    <ProgressBar
+                        value={currentIndex + 1}
+                        max={wrongAnswers.length}
+                        size="lg"
+                        color="red" // Red progress bar for review mode
+                    />
                 </div>
 
-                <p className="text-center text-sm text-text-secondary">
-                    Review Jawaban Salah • {currentIndex + 1} dari {wrongAnswers.length}
-                </p>
-            </header>
+                {/* Review Badge */}
+                <div className="flex items-center gap-1 bg-red-100 text-red-600 px-3 py-1.5 rounded-full">
+                    <span className="material-symbols-outlined text-sm font-bold">replay</span>
+                    <span className="text-xs font-bold">{wrongAnswers.length}</span>
+                </div>
+            </div>
 
-            {/* Question Content */}
-            <div className="flex-1 px-4 pb-4 overflow-y-auto">
-                {/* Lesson Info */}
-                <div className="mb-3">
-                    <span className="text-xs bg-gray-100 px-2 py-1 rounded-lg text-text-secondary">
-                        {currentQuestion?.lessonTitle || 'Review'}
+            {/* Main Content */}
+            <div className={`flex-1 overflow-y-auto no-scrollbar p-4 flex flex-col items-center w-full max-w-md mx-auto ${isAnswered && !isCorrect ? 'pb-72' : ''}`}>
+
+                <div className="w-full text-center mb-4 text-sm text-text-secondary">
+                    Review Jawaban Salah • {currentIndex + 1} dari {wrongAnswers.length}
+                </div>
+
+                {/* Question Type Badge */}
+                <div className="w-full mb-2">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                        <span className="material-symbols-outlined text-sm">history_edu</span>
+                        Review
                     </span>
                 </div>
 
-                {/* Question Card */}
-                <Card className="mb-4">
-                    <p className="text-lg font-medium text-text-main leading-relaxed">
-                        {currentQuestion?.question}
-                    </p>
-                </Card>
+                {/* Question Section */}
+                <div className="w-full mb-6">
+                    <h2 className="text-lg font-bold text-text-main mb-4 leading-tight">
+                        Coba kerjakan ulang soal ini:
+                    </h2>
+
+                    {/* Question Card - Matches LessonPage */}
+                    <div className={`bg-white rounded-2xl shadow-soft overflow-hidden border border-gray-100 mb-6 animate-fadeIn ${showShake ? 'animate-shake' : ''}`}>
+                        <div className="p-5">
+                            <p className="text-xl font-bold text-text-main leading-tight">
+                                {currentQuestion?.question}
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
                 {/* Answer Options */}
-                <div className="space-y-3">
+                <div className="w-full flex flex-col gap-3 pb-4 stagger-children">
                     {currentQuestion?.options?.map((option, index) => (
                         <OptionCard
                             key={index}
-                            label={String.fromCharCode(65 + index)}
+                            label={labels[index]}
                             text={option}
                             selected={selectedAnswer === index}
-                            correct={isAnswered && index === currentQuestion.correctAnswer}
-                            wrong={isAnswered && selectedAnswer === index && index !== currentQuestion.correctAnswer}
+                            correct={isAnswered ? (
+                                index === currentQuestion.correctAnswer ? true :
+                                    selectedAnswer === index ? false : null
+                            ) : null}
                             onClick={() => handleSelectAnswer(index)}
                             disabled={isAnswered}
                         />
@@ -163,53 +181,105 @@ function ReviewWrongAnswersPage() {
                 </div>
             </div>
 
-            {/* Bottom Action */}
-            {!isAnswered ? (
-                <div className="p-4 border-t border-gray-100 bg-white">
-                    <Button
-                        variant="primary"
-                        fullWidth
-                        onClick={handleCheck}
-                        disabled={selectedAnswer === null}
-                    >
-                        Periksa Jawaban
-                    </Button>
-                </div>
-            ) : (
-                <div className={`${isCorrect ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400'} border-t-4 p-5 rounded-t-3xl`}>
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isCorrect ? 'bg-green-500' : 'bg-red-500'} text-white`}>
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
-                                {isCorrect ? 'check' : 'close'}
-                            </span>
-                        </div>
-                        <div>
-                            <h3 className={`text-xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                                {isCorrect ? 'Sekarang Paham! ✨' : 'Belum Tepat'}
-                            </h3>
-                            {!isCorrect && (
-                                <p className="text-sm text-red-500">
-                                    Jawaban: {currentQuestion?.options?.[currentQuestion.correctAnswer]}
+            {/* Correct Answer - Bottom Sheet (Green) */}
+            {isAnswered && isCorrect && (
+                <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
+                    <div className="bg-[#e8f8ed] border-t-4 border-primary p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-white shadow-sm shrink-0">
+                                <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                                    check
+                                </span>
+                            </div>
+                            <div>
+                                <h3 className="text-primary text-xl font-bold tracking-tight">
+                                    Sekarang Paham! ✨
+                                </h3>
+                                <p className="text-green-700 text-sm">
+                                    Soal ini telah dihapus dari daftar review.
                                 </p>
-                            )}
-                            {isCorrect && (
-                                <p className="text-sm text-green-500">
-                                    Dihapus dari daftar review!
-                                </p>
-                            )}
+                            </div>
                         </div>
-                    </div>
 
-                    <button
-                        onClick={handleNext}
-                        className={`w-full font-bold py-4 rounded-2xl flex items-center justify-center gap-2 ${isCorrect ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-                            }`}
-                    >
-                        <span>Lanjut</span>
-                        <span className="material-symbols-outlined">arrow_forward</span>
-                    </button>
+                        <button
+                            onClick={handleNext}
+                            className="w-full bg-primary hover:bg-[#2fd165] active:scale-[0.98] text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-primary/20 transition-all duration-200 flex items-center justify-center gap-2"
+                        >
+                            <span>Lanjut</span>
+                            <span className="material-symbols-outlined font-bold">arrow_forward</span>
+                        </button>
+                    </div>
                 </div>
             )}
+
+            {/* Incorrect Answer - Bottom Sheet */}
+            {isAnswered && !isCorrect && (
+                <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
+                    <div className="bg-[#fef3eb] border-[#F4A261] border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-[#F4A261] text-white shadow-sm shrink-0">
+                                <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                                    priority_high
+                                </span>
+                            </div>
+                            <div>
+                                <h3 className="text-[#c26d2b] text-xl font-bold tracking-tight">
+                                    Belum Tepat
+                                </h3>
+                                <p className="text-[#a67c52] text-sm">
+                                    Coba ingat-ingat lagi materi ini ya!
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Correct Answer Card */}
+                        <div className="bg-white rounded-2xl p-4 border border-gray-200 mb-4 shadow-sm">
+                            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">
+                                Jawaban yang benar:
+                            </p>
+                            <div className="flex items-start gap-3">
+                                <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/20 text-primary font-bold text-sm shrink-0">
+                                    {labels[currentQuestion.correctAnswer]}
+                                </div>
+                                <p className="text-primary text-base font-medium leading-relaxed">{correctAnswerText}</p>
+                            </div>
+                        </div>
+
+                        <button
+                            onClick={handleNext}
+                            className="w-full bg-primary hover:bg-[#2fd165] active:scale-[0.98] text-white font-bold text-lg py-4 rounded-2xl shadow-lg shadow-primary/20 transition-all duration-200 flex items-center justify-center gap-2"
+                        >
+                            <span>Lanjut</span>
+                            <span className="material-symbols-outlined font-bold">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {/* Default Bottom Bar */}
+            {!isAnswered && (
+                <div className="w-full bg-white border-t border-gray-100 p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] fixed bottom-0 left-0 right-0 sm:static">
+                    <div className="max-w-md mx-auto w-full">
+                        <Button
+                            variant="primary"
+                            size="lg"
+                            fullWidth
+                            onClick={handleCheck}
+                            disabled={selectedAnswer === null}
+                        >
+                            PERIKSA
+                        </Button>
+                    </div>
+                </div>
+            )}
+
+            {/* CSS Animation */}
+            <style>{`
+        @keyframes slideUp {
+          from { transform: translateY(100%); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      `}</style>
         </div>
     );
 }

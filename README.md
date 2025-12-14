@@ -2,8 +2,6 @@
 
 KLEVIA adalah aplikasi web edukasi modern yang dirancang untuk membuat belajar menjadi menyenangkan, interaktif, dan terpersonalisasi bagi siswa SMP dan SMA di Indonesia. Menggabungkan elemen gamifikasi dengan materi pelajaran sesuai kurikulum, KLEVIA memotivasi siswa untuk belajar secara konsisten setiap hari.
 
-![Klevia Banner](/public/Assets/klevia-banner.png) *(Placeholder)*
-
 ## ✨ Fitur Unggulan
 
 ### 🎮 Gamifikasi Pembelajaran
