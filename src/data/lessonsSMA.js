@@ -253,6 +253,21 @@ export const lessonsSMA = [
     // INFORMATIKA - Kelas 12
     { id: 13401, title: "Kecerdasan Buatan", subject: "informatika", grade: 12, description: "AI dan machine learning", questionsCount: 12, xpReward: 90, order: 1 },
     { id: 13402, title: "Data Science", subject: "informatika", grade: 12, description: "Analisis dan visualisasi data", questionsCount: 10, xpReward: 85, order: 2 },
+
+    // ============================================
+    // TKA (TES KEMAMPUAN AKADEMIK) - KELAS 12 ONLY
+    // Premium Feature - No locked progression
+    // Categories: wajib, pilihan
+    // ============================================
+
+    // TKA - Mata Pelajaran Wajib
+    { id: 120001, title: "Latihan Soal TKA Matematika Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Matematika", description: "Soal TKA Matematika dari Pusmendik", questionsCount: 10, xpReward: 100, order: 1, isPremium: true },
+    { id: 120002, title: "Latihan Soal TKA Bahasa Indonesia Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Bahasa Indonesia", description: "Soal TKA Bahasa Indonesia dari Pusmendik", questionsCount: 9, xpReward: 100, order: 2, isPremium: true },
+
+    // TKA - Mata Pelajaran Pilihan (akan ditambah nanti)
+    // { id: 120101, title: "Latihan Soal TKA Fisika Set 1", subject: "tka", grade: 12, category: "pilihan", tkaSubject: "Fisika", description: "Soal TKA Fisika", questionsCount: 10, xpReward: 100, order: 1, isPremium: true },
 ];
 
+
 export default lessonsSMA;
+

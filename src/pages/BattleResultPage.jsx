@@ -31,12 +31,15 @@ function BattleResultPage() {
         if (!roomCode) return;
 
         const unsubscribe = subscribeToRoom(roomCode, (roomData) => {
-            setRoom(roomData);
+            // Only update room if we get valid data
+            // Once we have data, keep it even if room gets deleted (so user can still see results)
+            if (roomData) {
+                setRoom(roomData);
+            }
             setLoading(false);
 
-            if (!roomData) {
-                navigate('/battle');
-            }
+            // Don't auto-navigate away - let user click "Main Lagi" or "Kembali"
+            // This allows them to screenshot results before leaving
         });
 
         return () => unsubscribe();

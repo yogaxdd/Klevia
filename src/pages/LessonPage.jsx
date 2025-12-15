@@ -99,15 +99,19 @@ function LessonPage() {
     const rawLessonQuestions = questions[lessonId] || [];
     const lesson = lessons.find(l => l.id === parseInt(lessonId));
 
-    // Shuffle semua soal, convert some to essay, dan acak opsi jawaban
+    // Check if this is a TKA lesson (subject starts with 'tka')
+    const isTKALesson = lesson?.subject === 'tka';
+
+    // Shuffle semua soal, convert some to essay (except TKA), dan acak opsi jawaban
     const lessonQuestions = useMemo(() => {
         // Shuffle urutan soal
         const shuffledQuestions = shuffleArray(rawLessonQuestions);
-        // Convert some to essay
-        const withEssay = convertToEssayQuestions(shuffledQuestions);
+        // Convert some to essay - SKIP for TKA (TKA is multiple choice only)
+        const withEssay = isTKALesson ? shuffledQuestions.map(q => ({ ...q, type: 'multiple_choice' })) : convertToEssayQuestions(shuffledQuestions);
         // Shuffle options in multiple choice questions
         return withEssay.map(q => shuffleQuestionOptions(q));
-    }, [lessonId, rawLessonQuestions.length]);
+    }, [lessonId, rawLessonQuestions.length, isTKALesson]);
+
 
     const currentQuestion = lessonQuestions[currentQuestionIndex];
     const totalQuestions = lessonQuestions.length;
@@ -301,7 +305,7 @@ function LessonPage() {
         );
     }
 
-    const labels = ['A', 'B', 'C', 'D'];
+    const labels = ['A', 'B', 'C', 'D', 'E'];
     const correctAnswerText = isEssayQuestion
         ? currentQuestion.expectedAnswer
         : currentQuestion.options?.[currentQuestion.correctAnswer];
@@ -362,9 +366,26 @@ function LessonPage() {
                             <p className="text-xl font-bold text-text-main leading-tight">
                                 {currentQuestion.question}
                             </p>
+                            {/* Question Images - for TKA questions */}
+                            {currentQuestion.questionImages && currentQuestion.questionImages.length > 0 && (
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    {currentQuestion.questionImages.map((imgSrc, idx) => (
+                                        <img
+                                            key={idx}
+                                            src={imgSrc}
+                                            alt={`Gambar soal ${idx + 1}`}
+                                            className="max-w-full max-h-48 rounded-lg border border-border object-contain"
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
+
 
                 {/* Answer Section */}
                 {isEssayQuestion ? (
@@ -403,6 +424,7 @@ function LessonPage() {
                                 key={`${questionKey}-${index}`}
                                 label={labels[index]}
                                 text={option}
+                                image={currentQuestion.optionImages?.[index] || null}
                                 selected={selectedAnswer === index}
                                 correct={isAnswered ? (
                                     index === currentQuestion.correctAnswer ? true :
@@ -412,6 +434,7 @@ function LessonPage() {
                                 disabled={isAnswered}
                             />
                         ))}
+
                     </div>
                 )}
             </div>

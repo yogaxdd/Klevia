@@ -11,9 +11,72 @@ import {
     deleteDoc,
     onSnapshot,
     Timestamp,
-    arrayUnion
+    arrayUnion,
+    getDocs,
+    query,
+    where
 } from 'firebase/firestore';
 import { questions } from '../data/allQuestions';
+
+// Constants for cleanup
+const STALE_PLAYING_TIMEOUT = 60 * 60 * 1000; // 1 hour - room playing too long
+const STALE_WAITING_TIMEOUT = 30 * 60 * 1000; // 30 minutes - room waiting too long
+const FINISHED_CLEANUP_TIMEOUT = 5 * 60 * 1000; // 5 minutes - cleanup finished rooms
+
+/**
+ * Cleanup stale rooms (called when accessing battle lobby)
+ */
+export async function cleanupStaleRooms() {
+    const now = Date.now();
+    const battlesRef = collection(db, 'quiz_battles');
+
+    try {
+        const snapshot = await getDocs(battlesRef);
+        const deletePromises = [];
+
+        snapshot.forEach((docSnap) => {
+            const room = docSnap.data();
+            const createdAt = room.createdAt?.toMillis?.() || 0;
+            const startedAt = room.startedAt?.toMillis?.() || 0;
+
+            let shouldDelete = false;
+
+            // Delete finished rooms older than 5 minutes
+            if (room.status === 'finished') {
+                const finishedTime = startedAt || createdAt;
+                if (now - finishedTime > FINISHED_CLEANUP_TIMEOUT) {
+                    shouldDelete = true;
+                    console.log(`🧹 Cleaning finished room: ${docSnap.id}`);
+                }
+            }
+            // Delete playing rooms older than 1 hour (stuck/abandoned)
+            else if (room.status === 'playing' || room.status === 'countdown') {
+                if (startedAt && now - startedAt > STALE_PLAYING_TIMEOUT) {
+                    shouldDelete = true;
+                    console.log(`🧹 Cleaning stale playing room: ${docSnap.id}`);
+                }
+            }
+            // Delete waiting rooms older than 30 minutes
+            else if (room.status === 'waiting' || room.status === 'ready') {
+                if (now - createdAt > STALE_WAITING_TIMEOUT) {
+                    shouldDelete = true;
+                    console.log(`🧹 Cleaning stale waiting room: ${docSnap.id}`);
+                }
+            }
+
+            if (shouldDelete) {
+                deletePromises.push(deleteDoc(doc(db, 'quiz_battles', docSnap.id)));
+            }
+        });
+
+        if (deletePromises.length > 0) {
+            await Promise.all(deletePromises);
+            console.log(`🧹 Cleaned up ${deletePromises.length} stale rooms`);
+        }
+    } catch (error) {
+        console.error('Error cleaning up stale rooms:', error);
+    }
+}
 
 /**
  * Generate random 6-character room code
@@ -36,60 +99,88 @@ function generateRoomCode() {
  */
 function getQuestionsForClass(kelas, count = 10, subject = 'all') {
     // Get lesson ID range based on class
+    // SMA Lesson ID format: KKSNN where KK=kelas (10,11,12), S=subject (1-9 single, 10-12 special), NN=lesson
+    // Actually format is: KKXNN where KK=kelas, X=subject code (1-9), NN=lesson number
+    // For subject codes >= 10, we need different handling
     let startId, endId;
     switch (kelas) {
         case 7: startId = 101; endId = 199; break;
         case 8: startId = 201; endId = 299; break;
         case 9: startId = 301; endId = 399; break;
-        case 10: startId = 10101; endId = 11299; break;
-        case 11: startId = 11101; endId = 11299; break;
-        case 12: startId = 12101; endId = 12299; break;
+        case 10: startId = 10101; endId = 10999; break;
+        case 11: startId = 11101; endId = 11999; break;
+        case 12: startId = 12101; endId = 12999; break;
         default: startId = 101; endId = 199;
     }
 
-    // Subject code mapping for SMA (middle digit in 5-digit ID)
-    const subjectCodeMap = {
-        'matematika': [1],
-        'bahasa': [2],
-        'english': [3],
-        'biologi': [4],
-        'kimia': [5],
-        'fisika': [6],
-        'ekonomi': [7],
-        'sosiologi': [8],
-        'geografi': [9],
-        'sejarah': [10],
-        'pkn': [11],
-        'informatika': [12],
-        'ipa': [1, 2, 3, 4], // SMP IPA includes multiple topics
+    // Explicit lesson ID ranges per subject per class
+    // This avoids confusion from the inconsistent ID format
+    const subjectRanges = {
+        // Kelas 11 - based on actual questionsSMAKelas11.js
+        11: {
+            'matematika': { start: 11301, end: 11307 },
+            'bahasa': { start: 11401, end: 11405 },
+            'english': { start: 11501, end: 11505 },
+            'biologi': { start: 11601, end: 11605 },
+            'kimia': { start: 11701, end: 11705 },
+            'fisika': { start: 11801, end: 11805 },
+            'ekonomi': { start: 11901, end: 11905 },
+            'sosiologi': { start: 12001, end: 12005 },
+            'geografi': { start: 12101, end: 12105 },
+            'sejarah': { start: 12201, end: 12205 },
+            'pkn': { start: 12301, end: 12305 },
+            'informatika': { start: 12401, end: 12405 },
+        },
+        // Kelas 10 - similar pattern
+        10: {
+            'matematika': { start: 10301, end: 10310 },
+            'bahasa': { start: 10401, end: 10410 },
+            'english': { start: 10501, end: 10510 },
+            'biologi': { start: 10601, end: 10610 },
+            'kimia': { start: 10701, end: 10710 },
+            'fisika': { start: 10801, end: 10810 },
+            'ekonomi': { start: 10901, end: 10910 },
+        },
+        // Kelas 12 - similar pattern
+        12: {
+            'matematika': { start: 12301, end: 12310 },
+            'bahasa': { start: 12401, end: 12410 },
+            'english': { start: 12501, end: 12510 },
+            'biologi': { start: 12601, end: 12610 },
+            'kimia': { start: 12701, end: 12710 },
+            'fisika': { start: 12801, end: 12810 },
+            'ekonomi': { start: 12901, end: 12910 },
+        },
     };
 
     // Get all questions from these lesson IDs
     let allQuestions = [];
     console.log(`🎮 Looking for questions in range ${startId}-${endId}, subject: ${subject}`);
 
-    for (let lessonId = startId; lessonId <= endId; lessonId++) {
-        // Filter by subject if not 'all'
-        if (subject !== 'all' && kelas >= 10) {
-            // For SMA, extract subject digit (position 3 in 5-digit ID like 10101)
-            const lessonStr = String(lessonId);
-            if (lessonStr.length === 5) {
-                const subjectDigit = parseInt(lessonStr[2]);
-                const allowedSubjects = subjectCodeMap[subject] || [];
-                if (!allowedSubjects.includes(subjectDigit)) continue;
-            }
-        } else if (subject !== 'all' && kelas <= 9) {
-            // For SMP, simpler logic based on first digit after class
-            // 1xx = mat/ipa, 2xx would be bahasa, etc. (simplified for now)
-            // Currently SMP has mixed subjects, so we skip strict filtering
-        }
+    // If we have explicit subject ranges for this class, use them
+    if (subject !== 'all' && kelas >= 10 && subjectRanges[kelas] && subjectRanges[kelas][subject]) {
+        const range = subjectRanges[kelas][subject];
+        console.log(`🎮 Using explicit range for ${subject}: ${range.start}-${range.end}`);
 
-        const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
-        if (lessonQuestions && Array.isArray(lessonQuestions)) {
-            allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
-                ...q,
-                lessonId
-            }))];
+        for (let lessonId = range.start; lessonId <= range.end; lessonId++) {
+            const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
+            if (lessonQuestions && Array.isArray(lessonQuestions)) {
+                allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
+                    ...q,
+                    lessonId
+                }))];
+            }
+        }
+    } else {
+        // Fallback to original range-based approach for SMP or 'all' subjects
+        for (let lessonId = startId; lessonId <= endId; lessonId++) {
+            const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
+            if (lessonQuestions && Array.isArray(lessonQuestions)) {
+                allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
+                    ...q,
+                    lessonId
+                }))];
+            }
         }
     }
 
@@ -216,6 +307,19 @@ export async function joinRoom(roomCode, guestData) {
     }
 
     const roomData = roomSnap.data();
+    const now = Date.now();
+    const createdAt = roomData.createdAt?.toMillis?.() || 0;
+    const startedAt = roomData.startedAt?.toMillis?.() || 0;
+
+    // Check if room is stale and auto-delete
+    const isStaleWaiting = roomData.status === 'waiting' && now - createdAt > STALE_WAITING_TIMEOUT;
+    const isStalePlaying = (roomData.status === 'playing' || roomData.status === 'countdown') &&
+        startedAt && now - startedAt > STALE_PLAYING_TIMEOUT;
+
+    if (isStaleWaiting || isStalePlaying) {
+        await deleteDoc(roomRef);
+        throw new Error('Room sudah kadaluarsa');
+    }
 
     if (roomData.guestId) {
         throw new Error('Room sudah penuh');
@@ -399,4 +503,5 @@ export default {
     endGame,
     subscribeToRoom,
     leaveRoom,
+    cleanupStaleRooms,
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../firebase/AuthContext';
 import { subscribeToRoom, submitAnswer, finishQuiz, endGame } from '../services/battleService';
@@ -23,8 +23,13 @@ function BattleGamePage() {
     const totalQuestions = questions.length;
 
     // Subscribe to room
+    const hasRestoredRef = useRef(false);
+
     useEffect(() => {
         if (!roomCode || !currentUser) return;
+
+        // Reset restore flag when component mounts
+        hasRestoredRef.current = false;
 
         const unsubscribe = subscribeToRoom(roomCode, (roomData) => {
             if (!roomData) {
@@ -42,25 +47,30 @@ function BattleGamePage() {
 
             setRoom(roomData);
 
-            // Restore progress on reconnect - check if we have saved answers
-            const amHost = roomData.hostId === currentUser.uid;
-            const savedAnswers = amHost ? roomData.hostAnswers : roomData.guestAnswers;
-            
-            if (savedAnswers && savedAnswers.length > 0 && myAnswers.length === 0) {
-                // Reconnecting - restore progress
-                setMyAnswers(savedAnswers);
-                const nextIndex = savedAnswers.length;
-                const totalQ = roomData.questions?.length || 0;
-                
-                if (nextIndex < totalQ) {
-                    setCurrentIndex(nextIndex);
-                    setAnswered(false);
-                    setSelectedAnswer(null);
-                    console.log(`🎮 Reconnected! Resuming at question ${nextIndex + 1}/${totalQ}`);
+            // Restore progress on reconnect - only do this ONCE on initial load
+            if (!hasRestoredRef.current) {
+                hasRestoredRef.current = true;
+
+                const amHost = roomData.hostId === currentUser.uid;
+                const savedAnswers = amHost ? roomData.hostAnswers : roomData.guestAnswers;
+
+                if (savedAnswers && savedAnswers.length > 0) {
+                    // Reconnecting - restore progress
+                    setMyAnswers(savedAnswers);
+                    const nextIndex = savedAnswers.length;
+                    const totalQ = roomData.questions?.length || 0;
+
+                    if (nextIndex < totalQ) {
+                        setCurrentIndex(nextIndex);
+                        setAnswered(false);
+                        setSelectedAnswer(null);
+                        console.log(`🎮 Reconnected! Resuming at question ${nextIndex + 1}/${totalQ}`);
+                    }
                 }
             }
 
             // Check if opponent disconnected (left the game)
+            const amHost = roomData.hostId === currentUser.uid;
             const opponentLeft = amHost ? !roomData.guestId : !roomData.hostId;
 
             if (opponentLeft && roomData.status === 'playing') {
@@ -302,7 +312,7 @@ function BattleGamePage() {
             )}
 
             {/* Answered feedback - fixed at bottom same as JAWAB button */}
-            {answered && (
+            {answered && !myFinished && (
                 <div className="fixed bottom-4 left-4 right-4 lg:bottom-4 lg:left-[calc(16rem+1rem)] lg:right-4 z-40">
                     <div className="max-w-2xl mx-auto">
                         <div className={`p-4 rounded-2xl text-center ${selectedAnswer === currentQuestion.correctAnswer
@@ -314,6 +324,33 @@ function BattleGamePage() {
                             </span>
                             <p className="font-bold">
                                 {selectedAnswer === currentQuestion.correctAnswer ? 'Benar!' : 'Salah!'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Waiting for opponent - shown when I finished but opponent hasn't */}
+            {myFinished && !opponentFinished && room?.status !== 'finished' && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-surface rounded-2xl p-8 text-center max-w-sm mx-4 shadow-2xl">
+                        <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                            <span className="material-symbols-outlined text-4xl text-primary animate-pulse">
+                                hourglass_top
+                            </span>
+                        </div>
+                        <h2 className="text-xl font-bold text-text-main mb-2">Kamu Sudah Selesai! 🎉</h2>
+                        <p className="text-text-secondary mb-4">
+                            Menunggu <span className="font-semibold text-primary">{opponentName}</span> selesai menjawab...
+                        </p>
+                        <div className="flex items-center justify-center gap-2 text-sm text-text-secondary">
+                            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                            <div className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        </div>
+                        <div className="mt-6 pt-4 border-t border-border">
+                            <p className="text-sm text-text-secondary">
+                                Skor kamu: <span className="font-bold text-primary text-lg">{myScore}</span> / {totalQuestions}
                             </p>
                         </div>
                     </div>

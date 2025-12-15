@@ -2,6 +2,7 @@
 function OptionCard({
     label,
     text,
+    image = null, // optional image URL for image-based options
     selected = false,
     correct = null, // null = not answered, true = correct, false = incorrect
     onClick,
@@ -48,7 +49,7 @@ function OptionCard({
         ${disabled && correct === null ? 'opacity-50' : ''}
       `}>
                 <div className={`
-          flex items-center justify-center w-8 h-8 rounded-full border-2 mr-4 font-bold text-sm
+          flex items-center justify-center w-8 h-8 rounded-full border-2 mr-4 font-bold text-sm shrink-0
           ${getLabelStyles()}
         `}>
                     {correct === true ? (
@@ -59,12 +60,28 @@ function OptionCard({
                         label
                     )}
                 </div>
-                <span className={`text-base font-medium flex-1 ${correct === true ? 'text-primary' :
-                    correct === false ? 'text-[#c26d2b]' :
-                        'text-text-main group-hover:text-black'
-                    }`}>
-                    {text}
-                </span>
+                <div className="flex-1">
+                    {/* Show image if provided */}
+                    {image && (
+                        <img
+                            src={image}
+                            alt={text || `Option ${label}`}
+                            className="max-h-20 object-contain mb-1"
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                            }}
+                        />
+                    )}
+                    {/* Show text if provided */}
+                    {text && (
+                        <span className={`text-base font-medium ${correct === true ? 'text-primary' :
+                            correct === false ? 'text-[#c26d2b]' :
+                                'text-text-main group-hover:text-black'
+                            }`}>
+                            {text}
+                        </span>
+                    )}
+                </div>
             </div>
         </label>
     );

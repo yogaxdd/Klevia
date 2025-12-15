@@ -109,6 +109,16 @@ function SubjectSelectionPage() {
             iconColor: 'text-indigo-600',
             grades: [10, 11, 12],
         },
+        // TKA - Grade 12 Only, Premium Feature
+        {
+            id: 'tka',
+            label: 'TKA',
+            icon: 'school',
+            color: 'bg-gradient-to-br from-amber-100 to-orange-200',
+            iconColor: 'text-amber-600',
+            grades: [12],
+            isPremium: true,
+        },
     ];
 
     // Filter subjects based on selected grade
@@ -117,8 +127,13 @@ function SubjectSelectionPage() {
         return subject.grades.includes(user.kelas);
     });
 
-    const handleSelectSubject = (subjectId) => {
-        updateUser({ subject: subjectId });
+    const handleSelectSubject = (subject) => {
+        // Check if subject is premium and user is not premium
+        if (subject.isPremium && !user.isPremium) {
+            navigate('/premium');
+            return;
+        }
+        updateUser({ subject: subject.id });
     };
 
     const handleContinue = () => {
@@ -153,8 +168,8 @@ function SubjectSelectionPage() {
                     <Card
                         key={subject.id}
                         hoverable
-                        onClick={() => handleSelectSubject(subject.id)}
-                        className={`${user.subject === subject.id ? 'ring-2 ring-primary border-primary' : ''}`}
+                        onClick={() => handleSelectSubject(subject)}
+                        className={`relative ${user.subject === subject.id ? 'ring-2 ring-primary border-primary' : ''}`}
                         padding="lg"
                     >
                         <div className="flex flex-col items-center text-center gap-3">
@@ -166,6 +181,15 @@ function SubjectSelectionPage() {
                             <h3 className="font-bold text-text-main text-sm leading-tight">
                                 {subject.label}
                             </h3>
+                            {/* Premium Badge */}
+                            {subject.isPremium && (
+                                <div className="absolute top-2 right-2">
+                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-400 to-orange-500 text-white">
+                                        <span className="material-symbols-outlined text-xs">workspace_premium</span>
+                                        Premium
+                                    </span>
+                                </div>
+                            )}
                         </div>
                     </Card>
                 ))}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../firebase/AuthContext';
-import { createRoom, joinRoom, getAvailableClasses, subscribeToRoom } from '../services/battleService';
+import { createRoom, joinRoom, getAvailableClasses, subscribeToRoom, cleanupStaleRooms } from '../services/battleService';
 import Card from '../components/Card';
 import Button from '../components/Button';
 import BottomNav from '../components/BottomNav';
@@ -56,6 +56,9 @@ function BattleLobbyPage() {
 
     // Check for active battle room on mount
     useEffect(() => {
+        // Cleanup stale rooms whenever user visits battle lobby
+        cleanupStaleRooms();
+
         const savedRoom = localStorage.getItem('klevia_active_battle');
         if (savedRoom && currentUser) {
             const { roomCode, status } = JSON.parse(savedRoom);
