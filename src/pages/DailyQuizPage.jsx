@@ -245,12 +245,12 @@ function DailyQuizPage() {
                         const isSelected = selectedAnswer === idx;
                         const isCorrectAnswer = idx === currentQuestion.correctAnswer;
 
-                        let bgClass = 'bg-white border-2 border-gray-200 hover:border-primary/50';
+                        let bgClass = 'bg-surface border-2 border-gray-200 dark:border-gray-600 hover:border-primary/50';
                         if (isAnswered) {
                             if (isCorrectAnswer) {
-                                bgClass = 'bg-green-50 border-2 border-green-500';
+                                bgClass = 'bg-green-50 dark:bg-green-900/30 border-2 border-green-500';
                             } else if (isSelected && !isCorrectAnswer) {
-                                bgClass = 'bg-red-50 border-2 border-red-500';
+                                bgClass = 'bg-red-50 dark:bg-red-900/30 border-2 border-red-500';
                             }
                         } else if (isSelected) {
                             bgClass = 'bg-primary/10 border-2 border-primary';
@@ -266,7 +266,7 @@ function DailyQuizPage() {
                                 <div className="flex items-center gap-3">
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${isAnswered && isCorrectAnswer ? 'bg-green-500 text-white' :
                                         isAnswered && isSelected && !isCorrectAnswer ? 'bg-red-500 text-white' :
-                                            isSelected ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'
+                                            isSelected ? 'bg-primary text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
                                         }`}>
                                         {String.fromCharCode(65 + idx)}
                                     </div>
@@ -280,7 +280,7 @@ function DailyQuizPage() {
 
             {/* Bottom feedback & button */}
             {isAnswered && (
-                <div className={`${isCorrect ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400'} border-t-4 p-5 rounded-t-3xl`}>
+                <div className={`${isCorrect ? 'bg-green-50 dark:bg-green-900/30 border-green-400' : 'bg-red-50 dark:bg-red-900/30 border-red-400'} border-t-4 p-5 rounded-t-3xl`}>
                     <div className="flex items-center gap-3 mb-4">
                         <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isCorrect ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>

@@ -24,6 +24,8 @@ import DailyQuizPage from './pages/DailyQuizPage'
 import PracticeModePage from './pages/PracticeModePage'
 import PracticeCompletePage from './pages/PracticeCompletePage'
 import ReviewWrongAnswersPage from './pages/ReviewWrongAnswersPage'
+import AITestPage from './pages/AITestPage'
+import StatisticsPage from './pages/StatisticsPage'
 
 function App() {
     return (
@@ -92,6 +94,12 @@ function App() {
                                     } />
                                     <Route path="/review-wrong" element={
                                         <ProtectedRoute><ReviewWrongAnswersPage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/ai-test" element={
+                                        <ProtectedRoute><AITestPage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/statistics" element={
+                                        <ProtectedRoute><StatisticsPage /></ProtectedRoute>
                                     } />
                                 </Routes>
                             </div>

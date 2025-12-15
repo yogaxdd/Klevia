@@ -13,7 +13,7 @@ function Button({
 
     const variants = {
         primary: 'bg-primary hover:bg-primary-hover text-text-main shadow-sm',
-        secondary: 'bg-white hover:bg-gray-50 text-text-main border-2 border-gray-200',
+        secondary: 'bg-surface hover:bg-gray-50 dark:hover:bg-gray-700 text-text-main border-2 border-gray-200 dark:border-gray-600',
         outline: 'bg-transparent border-[3px] border-primary text-text-main hover:bg-primary/10',
         ghost: 'bg-transparent text-text-secondary hover:text-text-main',
         danger: 'bg-soft-red hover:bg-red-600 text-white',

@@ -16,7 +16,7 @@ function Card({
     };
 
     const hoverStyles = hoverable
-        ? 'cursor-pointer hover:shadow-soft hover:border-gray-200 transition-all'
+        ? 'cursor-pointer hover:shadow-soft hover:border-gray-200 dark:hover:border-gray-600 transition-all'
         : '';
 
     return (

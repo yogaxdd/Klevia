@@ -343,7 +343,7 @@ function LessonPage() {
                     {/* Question Card */}
                     <div
                         key={`q-${questionKey}`}
-                        className="bg-white rounded-2xl shadow-soft overflow-hidden border border-gray-100 mb-6 animate-fadeIn"
+                        className="bg-surface rounded-2xl shadow-soft overflow-hidden border border-border mb-6 animate-fadeIn"
                     >
                         <div className="p-5">
                             <p className="text-xl font-bold text-text-main leading-tight">
@@ -357,14 +357,14 @@ function LessonPage() {
                 {isEssayQuestion ? (
                     /* Essay Input */
                     <div className={`w-full pb-4 ${showShake ? 'animate-shake' : ''}`}>
-                        <div className="bg-white rounded-2xl shadow-soft border border-gray-100 p-4">
+                        <div className="bg-surface rounded-2xl shadow-soft border border-border p-4">
                             <textarea
                                 value={essayAnswer}
                                 onChange={handleEssayChange}
                                 placeholder="Tuliskan jawabanmu di sini..."
                                 disabled={isAnswered || isGrading}
                                 maxLength={currentQuestion.maxLength || 300}
-                                className="w-full h-32 p-3 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:bg-gray-50 disabled:text-gray-500"
+                                className="w-full h-32 p-3 border border-gray-200 dark:border-gray-600 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:bg-gray-50 disabled:text-gray-500 bg-surface text-text-main dark:placeholder-gray-400"
                             />
                             <div className="flex justify-between items-center mt-2">
                                 <span className="text-xs text-gray-400">
@@ -437,7 +437,7 @@ function LessonPage() {
             {/* Partial or Incorrect Answer - Bottom Sheet */}
             {isAnswered && !isCorrect && (
                 <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
-                    <div className={`${isPartial ? 'bg-amber-50 border-amber-400' : (isEssayQuestion ? 'bg-red-50 border-red-400' : 'bg-[#fef3eb] border-[#F4A261]')} border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]`}>
+                    <div className={`${isPartial ? 'bg-amber-50 dark:bg-amber-900/30 border-amber-400' : (isEssayQuestion ? 'bg-red-50 dark:bg-red-900/30 border-red-400' : 'bg-[#fef3eb] dark:bg-orange-900/30 border-[#F4A261]')} border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]`}>
                         <div className="flex items-center gap-3 mb-4">
                             <div className={`flex items-center justify-center h-10 w-10 rounded-full ${isPartial ? 'bg-amber-500' : (isEssayQuestion ? 'bg-red-500' : 'bg-[#F4A261]')} text-white shadow-sm shrink-0`}>
                                 <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
@@ -455,7 +455,7 @@ function LessonPage() {
                         </div>
 
                         {/* Correct Answer Card */}
-                        <div className="bg-white rounded-2xl p-4 border border-gray-200 mb-4 shadow-sm">
+                        <div className="bg-surface rounded-2xl p-4 border border-border mb-4 shadow-sm">
                             <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">
                                 Jawaban yang benar:
                             </p>
@@ -482,7 +482,7 @@ function LessonPage() {
 
             {/* Default Bottom Bar - Before Answer */}
             {!isAnswered && (
-                <div className="w-full bg-white border-t border-gray-100 p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)]">
+                <div className="w-full bg-surface border-t border-border p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.02)] dark:shadow-none">
                     <div className="max-w-md mx-auto w-full">
                         <Button
                             variant="primary"

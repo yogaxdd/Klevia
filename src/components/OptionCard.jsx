@@ -17,7 +17,7 @@ function OptionCard({
         if (selected) {
             return 'border-soft-blue bg-soft-blue/20';
         }
-        return 'border-gray-200 bg-white hover:bg-gray-50';
+        return 'border-gray-200 dark:border-gray-600 bg-surface hover:bg-gray-50 dark:hover:bg-gray-700';
     };
 
     const getLabelStyles = () => {
@@ -28,7 +28,7 @@ function OptionCard({
             return 'border-[#F4A261] text-[#c26d2b] bg-[#F4A261]/20';
         }
         if (selected) {
-            return 'border-sky-500 text-sky-600 bg-white';
+            return 'border-sky-500 text-sky-600 bg-surface';
         }
         return 'border-gray-300 text-gray-400';
     };
@@ -60,8 +60,8 @@ function OptionCard({
                     )}
                 </div>
                 <span className={`text-base font-medium flex-1 ${correct === true ? 'text-primary' :
-                        correct === false ? 'text-[#c26d2b]' :
-                            'text-text-main group-hover:text-black'
+                    correct === false ? 'text-[#c26d2b]' :
+                        'text-text-main group-hover:text-black'
                     }`}>
                     {text}
                 </span>

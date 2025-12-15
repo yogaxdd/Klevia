@@ -1,26 +1,32 @@
-// Gemini AI Service for Essay Grading
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-2.5-flash';
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+// Gemini AI Service for Essay Grading with Key Rotation
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// Multiple API Keys for load balancing and rate limit handling
+// Keys are loaded from .env file for security
+const API_KEYS = [
+    import.meta.env.VITE_GEMINI_API_KEY_1,
+    import.meta.env.VITE_GEMINI_API_KEY_2,
+    import.meta.env.VITE_GEMINI_API_KEY_3,
+    import.meta.env.VITE_GEMINI_API_KEY_4,
+].filter(Boolean); // Remove any undefined keys
+
+let currentKeyIndex = 0;
+let genAI = new GoogleGenerativeAI(API_KEYS[currentKeyIndex]);
+
+// Rotate to next API key
+function rotateApiKey() {
+    currentKeyIndex = (currentKeyIndex + 1) % API_KEYS.length;
+    genAI = new GoogleGenerativeAI(API_KEYS[currentKeyIndex]);
+    console.log(`🔄 Rotated to API key #${currentKeyIndex + 1}`);
+    return currentKeyIndex;
+}
 
 /**
- * Grade an essay answer using Gemini AI
- * @param {string} question - The question asked
- * @param {string} expectedAnswer - The expected/correct answer context
- * @param {string} userAnswer - The user's submitted answer
- * @param {string} subject - The subject (e.g., "matematika", "sejarah")
- * @returns {Promise<{isCorrect: boolean, isPartial: boolean, score: number, feedback: string}>}
+ * Grade an essay answer using Gemini AI with automatic key rotation
  */
-export async function gradeEssayAnswer(question, expectedAnswer, userAnswer, subject = '') {
-    if (!GEMINI_API_KEY) {
-        console.error('Gemini API key not found');
-        return {
-            isCorrect: false,
-            isPartial: false,
-            score: 0,
-            feedback: 'API key tidak dikonfigurasi. Hubungi administrator.'
-        };
-    }
+export async function gradeEssayAnswer(question, expectedAnswer, userAnswer, subject = '', retryCount = 0) {
+    // Max retries = number of API keys
+    const maxRetries = API_KEYS.length;
 
     // Handle empty answers
     if (!userAnswer || userAnswer.trim().length < 3) {
@@ -32,73 +38,58 @@ export async function gradeEssayAnswer(question, expectedAnswer, userAnswer, sub
         };
     }
 
-    const systemPrompt = `Kamu adalah guru ${subject || 'mata pelajaran'} di Indonesia yang sedang menilai jawaban siswa. Berikan penilaian yang TOLERAN.`;
+    const prompt = `Kamu adalah guru ${subject || 'mata pelajaran'} yang menilai jawaban siswa.
 
-    const userPrompt = `PERTANYAAN:
-${question}
+SOAL: ${question}
+KUNCI JAWABAN: ${expectedAnswer}
+JAWABAN SISWA: ${userAnswer}
 
-JAWABAN YANG BENAR:
-${expectedAnswer}
+INSTRUKSI PENILAIAN:
+1. Bandingkan JAWABAN SISWA dengan KUNCI JAWABAN
+2. ABAIKAN perbedaan huruf besar/kecil (case insensitive)
+3. Contoh: "cerita pendek" = "Cerita Pendek" = "CERITA PENDEK" → SEMUA INI BENAR, score 1
 
-JAWABAN SISWA:
-${userAnswer}
+BERIKAN SCORE:
+- score: 1 → Jawaban BENAR (makna sama, abaikan kapitalisasi)
+- score: 0.5 → Jawaban SETENGAH BENAR (kurang lengkap)
+- score: 0 → Jawaban SALAH TOTAL
 
-ATURAN PENILAIAN (IKUTI DENGAN KETAT):
+PENTING: "${userAnswer}" dibandingkan dengan "${expectedAnswer}"
+Jika keduanya SAMA MAKNANYA (abaikan huruf besar/kecil), maka score HARUS 1.
 
-score: 1.0 (BENAR) jika:
-- Jawaban siswa sama persis dengan jawaban benar
-- Jawaban siswa sama tapi huruf besar/kecil berbeda (case insensitive) → contoh: "melamar pekerjaan" = "Melamar pekerjaan" = BENAR
-- Jawaban siswa menambahkan kata tidak penting di awal/akhir (untuk, adalah, yaitu, agar, supaya, dll) → contoh: "untuk melamar pekerjaan" vs "Melamar pekerjaan" = BENAR
-- INTI MAKNA jawaban sama meski susunan kata sedikit berbeda
-
-score: 0.5 (SETENGAH) jika:
-- Jawaban siswa BENAR tapi KURANG LENGKAP (ada bagian yang belum disebutkan)
-- Contoh: Jawaban benar "Pernyataan Umum, Deskripsi Bagian, Kesimpulan" tapi siswa menjawab "Pernyataan Umum, Deskripsi Bagian" (kurang Kesimpulan) = 0.5
-- Jawaban menyebutkan sebagian besar poin tapi tidak semua
-
-score: 0 (SALAH) jika:
-- Jawaban sama sekali salah
-- Jawaban tidak relevan dengan pertanyaan
-- Jawaban asal-asalan
-
-RESPONSE (JSON only):
-{"score": 0/0.5/1, "feedback": "Penjelasan singkat"}`;
-
+OUTPUT FORMAT (JSON only, tanpa markdown):
+{"score": 1, "feedback": "Benar!"}`;
 
     try {
-        const response = await fetch(GEMINI_API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-goog-api-key': GEMINI_API_KEY,
-            },
-            body: JSON.stringify({
-                contents: [
-                    { parts: [{ text: systemPrompt }], role: 'user' },
-                    { parts: [{ text: 'Understood' }], role: 'model' },
-                    { parts: [{ text: userPrompt }], role: 'user' }
-                ],
-                generationConfig: {
-                    temperature: 0.3,
-                    maxOutputTokens: 256,
-                }
-            })
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-2.5-flash',
+            generationConfig: {
+                temperature: 0.2,
+                maxOutputTokens: 256,
+            }
         });
 
-        if (!response.ok) {
-            throw new Error(`API Error: ${response.status}`);
-        }
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const textResponse = response.text();
 
-        const data = await response.json();
-        const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        console.log(`✅ API Key #${currentKeyIndex + 1} - Response:`, textResponse.substring(0, 100));
 
-        // Parse JSON response from Gemini
+        // Parse JSON response
         try {
-            // Clean the response (remove markdown code blocks if any)
-            const cleanedResponse = textResponse
-                .replace(/```json\s*/g, '')
+            let cleanedResponse = textResponse
+                .replace(/```json\s*/gi, '')
                 .replace(/```\s*/g, '')
+                .replace(/^[^{]*/, '')
+                .replace(/[^}]*$/, '')
                 .trim();
+
+            if (!cleanedResponse.startsWith('{')) {
+                const jsonMatch = cleanedResponse.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    cleanedResponse = jsonMatch[0];
+                }
+            }
 
             const parsed = JSON.parse(cleanedResponse);
             const score = parseFloat(parsed.score) || 0;
@@ -110,8 +101,8 @@ RESPONSE (JSON only):
                 feedback: parsed.feedback || 'Tidak ada feedback tersedia.'
             };
         } catch (parseError) {
-            console.error('Failed to parse Gemini response:', textResponse);
-            // Fallback: try to extract score from text
+            console.error('❌ Failed to parse response:', textResponse);
+
             const hasScore1 = textResponse.includes('"score": 1') || textResponse.includes('"score":1');
             const hasScore05 = textResponse.includes('"score": 0.5') || textResponse.includes('"score":0.5');
 
@@ -120,19 +111,41 @@ RESPONSE (JSON only):
                 isCorrect: score >= 1,
                 isPartial: score === 0.5,
                 score: score,
-                feedback: score >= 0.5 ?
-                    'Jawaban kamu sudah cukup tepat!' :
-                    'Jawaban kurang tepat. Silakan pelajari materi kembali.'
+                feedback: score >= 0.5 ? 'Jawaban kamu sudah cukup tepat!' : 'Jawaban kurang tepat.'
             };
         }
 
     } catch (error) {
-        console.error('Gemini API error:', error);
+        console.error(`❌ API Key #${currentKeyIndex + 1} Error:`, error.message);
+
+        // Check if rate limited (429 error)
+        const isRateLimited = error.message?.includes('429') ||
+            error.message?.includes('quota') ||
+            error.message?.includes('RESOURCE_EXHAUSTED');
+
+        if (isRateLimited && retryCount < maxRetries - 1) {
+            console.log(`⚠️ Rate limited on key #${currentKeyIndex + 1}, rotating...`);
+            rotateApiKey();
+
+            // Wait a bit before retrying
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            // Retry with new key
+            return gradeEssayAnswer(question, expectedAnswer, userAnswer, subject, retryCount + 1);
+        }
+
+        // All keys exhausted or other error
+        let errorMsg = 'Terjadi kesalahan saat memeriksa jawaban. Silakan coba lagi.';
+
+        if (isRateLimited) {
+            errorMsg = 'Semua API key mencapai batas. Tunggu 1 menit lalu coba lagi.';
+        }
+
         return {
             isCorrect: false,
             isPartial: false,
             score: 0,
-            feedback: 'Terjadi kesalahan saat memeriksa jawaban. Silakan coba lagi.'
+            feedback: errorMsg
         };
     }
 }
@@ -157,4 +170,18 @@ export function getSubjectLabel(subject) {
         ipa: 'IPA',
     };
     return labels[subject] || 'Pelajaran';
+}
+
+/**
+ * Get current API key index (for debugging)
+ */
+export function getCurrentKeyIndex() {
+    return currentKeyIndex + 1;
+}
+
+/**
+ * Get total number of API keys
+ */
+export function getTotalKeys() {
+    return API_KEYS.length;
 }

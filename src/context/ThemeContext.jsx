@@ -7,15 +7,14 @@ export function ThemeProvider({ children }) {
     const { userData, updateUserData } = useAuth();
     const [isDarkMode, setIsDarkMode] = useState(false);
 
-    // Load theme preference
+    // Load theme preference - default to LIGHT mode
     useEffect(() => {
-        // First check user preference from Firestore
+        // Only use user preference from Firestore, default to light
         if (userData?.preferences?.darkMode !== undefined) {
             setIsDarkMode(userData.preferences.darkMode);
         } else {
-            // Fallback to system preference
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setIsDarkMode(prefersDark);
+            // Default to light mode (no system preference)
+            setIsDarkMode(false);
         }
     }, [userData]);
 

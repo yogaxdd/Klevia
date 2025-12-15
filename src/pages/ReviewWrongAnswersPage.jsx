@@ -17,9 +17,10 @@ function ReviewWrongAnswersPage() {
     const [isCorrect, setIsCorrect] = useState(null);
     const [masteredCount, setMasteredCount] = useState(0);
     const [showShake, setShowShake] = useState(false);
+    const [answeredQuestion, setAnsweredQuestion] = useState(null); // Store the question being answered
 
     const wrongAnswers = userData?.wrongAnswers || [];
-    const currentQuestion = wrongAnswers[currentIndex];
+    const currentQuestion = answeredQuestion || wrongAnswers[currentIndex]; // Use answeredQuestion if set
 
     // Labels for options
     const labels = ['A', 'B', 'C', 'D'];
@@ -33,7 +34,10 @@ function ReviewWrongAnswersPage() {
     const handleCheck = () => {
         if (selectedAnswer === null) return;
 
-        const correct = selectedAnswer === currentQuestion.correctAnswer;
+        // Store the question before potentially modifying the array
+        setAnsweredQuestion(wrongAnswers[currentIndex]);
+
+        const correct = selectedAnswer === wrongAnswers[currentIndex].correctAnswer;
         setIsCorrect(correct);
         setIsAnswered(true);
 
@@ -78,6 +82,7 @@ function ReviewWrongAnswersPage() {
         setSelectedAnswer(null);
         setIsAnswered(false);
         setIsCorrect(null);
+        setAnsweredQuestion(null); // Clear the answered question
     };
 
     if (wrongAnswers.length === 0) {

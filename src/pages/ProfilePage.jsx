@@ -162,7 +162,7 @@ function ProfilePage() {
 
                 {/* Streak Card - New Featured Section */}
                 <section className="px-6 mb-6">
-                    <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-100">
+                    <Card className="bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/30 dark:to-yellow-900/30 border border-orange-100 dark:border-orange-800">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100">
@@ -194,7 +194,16 @@ function ProfilePage() {
 
                 {/* Statistics Grid */}
                 <section className="px-6">
-                    <h2 className="text-lg font-bold text-text-main mb-3">Statistik</h2>
+                    <button
+                        onClick={() => navigate('/statistics')}
+                        className="w-full flex items-center justify-between mb-3 group"
+                    >
+                        <h2 className="text-lg font-bold text-text-main">Statistik</h2>
+                        <span className="text-sm text-primary font-medium flex items-center gap-1 group-hover:underline">
+                            Lihat semua
+                            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        </span>
+                    </button>
 
                     <div className="grid grid-cols-2 gap-4">
                         <Card className="text-center">

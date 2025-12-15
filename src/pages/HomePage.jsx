@@ -275,13 +275,13 @@ function HomePage() {
                     <div className="grid grid-cols-2 gap-4">
                         <button
                             className={`flex flex-col items-start gap-3 rounded-2xl p-4 text-left transition-transform border border-transparent ${dailyQuizDone
-                                ? 'bg-gray-100 cursor-not-allowed opacity-60'
-                                : 'bg-blue-50 active:scale-95 hover:border-blue-200'
+                                ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed opacity-60'
+                                : 'bg-blue-50 dark:bg-blue-900/30 active:scale-95 hover:border-blue-200 dark:hover:border-blue-700'
                                 }`}
                             onClick={() => !dailyQuizDone && navigate('/daily-quiz')}
                             disabled={dailyQuizDone}
                         >
-                            <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm ${dailyQuizDone ? 'text-gray-400' : 'text-blue-600'
+                            <div className={`flex h-10 w-10 items-center justify-center rounded-full bg-surface shadow-sm ${dailyQuizDone ? 'text-gray-400' : 'text-blue-600 dark:text-blue-400'
                                 }`}>
                                 <span className="material-symbols-outlined">
                                     {dailyQuizDone ? 'check_circle' : 'quiz'}
@@ -298,10 +298,10 @@ function HomePage() {
                         </button>
 
                         <button
-                            className="flex flex-col items-start gap-3 rounded-2xl bg-orange-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-orange-200"
+                            className="flex flex-col items-start gap-3 rounded-2xl bg-orange-50 dark:bg-orange-900/30 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-orange-200 dark:hover:border-orange-700"
                             onClick={() => navigate('/levels')}
                         >
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-orange-600 shadow-sm">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-orange-600 dark:text-orange-400 shadow-sm">
                                 <span className="material-symbols-outlined">menu_book</span>
                             </div>
                             <div>
@@ -311,10 +311,10 @@ function HomePage() {
                         </button>
 
                         <button
-                            className="flex flex-col items-start gap-3 rounded-2xl bg-amber-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-amber-200"
+                            className="flex flex-col items-start gap-3 rounded-2xl bg-amber-50 dark:bg-amber-900/30 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-amber-200 dark:hover:border-amber-700"
                             onClick={() => navigate('/leaderboard')}
                         >
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-amber-600 shadow-sm">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-amber-600 dark:text-amber-400 shadow-sm">
                                 <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
                             </div>
                             <div>
@@ -324,10 +324,10 @@ function HomePage() {
                         </button>
 
                         <button
-                            className="flex flex-col items-start gap-3 rounded-2xl bg-purple-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-purple-200"
+                            className="flex flex-col items-start gap-3 rounded-2xl bg-purple-50 dark:bg-purple-900/30 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-purple-200 dark:hover:border-purple-700"
                             onClick={() => nextLesson && navigate(`/practice/${nextLesson.id}`)}
                         >
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-purple-600 dark:text-purple-400 shadow-sm">
                                 <span className="material-symbols-outlined">fitness_center</span>
                             </div>
                             <div>
@@ -339,10 +339,10 @@ function HomePage() {
                         {/* Review Wrong Answers Button - only show if there are wrong answers */}
                         {(userData?.wrongAnswers?.length || 0) > 0 && (
                             <button
-                                className="flex flex-col items-start gap-3 rounded-2xl bg-red-50 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-red-200"
+                                className="flex flex-col items-start gap-3 rounded-2xl bg-red-50 dark:bg-red-900/30 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-red-200 dark:hover:border-red-700"
                                 onClick={() => navigate('/review-wrong')}
                             >
-                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-red-600 shadow-sm relative">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-red-600 dark:text-red-400 shadow-sm relative">
                                     <span className="material-symbols-outlined">replay</span>
                                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center">
                                         {userData?.wrongAnswers?.length}
@@ -359,25 +359,66 @@ function HomePage() {
 
                 {/* Stats */}
                 <section className="px-6 py-4">
-                    <h2 className="text-lg font-bold mb-3 text-text-main">Statistikmu</h2>
-                    <div className="grid grid-cols-4 gap-3">
+                    <button
+                        onClick={() => navigate('/statistics')}
+                        className="w-full flex items-center justify-between mb-3 group"
+                    >
+                        <h2 className="text-lg font-bold text-text-main">Statistikmu</h2>
+                        <span className="text-sm text-primary font-medium flex items-center gap-1 group-hover:underline">
+                            Lihat detail
+                            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        </span>
+                    </button>
+
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-4 gap-3 mb-4">
                         <Card className="text-center p-3">
                             <div className="text-xl font-bold text-primary">{user.xp || 0}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">XP</div>
                         </Card>
                         <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-blue-600">{user.lessonsCompleted || 0}</div>
+                            <div className="text-xl font-bold text-blue-600 dark:text-blue-400">{user.lessonsCompleted || 0}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">Pelajaran</div>
                         </Card>
                         <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-orange-600">{streak.currentStreak || 0}</div>
+                            <div className="text-xl font-bold text-orange-600 dark:text-orange-400">{streak.currentStreak || 0}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">Streak</div>
                         </Card>
                         <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-purple-600">{user.level || 1}</div>
+                            <div className="text-xl font-bold text-purple-600 dark:text-purple-400">{user.level || 1}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">Level</div>
                         </Card>
                     </div>
+
+                    {/* Weekly Activity Mini Chart */}
+                    <Card className="p-4">
+                        <h3 className="text-sm font-bold text-text-main mb-3 flex items-center gap-2">
+                            <span className="material-symbols-outlined text-primary text-lg">calendar_month</span>
+                            Aktivitas Minggu Ini
+                        </h3>
+                        <div className="flex justify-between items-end h-16">
+                            {['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].map((day, index) => {
+                                const isToday = index === new Date().getDay();
+                                // Placeholder activity data
+                                const activity = [2, 4, 1, 5, 3, 4, 6][index];
+                                const maxActivity = 6;
+                                const height = (activity / maxActivity) * 100;
+
+                                return (
+                                    <div key={day} className="flex flex-col items-center gap-1 flex-1">
+                                        <div
+                                            className={`w-4 rounded-full transition-all ${isToday ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700'
+                                                }`}
+                                            style={{ height: `${Math.max(height, 15)}%` }}
+                                        />
+                                        <span className={`text-[10px] ${isToday ? 'font-bold text-primary' : 'text-text-secondary'}`}>
+                                            {day}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Card>
                 </section>
             </div>
 
