@@ -8,6 +8,11 @@ function Sidebar() {
     const { user } = useApp();
     const { currentUser } = useAuth();
 
+    // Hide sidebar if user is not logged in
+    if (!currentUser) {
+        return null;
+    }
+
     const navItems = [
         { path: '/home', icon: 'home', label: 'Beranda' },
         { path: '/levels', icon: 'book_2', label: 'Pelajaran' },

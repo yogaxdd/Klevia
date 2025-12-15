@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AppProvider } from './context/AppContext'
-import { AuthProvider } from './firebase/AuthContext'
+import { AuthProvider, useAuth } from './firebase/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Sidebar from './components/Sidebar'
@@ -33,107 +33,119 @@ import BattleWaitingPage from './pages/BattleWaitingPage'
 import BattleGamePage from './pages/BattleGamePage'
 import BattleResultPage from './pages/BattleResultPage'
 
+// Inner component to access auth context
+function AppContent() {
+    const { currentUser } = useAuth();
+
+    return (
+        <>
+            {/* Desktop Sidebar - only visible on lg+ and when logged in */}
+            <Sidebar />
+
+            {/* Main Container */}
+            <div className={`min-h-screen bg-background font-display ${currentUser ? 'lg:ml-64' : ''}`}>
+                {/* Content wrapper - centered on both mobile and desktop */}
+                <div className="w-full max-w-md lg:max-w-2xl xl:max-w-3xl mx-auto px-0 lg:px-6">
+                    <Routes>
+                        {/* Public route */}
+                        <Route path="/" element={<WelcomePage />} />
+
+                        {/* Protected routes - require login */}
+                        <Route path="/profile-setup" element={
+                            <ProtectedRoute><ProfileSetupPage /></ProtectedRoute>
+                        } />
+                        <Route path="/select-class" element={
+                            <ProtectedRoute><ClassSelectionPage /></ProtectedRoute>
+                        } />
+                        <Route path="/select-subject" element={
+                            <ProtectedRoute><SubjectSelectionPage /></ProtectedRoute>
+                        } />
+                        <Route path="/home" element={
+                            <ProtectedRoute><HomePage /></ProtectedRoute>
+                        } />
+                        <Route path="/levels" element={
+                            <ProtectedRoute><LevelMapPage /></ProtectedRoute>
+                        } />
+                        <Route path="/lesson/:lessonId" element={
+                            <ProtectedRoute><LessonPage /></ProtectedRoute>
+                        } />
+                        <Route path="/win" element={
+                            <ProtectedRoute><WinPage /></ProtectedRoute>
+                        } />
+                        <Route path="/level-up" element={
+                            <ProtectedRoute><LevelUpPage /></ProtectedRoute>
+                        } />
+                        <Route path="/game-over" element={
+                            <ProtectedRoute><GameOverPage /></ProtectedRoute>
+                        } />
+                        <Route path="/profile" element={
+                            <ProtectedRoute><ProfilePage /></ProtectedRoute>
+                        } />
+                        <Route path="/settings" element={
+                            <ProtectedRoute><SettingsPage /></ProtectedRoute>
+                        } />
+                        <Route path="/premium" element={
+                            <ProtectedRoute><PremiumPage /></ProtectedRoute>
+                        } />
+                        <Route path="/achievements" element={
+                            <ProtectedRoute><AchievementsPage /></ProtectedRoute>
+                        } />
+                        <Route path="/leaderboard" element={
+                            <ProtectedRoute><LeaderboardPage /></ProtectedRoute>
+                        } />
+                        <Route path="/daily-quiz" element={
+                            <ProtectedRoute><DailyQuizPage /></ProtectedRoute>
+                        } />
+                        <Route path="/practice/:lessonId" element={
+                            <ProtectedRoute><PracticeModePage /></ProtectedRoute>
+                        } />
+                        <Route path="/practice-complete" element={
+                            <ProtectedRoute><PracticeCompletePage /></ProtectedRoute>
+                        } />
+                        <Route path="/review-wrong" element={
+                            <ProtectedRoute><ReviewWrongAnswersPage /></ProtectedRoute>
+                        } />
+                        <Route path="/ai-test" element={
+                            <ProtectedRoute><AITestPage /></ProtectedRoute>
+                        } />
+                        <Route path="/statistics" element={
+                            <ProtectedRoute><StatisticsPage /></ProtectedRoute>
+                        } />
+                        <Route path="/srs" element={
+                            <ProtectedRoute><SRSReviewPage /></ProtectedRoute>
+                        } />
+                        <Route path="/battle" element={
+                            <ProtectedRoute><BattleLobbyPage /></ProtectedRoute>
+                        } />
+                        <Route path="/battle/waiting/:roomCode" element={
+                            <ProtectedRoute><BattleWaitingPage /></ProtectedRoute>
+                        } />
+                        <Route path="/battle/game/:roomCode" element={
+                            <ProtectedRoute><BattleGamePage /></ProtectedRoute>
+                        } />
+                        <Route path="/battle/result/:roomCode" element={
+                            <ProtectedRoute><BattleResultPage /></ProtectedRoute>
+                        } />
+                    </Routes>
+                </div>
+            </div>
+        </>
+    );
+}
+
 function App() {
     return (
         <AuthProvider>
             <ThemeProvider>
                 <AppProvider>
                     <Router>
-                        {/* Desktop Sidebar - only visible on lg+ */}
-                        <Sidebar />
-
-                        {/* Main Container */}
-                        <div className="min-h-screen bg-background font-display lg:ml-64">
-                            {/* Content wrapper - centered on both mobile and desktop */}
-                            <div className="w-full max-w-md lg:max-w-2xl xl:max-w-3xl mx-auto px-0 lg:px-6">
-                                <Routes>
-                                    {/* Public route */}
-                                    <Route path="/" element={<WelcomePage />} />
-
-                                    {/* Protected routes - require login */}
-                                    <Route path="/profile-setup" element={
-                                        <ProtectedRoute><ProfileSetupPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/select-class" element={
-                                        <ProtectedRoute><ClassSelectionPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/select-subject" element={
-                                        <ProtectedRoute><SubjectSelectionPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/home" element={
-                                        <ProtectedRoute><HomePage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/levels" element={
-                                        <ProtectedRoute><LevelMapPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/lesson/:lessonId" element={
-                                        <ProtectedRoute><LessonPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/win" element={
-                                        <ProtectedRoute><WinPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/level-up" element={
-                                        <ProtectedRoute><LevelUpPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/game-over" element={
-                                        <ProtectedRoute><GameOverPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/profile" element={
-                                        <ProtectedRoute><ProfilePage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/settings" element={
-                                        <ProtectedRoute><SettingsPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/premium" element={
-                                        <ProtectedRoute><PremiumPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/achievements" element={
-                                        <ProtectedRoute><AchievementsPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/leaderboard" element={
-                                        <ProtectedRoute><LeaderboardPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/daily-quiz" element={
-                                        <ProtectedRoute><DailyQuizPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/practice/:lessonId" element={
-                                        <ProtectedRoute><PracticeModePage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/practice-complete" element={
-                                        <ProtectedRoute><PracticeCompletePage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/review-wrong" element={
-                                        <ProtectedRoute><ReviewWrongAnswersPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/ai-test" element={
-                                        <ProtectedRoute><AITestPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/statistics" element={
-                                        <ProtectedRoute><StatisticsPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/srs" element={
-                                        <ProtectedRoute><SRSReviewPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/battle" element={
-                                        <ProtectedRoute><BattleLobbyPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/battle/waiting/:roomCode" element={
-                                        <ProtectedRoute><BattleWaitingPage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/battle/game/:roomCode" element={
-                                        <ProtectedRoute><BattleGamePage /></ProtectedRoute>
-                                    } />
-                                    <Route path="/battle/result/:roomCode" element={
-                                        <ProtectedRoute><BattleResultPage /></ProtectedRoute>
-                                    } />
-                                </Routes>
-                            </div>
-                        </div>
+                        <AppContent />
                     </Router>
                 </AppProvider>
             </ThemeProvider>
-        </AuthProvider >
-    )
+        </AuthProvider>
+    );
 }
 
 export default App
+
