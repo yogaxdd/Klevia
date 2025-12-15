@@ -32,6 +32,7 @@ import BattleLobbyPage from './pages/BattleLobbyPage'
 import BattleWaitingPage from './pages/BattleWaitingPage'
 import BattleGamePage from './pages/BattleGamePage'
 import BattleResultPage from './pages/BattleResultPage'
+import TrueFalseTestPage from './pages/TrueFalseTestPage'
 
 // Inner component to access auth context
 function AppContent() {
@@ -126,6 +127,8 @@ function AppContent() {
                         <Route path="/battle/result/:roomCode" element={
                             <ProtectedRoute><BattleResultPage /></ProtectedRoute>
                         } />
+                        {/* Test page for True/False UI prototype */}
+                        <Route path="/test-tf" element={<TrueFalseTestPage />} />
                     </Routes>
                 </div>
             </div>
