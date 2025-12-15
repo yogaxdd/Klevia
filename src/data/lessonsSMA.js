@@ -261,8 +261,9 @@ export const lessonsSMA = [
     // ============================================
 
     // TKA - Mata Pelajaran Wajib
-    { id: 120001, title: "Latihan Soal TKA Matematika Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Matematika", description: "Soal TKA Matematika dari Pusmendik", questionsCount: 10, xpReward: 100, order: 1, isPremium: true },
-    { id: 120002, title: "Latihan Soal TKA Bahasa Indonesia Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Bahasa Indonesia", description: "Soal TKA Bahasa Indonesia dari Pusmendik", questionsCount: 9, xpReward: 100, order: 2, isPremium: true },
+    { id: 120001, title: "Latihan Soal TKA Matematika Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Matematika", description: "Soal TKA Matematika", questionsCount: 15, xpReward: 150, order: 1, isPremium: true },
+    { id: 120002, title: "Latihan Soal TKA Bahasa Indonesia Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Bahasa Indonesia", description: "Soal TKA Bahasa Indonesia", questionsCount: 14, xpReward: 140, order: 2, isPremium: true },
+    { id: 120003, title: "Latihan Soal TKA Bahasa Inggris Set 1", subject: "tka", grade: 12, category: "wajib", tkaSubject: "Bahasa Inggris", description: "Soal TKA Bahasa Inggris", questionsCount: 17, xpReward: 170, order: 3, isPremium: true },
 
     // TKA - Mata Pelajaran Pilihan (akan ditambah nanti)
     // { id: 120101, title: "Latihan Soal TKA Fisika Set 1", subject: "tka", grade: 12, category: "pilihan", tkaSubject: "Fisika", description: "Soal TKA Fisika", questionsCount: 10, xpReward: 100, order: 1, isPremium: true },

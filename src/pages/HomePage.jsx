@@ -98,6 +98,7 @@ function HomePage() {
             sejarah: 'Sejarah',
             pkn: 'PKn',
             informatika: 'Informatika',
+            tka: 'TKA',
         };
         return labels[subject] || 'Pelajaran';
     };
@@ -280,6 +281,7 @@ function HomePage() {
                                     sejarah: '/Assets/sejarah.png',
                                     pkn: '/Assets/pkn.png',
                                     informatika: '/Assets/informatika.png',
+                                    tka: '/Assets/tka.png',
                                 };
                                 const bannerSrc = bannerMap[user.subject];
                                 if (bannerSrc) {
