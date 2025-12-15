@@ -188,7 +188,7 @@ function ReviewWrongAnswersPage() {
 
             {/* Correct Answer - Bottom Sheet (Green) */}
             {isAnswered && isCorrect && (
-                <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
+                <div className="fixed bottom-0 left-0 lg:left-64 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
                     <div className="bg-[#e8f8ed] border-t-4 border-primary p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="flex items-center justify-center h-10 w-10 rounded-full bg-primary text-white shadow-sm shrink-0">
@@ -219,7 +219,7 @@ function ReviewWrongAnswersPage() {
 
             {/* Incorrect Answer - Bottom Sheet */}
             {isAnswered && !isCorrect && (
-                <div className="fixed bottom-0 left-0 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
+                <div className="fixed bottom-0 left-0 lg:left-64 right-0 z-50 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)]">
                     <div className="bg-[#fef3eb] border-[#F4A261] border-t-4 p-5 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="flex items-center justify-center h-10 w-10 rounded-full bg-[#F4A261] text-white shadow-sm shrink-0">

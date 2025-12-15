@@ -276,8 +276,8 @@ function LeaderboardPage() {
 
                 {/* Current User Rank - Sticky Footer */}
                 {currentUser && userData && currentUserRank && (
-                    <div className="fixed bottom-4 left-0 right-0 px-4 z-40">
-                        <div className="max-w-md mx-auto">
+                    <div className="fixed bottom-4 left-0 lg:left-64 right-0 px-4 z-40">
+                        <div className="max-w-md lg:max-w-2xl xl:max-w-3xl mx-auto">
                             <Card className="bg-gradient-to-r from-primary to-emerald-500 text-white shadow-lg shadow-primary/30">
                                 <div className="flex items-center gap-3">
                                     <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center overflow-hidden">

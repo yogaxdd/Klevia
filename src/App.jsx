@@ -3,6 +3,7 @@ import { AppProvider } from './context/AppContext'
 import { AuthProvider } from './firebase/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import Sidebar from './components/Sidebar'
 
 // Pages
 import WelcomePage from './pages/WelcomePage'
@@ -33,9 +34,13 @@ function App() {
             <ThemeProvider>
                 <AppProvider>
                     <Router>
-                        {/* Container untuk limit width di desktop */}
-                        <div className="min-h-screen bg-background font-display flex justify-center">
-                            <div className="w-full max-w-md relative">
+                        {/* Desktop Sidebar - only visible on lg+ */}
+                        <Sidebar />
+
+                        {/* Main Container */}
+                        <div className="min-h-screen bg-background font-display lg:ml-64">
+                            {/* Content wrapper - centered on both mobile and desktop */}
+                            <div className="w-full max-w-md lg:max-w-2xl xl:max-w-3xl mx-auto px-0 lg:px-6">
                                 <Routes>
                                     {/* Public route */}
                                     <Route path="/" element={<WelcomePage />} />
@@ -107,7 +112,7 @@ function App() {
                     </Router>
                 </AppProvider>
             </ThemeProvider>
-        </AuthProvider>
+        </AuthProvider >
     )
 }
 
