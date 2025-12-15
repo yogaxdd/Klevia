@@ -17,6 +17,9 @@ function Sidebar() {
 
     const quickActions = [
         { path: '/daily-quiz', icon: 'quiz', label: 'Kuis Harian', color: 'blue' },
+        { path: '/battle', icon: 'swords', label: 'Quiz Battle', color: 'red', filled: true },
+        { path: '/practice', icon: 'fitness_center', label: 'Mode Latihan', color: 'green', filled: true },
+        { path: '/srs', icon: 'psychology', label: 'SRS Review', color: 'teal' },
         { path: '/leaderboard', icon: 'emoji_events', label: 'Leaderboard', color: 'amber', filled: true },
         { path: '/statistics', icon: 'bar_chart', label: 'Statistik', color: 'purple' },
     ];
@@ -25,6 +28,9 @@ function Sidebar() {
 
     const colorClasses = {
         blue: 'hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600',
+        red: 'hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600',
+        green: 'hover:bg-green-50 dark:hover:bg-green-900/20 hover:text-green-600',
+        teal: 'hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600',
         amber: 'hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600',
         purple: 'hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:text-purple-600',
     };

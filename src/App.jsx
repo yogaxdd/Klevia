@@ -27,6 +27,11 @@ import PracticeCompletePage from './pages/PracticeCompletePage'
 import ReviewWrongAnswersPage from './pages/ReviewWrongAnswersPage'
 import AITestPage from './pages/AITestPage'
 import StatisticsPage from './pages/StatisticsPage'
+import SRSReviewPage from './pages/SRSReviewPage'
+import BattleLobbyPage from './pages/BattleLobbyPage'
+import BattleWaitingPage from './pages/BattleWaitingPage'
+import BattleGamePage from './pages/BattleGamePage'
+import BattleResultPage from './pages/BattleResultPage'
 
 function App() {
     return (
@@ -105,6 +110,21 @@ function App() {
                                     } />
                                     <Route path="/statistics" element={
                                         <ProtectedRoute><StatisticsPage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/srs" element={
+                                        <ProtectedRoute><SRSReviewPage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/battle" element={
+                                        <ProtectedRoute><BattleLobbyPage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/battle/waiting/:roomCode" element={
+                                        <ProtectedRoute><BattleWaitingPage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/battle/game/:roomCode" element={
+                                        <ProtectedRoute><BattleGamePage /></ProtectedRoute>
+                                    } />
+                                    <Route path="/battle/result/:roomCode" element={
+                                        <ProtectedRoute><BattleResultPage /></ProtectedRoute>
                                     } />
                                 </Routes>
                             </div>

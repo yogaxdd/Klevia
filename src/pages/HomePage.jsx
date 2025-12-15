@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../firebase/AuthContext';
 import { lessons } from '../data/allLessons';
+import { subscribeToRoom } from '../services/battleService';
 import BottomNav from '../components/BottomNav';
 import Card from '../components/Card';
 import ProgressBar from '../components/ProgressBar';
@@ -16,6 +17,7 @@ function HomePage() {
 
     const [dailyQuizDone, setDailyQuizDone] = useState(false);
     const [countdown, setCountdown] = useState('');
+    const [activeBattle, setActiveBattle] = useState(null);
 
     // Check if daily quiz is done and calculate countdown
     useEffect(() => {
@@ -47,6 +49,28 @@ function HomePage() {
         const interval = setInterval(checkDailyQuiz, 1000);
         return () => clearInterval(interval);
     }, [userData]);
+
+    // Check for active battle
+    useEffect(() => {
+        const savedRoom = localStorage.getItem('klevia_active_battle');
+        if (savedRoom && currentUser) {
+            const { roomCode } = JSON.parse(savedRoom);
+            const unsubscribe = subscribeToRoom(roomCode, (roomData) => {
+                if (roomData && (roomData.status === 'waiting' || roomData.status === 'playing')) {
+                    if (roomData.hostId === currentUser.uid || roomData.guestId === currentUser.uid) {
+                        setActiveBattle({ roomCode, status: roomData.status });
+                    } else {
+                        localStorage.removeItem('klevia_active_battle');
+                        setActiveBattle(null);
+                    }
+                } else {
+                    localStorage.removeItem('klevia_active_battle');
+                    setActiveBattle(null);
+                }
+                unsubscribe();
+            });
+        }
+    }, [currentUser]);
 
     const isPremium = user.isPremium && new Date(user.premiumExpiry) > new Date();
 
@@ -177,6 +201,43 @@ function HomePage() {
                                     <div>
                                         <h4 className="font-bold text-white">Upgrade ke Premium</h4>
                                         <p className="text-white/80 text-xs">2x XP • ❤️ Unlimited • 🔥 Streak Freeze</p>
+                                    </div>
+                                </div>
+                                <span className="material-symbols-outlined text-white">arrow_forward</span>
+                            </div>
+                            {/* Decorative */}
+                            <div className="absolute -right-4 -top-4 w-20 h-20 bg-white/10 rounded-full" />
+                            <div className="absolute -right-2 -bottom-6 w-16 h-16 bg-white/10 rounded-full" />
+                        </button>
+                    </section>
+                )}
+
+                {/* Active Battle Reconnect Banner */}
+                {activeBattle && (
+                    <section className="px-6 py-2">
+                        <button
+                            onClick={() => {
+                                if (activeBattle.status === 'playing') {
+                                    navigate(`/battle/game/${activeBattle.roomCode}`);
+                                } else {
+                                    navigate(`/battle/waiting/${activeBattle.roomCode}`);
+                                }
+                            }}
+                            className="w-full bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-4 text-left relative overflow-hidden transition-transform active:scale-[0.98] animate-pulse"
+                        >
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                                        <span
+                                            className="material-symbols-outlined text-white"
+                                            style={{ fontVariationSettings: "'FILL' 1" }}
+                                        >
+                                            swords
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-bold text-white">⚔️ Match 1v1 Berjalan!</h4>
+                                        <p className="text-white/80 text-xs">Tap untuk reconnect • Room: {activeBattle.roomCode}</p>
                                     </div>
                                 </div>
                                 <span className="material-symbols-outlined text-white">arrow_forward</span>
@@ -336,6 +397,20 @@ function HomePage() {
                             </div>
                         </button>
 
+                        {/* Quiz Battle 1v1 */}
+                        <button
+                            className="flex flex-col items-start gap-3 rounded-2xl bg-red-50 dark:bg-red-900/30 p-4 text-left transition-transform active:scale-95 border border-transparent hover:border-red-200 dark:hover:border-red-700"
+                            onClick={() => navigate('/battle')}
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-red-600 dark:text-red-400 shadow-sm">
+                                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>swords</span>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-text-main leading-tight">Battle 1v1</h4>
+                                <p className="text-xs text-text-secondary mt-1">Tantang temanmu!</p>
+                            </div>
+                        </button>
+
                         {/* Review Wrong Answers Button - only show if there are wrong answers */}
                         {(userData?.wrongAnswers?.length || 0) > 0 && (
                             <button
@@ -371,21 +446,21 @@ function HomePage() {
                     </button>
 
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-4 gap-3 mb-4">
-                        <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-primary">{user.xp || 0}</div>
+                    <div className="grid grid-cols-4 gap-2 mb-4">
+                        <Card className="text-center p-2">
+                            <div className="text-lg font-bold text-primary truncate">{user.xp || 0}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">XP</div>
                         </Card>
-                        <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-blue-600 dark:text-blue-400">{user.lessonsCompleted || 0}</div>
+                        <Card className="text-center p-2">
+                            <div className="text-lg font-bold text-blue-600 dark:text-blue-400 truncate">{user.lessonsCompleted || 0}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">Pelajaran</div>
                         </Card>
-                        <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-orange-600 dark:text-orange-400">{streak.currentStreak || 0}</div>
+                        <Card className="text-center p-2">
+                            <div className="text-lg font-bold text-orange-600 dark:text-orange-400 truncate">{streak.currentStreak || 0}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">Streak</div>
                         </Card>
-                        <Card className="text-center p-3">
-                            <div className="text-xl font-bold text-purple-600 dark:text-purple-400">{user.level || 1}</div>
+                        <Card className="text-center p-2">
+                            <div className="text-lg font-bold text-purple-600 dark:text-purple-400 truncate">{user.level || 1}</div>
                             <div className="text-[10px] text-text-secondary mt-0.5">Level</div>
                         </Card>
                     </div>
@@ -399,17 +474,18 @@ function HomePage() {
                         <div className="flex justify-between items-end h-16">
                             {['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'].map((day, index) => {
                                 const isToday = index === new Date().getDay();
-                                // Placeholder activity data
-                                const activity = [2, 4, 1, 5, 3, 4, 6][index];
-                                const maxActivity = 6;
-                                const height = (activity / maxActivity) * 100;
+                                // Get activity from userData or default to 0
+                                const weeklyActivity = userData?.weeklyActivity || [0, 0, 0, 0, 0, 0, 0];
+                                const activity = weeklyActivity[index] || 0;
+                                const maxActivity = Math.max(...weeklyActivity, 1);
+                                const height = activity > 0 ? (activity / maxActivity) * 100 : 0;
 
                                 return (
                                     <div key={day} className="flex flex-col items-center gap-1 flex-1">
                                         <div
-                                            className={`w-4 rounded-full transition-all ${isToday ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700'
+                                            className={`w-4 rounded-full transition-all ${isToday ? 'bg-primary' : activity > 0 ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-700'
                                                 }`}
-                                            style={{ height: `${Math.max(height, 15)}%` }}
+                                            style={{ height: `${Math.max(height, activity > 0 ? 15 : 5)}%` }}
                                         />
                                         <span className={`text-[10px] ${isToday ? 'font-bold text-primary' : 'text-text-secondary'}`}>
                                             {day}

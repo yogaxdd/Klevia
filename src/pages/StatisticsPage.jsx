@@ -27,14 +27,14 @@ function StatisticsPage() {
 
             // Calculate from lessons progress
             Object.values(lessonsProgress).forEach(lesson => {
-                if (lesson.score !== undefined) {
-                    totalQuestions += lesson.totalQuestions || 0;
-                    correctAnswers += Math.round((lesson.score / 100) * (lesson.totalQuestions || 0));
+                if (lesson.score !== undefined && lesson.totalQuestions) {
+                    totalQuestions += lesson.totalQuestions;
+                    correctAnswers += Math.round((lesson.score / 100) * lesson.totalQuestions);
                 }
             });
 
-            // Add wrong answers to total (they were answered but incorrectly)
-            const wrongAnswersCount = userData.wrongAnswers?.length || 0;
+            // Get weekly activity from userData or use empty array
+            const weeklyActivity = userData.weeklyActivity || [0, 0, 0, 0, 0, 0, 0];
 
             setStats({
                 totalXP: userData.xp || 0,
@@ -42,10 +42,10 @@ function StatisticsPage() {
                 currentStreak: userData.streak?.currentStreak || 0,
                 longestStreak: userData.streak?.longestStreak || 0,
                 lessonsCompleted: userData.lessonsCompleted || 0,
-                totalQuestions: totalQuestions + wrongAnswersCount,
+                totalQuestions: totalQuestions,
                 correctAnswers: correctAnswers,
-                accuracy: totalQuestions > 0 ? Math.round((correctAnswers / (totalQuestions + wrongAnswersCount)) * 100) : 0,
-                weeklyActivity: [3, 5, 2, 7, 4, 6, 8], // Placeholder - would need date tracking
+                accuracy: totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0,
+                weeklyActivity: weeklyActivity,
             });
         }
     }, [userData]);

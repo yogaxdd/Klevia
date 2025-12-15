@@ -101,6 +101,22 @@ class SoundService {
         this.playTone(659.25, 0.1, 'sine', 0.2); // E5
         setTimeout(() => this.playTone(880, 0.15, 'sine', 0.25), 100); // A5
     }
+
+    // Play ready sound - simple notification
+    playReady() {
+        if (!this.enabled) return;
+        this.playTone(659.25, 0.1, 'sine', 0.25); // E5
+        setTimeout(() => this.playTone(783.99, 0.15, 'sine', 0.25), 100); // G5
+    }
+
+    // Play battle start sound - epic fanfare
+    playBattleStart() {
+        if (!this.enabled) return;
+        this.playTone(392, 0.1, 'sine', 0.3); // G4
+        setTimeout(() => this.playTone(523.25, 0.1, 'sine', 0.3), 100); // C5
+        setTimeout(() => this.playTone(659.25, 0.1, 'sine', 0.3), 200); // E5
+        setTimeout(() => this.playTone(783.99, 0.25, 'sine', 0.35), 300); // G5
+    }
 }
 
 // Singleton instance

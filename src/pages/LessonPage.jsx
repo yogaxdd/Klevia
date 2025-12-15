@@ -5,6 +5,7 @@ import { useAuth } from '../firebase/AuthContext';
 import { questions } from '../data/allQuestions';
 import { lessons } from '../data/allLessons';
 import { gradeEssayAnswer, getSubjectLabel } from '../services/geminiService';
+import { addToSRS } from '../services/srsService';
 import soundService from '../services/soundService';
 import ProgressBar from '../components/ProgressBar';
 import HeartDisplay from '../components/HeartDisplay';
@@ -168,6 +169,18 @@ function LessonPage() {
                 updateUserData({
                     wrongAnswers: [...existingWrongAnswers, wrongAnswer]
                 });
+
+                // Add to SRS (Spaced Repetition System)
+                if (userData?.uid) {
+                    addToSRS(userData.uid, {
+                        questionId: `${lessonId}_${currentQuestionIndex}`,
+                        lessonId: parseInt(lessonId),
+                        question: currentQuestion.question,
+                        correctAnswer: currentQuestion.correctAnswer,
+                        options: currentQuestion.options,
+                        type: 'multiple_choice'
+                    }).catch(err => console.error('SRS error:', err));
+                }
             }
         }
     };
