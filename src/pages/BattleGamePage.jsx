@@ -87,10 +87,22 @@ function BattleGamePage() {
     }, [roomCode, navigate, currentUser]);
 
     // Timer for timed mode
+    // Use a ref to track if timer was already started for current question
+    const timerStartedRef = useRef(-1);
+
     useEffect(() => {
         if (!settings || settings.mode !== 'timed' || !settings.timePerQuestion) return;
         if (answered) return;
 
+        // Only reset timer when moving to a NEW question (currentIndex changed)
+        // This prevents timer from resetting when room updates (e.g., opponent answers)
+        if (timerStartedRef.current === currentIndex) {
+            // Timer already running for this question, don't reset
+            return;
+        }
+
+        // Mark this question as having timer started
+        timerStartedRef.current = currentIndex;
         setTimeLeft(settings.timePerQuestion);
 
         const timer = setInterval(() => {
@@ -105,7 +117,7 @@ function BattleGamePage() {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [currentIndex, answered, settings]);
+    }, [currentIndex, answered, settings, handleSubmit]);
 
     const handleSelect = (index) => {
         if (answered) return;
