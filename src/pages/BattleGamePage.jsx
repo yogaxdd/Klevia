@@ -86,6 +86,39 @@ function BattleGamePage() {
         return () => unsubscribe();
     }, [roomCode, navigate, currentUser]);
 
+    const handleSelect = (index) => {
+        if (answered) return;
+        setSelectedAnswer(index);
+    };
+
+    const handleSubmit = useCallback(async (forcedAnswer = null, timedOut = false) => {
+        if (answered) return;
+
+        const answer = timedOut ? -1 : (forcedAnswer ?? selectedAnswer);
+        const isCorrect = answer === currentQuestion?.correctAnswer;
+
+        setAnswered(true);
+        setMyAnswers(prev => [...prev, { index: currentIndex, answer, isCorrect }]);
+
+        try {
+            await submitAnswer(roomCode, currentUser.uid, currentIndex, answer, isCorrect);
+        } catch (err) {
+            console.error(err);
+        }
+
+        // Move to next after delay
+        setTimeout(() => {
+            if (currentIndex < totalQuestions - 1) {
+                setCurrentIndex(prev => prev + 1);
+                setSelectedAnswer(null);
+                setAnswered(false);
+            } else {
+                // Finished all questions
+                finishQuiz(roomCode, currentUser.uid);
+            }
+        }, 1500);
+    }, [answered, selectedAnswer, currentQuestion, currentIndex, totalQuestions, roomCode, currentUser]);
+
     // Timer for timed mode
     // Use a ref to track if timer was already started for current question
     const timerStartedRef = useRef(-1);
@@ -119,38 +152,7 @@ function BattleGamePage() {
         return () => clearInterval(timer);
     }, [currentIndex, answered, settings, handleSubmit]);
 
-    const handleSelect = (index) => {
-        if (answered) return;
-        setSelectedAnswer(index);
-    };
 
-    const handleSubmit = useCallback(async (forcedAnswer = null, timedOut = false) => {
-        if (answered) return;
-
-        const answer = timedOut ? -1 : (forcedAnswer ?? selectedAnswer);
-        const isCorrect = answer === currentQuestion?.correctAnswer;
-
-        setAnswered(true);
-        setMyAnswers(prev => [...prev, { index: currentIndex, answer, isCorrect }]);
-
-        try {
-            await submitAnswer(roomCode, currentUser.uid, currentIndex, answer, isCorrect);
-        } catch (err) {
-            console.error(err);
-        }
-
-        // Move to next after delay
-        setTimeout(() => {
-            if (currentIndex < totalQuestions - 1) {
-                setCurrentIndex(prev => prev + 1);
-                setSelectedAnswer(null);
-                setAnswered(false);
-            } else {
-                // Finished all questions
-                finishQuiz(roomCode, currentUser.uid);
-            }
-        }, 1500);
-    }, [answered, selectedAnswer, currentQuestion, currentIndex, totalQuestions, roomCode, currentUser]);
 
     const labels = ['A', 'B', 'C', 'D'];
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../firebase/AuthContext';
@@ -6,16 +6,43 @@ import { useTheme } from '../context/ThemeContext';
 import BottomNav from '../components/BottomNav';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import {
+    requestNotificationPermission,
+    disableNotifications,
+    getPermissionStatus,
+    isNotificationSupported,
+    showTestNotification
+} from '../services/notificationService';
 
 function SettingsPage() {
     const navigate = useNavigate();
     const { settings, updateSettings, resetAll, user, updateUser } = useApp();
-    const { currentUser, logout, isAuthenticated } = useAuth();
+    const { currentUser, logout, isAuthenticated, userData } = useAuth();
     const { isDarkMode, toggleTheme } = useTheme();
     const [showResetModal, setShowResetModal] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [tempName, setTempName] = useState(user.name);
+
+    // Notification states
+    const [notifSupported, setNotifSupported] = useState(false);
+    const [notifEnabled, setNotifEnabled] = useState(false);
+    const [notifLoading, setNotifLoading] = useState(false);
+    const [notifError, setNotifError] = useState('');
+
+    // Check notification support and status on mount
+    useEffect(() => {
+        const checkNotifications = async () => {
+            const supported = await isNotificationSupported();
+            setNotifSupported(supported);
+
+            if (supported) {
+                const permission = getPermissionStatus();
+                setNotifEnabled(permission === 'granted' && userData?.notificationsEnabled);
+            }
+        };
+        checkNotifications();
+    }, [userData]);
 
     const handleToggleSound = () => {
         updateSettings({ soundEnabled: !settings.soundEnabled });
@@ -42,6 +69,38 @@ function SettingsPage() {
             });
         }
         setIsEditing(false);
+    };
+
+    const handleToggleNotifications = async () => {
+        if (!currentUser) return;
+
+        setNotifLoading(true);
+        setNotifError('');
+
+        try {
+            if (!notifEnabled) {
+                // Enable notifications
+                const result = await requestNotificationPermission(currentUser.uid);
+                if (result.success) {
+                    setNotifEnabled(true);
+                } else {
+                    setNotifError(result.error || 'Gagal mengaktifkan notifikasi');
+                }
+            } else {
+                // Disable notifications
+                await disableNotifications(currentUser.uid);
+                setNotifEnabled(false);
+            }
+        } catch (error) {
+            setNotifError('Terjadi kesalahan');
+            console.error(error);
+        } finally {
+            setNotifLoading(false);
+        }
+    };
+
+    const handleTestNotification = () => {
+        showTestNotification();
     };
 
     return (
@@ -197,6 +256,55 @@ function SettingsPage() {
                                 </button>
                             </div>
                         </Card>
+
+                        {/* Notification Toggle - only show if supported and logged in */}
+                        {isAuthenticated && notifSupported && (
+                            <Card>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${notifEnabled ? 'bg-green-100' : 'bg-gray-100'}`}>
+                                            <span className={`material-symbols-outlined ${notifEnabled ? 'text-green-600' : 'text-gray-600'}`}>
+                                                {notifEnabled ? 'notifications_active' : 'notifications_off'}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p className="font-medium text-text-main">Notifikasi</p>
+                                            <p className="text-sm text-text-secondary">
+                                                {notifLoading ? 'Memproses...' : notifEnabled ? 'Aktif' : 'Nonaktif'}
+                                            </p>
+                                            {notifError && (
+                                                <p className="text-xs text-red-500">{notifError}</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={handleToggleNotifications}
+                                        disabled={notifLoading}
+                                        className={`
+                                            relative inline-flex h-7 w-12 items-center rounded-full transition-colors
+                                            ${notifLoading ? 'opacity-50 cursor-not-allowed' : ''}
+                                            ${notifEnabled ? 'bg-green-500' : 'bg-gray-300'}
+                                        `}
+                                    >
+                                        <span
+                                            className={`
+                                                inline-block h-5 w-5 rounded-full bg-white shadow-sm transform transition-transform
+                                                ${notifEnabled ? 'translate-x-6' : 'translate-x-1'}
+                                            `}
+                                        />
+                                    </button>
+                                </div>
+                                {/* Test notification button */}
+                                {notifEnabled && (
+                                    <button
+                                        onClick={handleTestNotification}
+                                        className="mt-3 text-xs text-primary hover:underline"
+                                    >
+                                        🔔 Kirim notifikasi test
+                                    </button>
+                                )}
+                            </Card>
+                        )}
 
                         {/* Change Class */}
                         <Card hoverable onClick={() => navigate('/select-class')}>

@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getMessaging, isSupported } from 'firebase/messaging';
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -21,4 +22,14 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
+// Messaging will be initialized on-demand (only when supported)
+export const initializeMessaging = async () => {
+    const supported = await isSupported();
+    if (supported) {
+        return getMessaging(app);
+    }
+    return null;
+};
+
 export default app;
+
