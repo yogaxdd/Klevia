@@ -23,7 +23,7 @@ function ReviewWrongAnswersPage() {
     const currentQuestion = answeredQuestion || wrongAnswers[currentIndex]; // Use answeredQuestion if set
 
     // Labels for options
-    const labels = ['A', 'B', 'C', 'D'];
+    const labels = ['A', 'B', 'C', 'D', 'E'];
     const correctAnswerText = currentQuestion?.options?.[currentQuestion.correctAnswer];
 
     const handleSelectAnswer = (index) => {

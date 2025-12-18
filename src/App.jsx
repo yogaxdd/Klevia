@@ -33,6 +33,8 @@ import BattleWaitingPage from './pages/BattleWaitingPage'
 import BattleGamePage from './pages/BattleGamePage'
 import BattleResultPage from './pages/BattleResultPage'
 import TrueFalseTestPage from './pages/TrueFalseTestPage'
+import MultiAnswerTestPage from './pages/MultiAnswerTestPage'
+import TKABindoTestPage from './pages/TKABindoTestPage'
 
 // Inner component to access auth context
 function AppContent() {
@@ -129,6 +131,10 @@ function AppContent() {
                         } />
                         {/* Test page for True/False UI prototype */}
                         <Route path="/test-tf" element={<TrueFalseTestPage />} />
+                        {/* Test page for Multiple Answer UI prototype */}
+                        <Route path="/test-multi" element={<MultiAnswerTestPage />} />
+                        {/* Test page for TKA Bahasa Indonesia with all question types */}
+                        <Route path="/test-tka-bindo" element={<TKABindoTestPage />} />
                     </Routes>
                 </div>
             </div>

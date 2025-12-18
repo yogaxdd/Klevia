@@ -115,8 +115,45 @@ function getQuestionsForClass(kelas, count = 10, subject = 'all') {
 
     // Explicit lesson ID ranges per subject per class
     // This avoids confusion from the inconsistent ID format
+    // Based on actual lessonsSMA.js data
     const subjectRanges = {
-        // Kelas 11 - based on actual questionsSMAKelas11.js
+        // Kelas 7 - SMP (from lessons.js)
+        7: {
+            'matematika': { ids: [101, 102, 103, 104, 1005, 1006, 1007, 1008, 1009, 1010] },
+            'ipa': { ids: [105, 106, 107, 108, 1011, 1012, 1013, 1014, 1015, 1016] },
+            'bahasa': { ids: [109, 110, 111, 112, 1017, 1018, 1019, 1020, 1021, 1022] },
+            'english': { ids: [113, 114, 115, 116, 1023, 1024, 1025, 1026, 1027, 1028] },
+        },
+        // Kelas 8 - SMP (from lessons.js)
+        8: {
+            'matematika': { ids: [201, 202, 203, 204, 2005, 2006, 2007, 2008, 2009, 2010] },
+            'ipa': { ids: [205, 206, 207, 208, 2011, 2012, 2013, 2014, 2015, 2016] },
+            'bahasa': { ids: [209, 210, 211, 212, 2017, 2018, 2019, 2020, 2021, 2022] },
+            'english': { ids: [213, 214, 215, 216, 2023, 2024, 2025, 2026, 2027, 2028] },
+        },
+        // Kelas 9 - SMP (from lessons.js)
+        9: {
+            'matematika': { ids: [301, 302, 303, 304, 3005, 3006, 3007, 3008, 3009, 3010] },
+            'ipa': { ids: [305, 306, 307, 308, 3011, 3012, 3013, 3014, 3015, 3016] },
+            'bahasa': { ids: [309, 310, 311, 312, 3017, 3018, 3019, 3020, 3021, 3022] },
+            'english': { ids: [313, 314, 315, 316, 3023, 3024, 3025, 3026, 3027, 3028] },
+        },
+        // Kelas 10 - SMA (from lessonsSMA.js lines 10-109)
+        10: {
+            'matematika': { start: 10101, end: 10112 },
+            'bahasa': { start: 10201, end: 10206 },
+            'english': { start: 10301, end: 10312 },
+            'biologi': { start: 10401, end: 10404 },
+            'kimia': { start: 10501, end: 10505 },
+            'fisika': { start: 10601, end: 10604 },
+            'ekonomi': { start: 10701, end: 10704 },
+            'sosiologi': { start: 10801, end: 10808 },
+            'geografi': { start: 10901, end: 10903 },
+            'sejarah': { start: 11001, end: 11005 },
+            'pkn': { start: 11101, end: 11105 },
+            'informatika': { start: 11201, end: 11207 },
+        },
+        // Kelas 11 - SMA (from lessonsSMA.js lines 117-200)
         11: {
             'matematika': { start: 11301, end: 11307 },
             'bahasa': { start: 11401, end: 11405 },
@@ -131,48 +168,87 @@ function getQuestionsForClass(kelas, count = 10, subject = 'all') {
             'pkn': { start: 12301, end: 12305 },
             'informatika': { start: 12401, end: 12405 },
         },
-        // Kelas 10 - similar pattern
-        10: {
-            'matematika': { start: 10301, end: 10310 },
-            'bahasa': { start: 10401, end: 10410 },
-            'english': { start: 10501, end: 10510 },
-            'biologi': { start: 10601, end: 10610 },
-            'kimia': { start: 10701, end: 10710 },
-            'fisika': { start: 10801, end: 10810 },
-            'ekonomi': { start: 10901, end: 10910 },
-        },
-        // Kelas 12 - similar pattern
+        // Kelas 12 - SMA (from lessonsSMA.js lines 207-255)
+        // NOTE: Some IDs overlap with Kelas 11 (conflict in data), but questions are imported last so they override
         12: {
-            'matematika': { start: 12301, end: 12310 },
-            'bahasa': { start: 12401, end: 12410 },
-            'english': { start: 12501, end: 12510 },
-            'biologi': { start: 12601, end: 12610 },
-            'kimia': { start: 12701, end: 12710 },
-            'fisika': { start: 12801, end: 12810 },
-            'ekonomi': { start: 12901, end: 12910 },
+            'matematika': { start: 12301, end: 12303 },
+            'bahasa': { start: 12401, end: 12403 },
+            'english': { start: 12501, end: 12502 },
+            'biologi': { start: 12601, end: 12603 },
+            'kimia': { start: 12701, end: 12702 },
+            'fisika': { start: 12801, end: 12802 },
+            'ekonomi': { start: 12901, end: 12902 },
+            'sosiologi': { start: 13001, end: 13002 },
+            'geografi': { start: 13101, end: 13102 },
+            'sejarah': { start: 13201, end: 13202 },
+            'pkn': { start: 13301, end: 13302 },
+            'informatika': { start: 13401, end: 13402 },
         },
     };
 
     // Get all questions from these lesson IDs
     let allQuestions = [];
-    console.log(`🎮 Looking for questions in range ${startId}-${endId}, subject: ${subject}`);
+    console.log(`🎮 Looking for questions - Kelas ${kelas}, subject: ${subject}`);
 
     // If we have explicit subject ranges for this class, use them
-    if (subject !== 'all' && kelas >= 10 && subjectRanges[kelas] && subjectRanges[kelas][subject]) {
+    if (subject !== 'all' && subjectRanges[kelas] && subjectRanges[kelas][subject]) {
         const range = subjectRanges[kelas][subject];
-        console.log(`🎮 Using explicit range for ${subject}: ${range.start}-${range.end}`);
 
-        for (let lessonId = range.start; lessonId <= range.end; lessonId++) {
-            const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
-            if (lessonQuestions && Array.isArray(lessonQuestions)) {
-                allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
-                    ...q,
-                    lessonId
-                }))];
+        // Check if using explicit IDs array (for SMP) or start/end range (for SMA)
+        if (range.ids) {
+            console.log(`🎮 Using explicit IDs for ${subject}: ${range.ids.join(', ')}`);
+            for (const lessonId of range.ids) {
+                const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
+                if (lessonQuestions && Array.isArray(lessonQuestions)) {
+                    allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
+                        ...q,
+                        lessonId
+                    }))];
+                }
+            }
+        } else {
+            console.log(`🎮 Using range for ${subject}: ${range.start}-${range.end}`);
+            for (let lessonId = range.start; lessonId <= range.end; lessonId++) {
+                const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
+                if (lessonQuestions && Array.isArray(lessonQuestions)) {
+                    allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
+                        ...q,
+                        lessonId
+                    }))];
+                }
+            }
+        }
+    } else if (subject === 'all' && subjectRanges[kelas]) {
+        // For 'all' subjects, get questions from all subjects for this class
+        console.log(`🎮 Getting all subjects for Kelas ${kelas}`);
+        for (const subjectKey of Object.keys(subjectRanges[kelas])) {
+            const range = subjectRanges[kelas][subjectKey];
+
+            if (range.ids) {
+                for (const lessonId of range.ids) {
+                    const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
+                    if (lessonQuestions && Array.isArray(lessonQuestions)) {
+                        allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
+                            ...q,
+                            lessonId
+                        }))];
+                    }
+                }
+            } else if (range.start && range.end) {
+                for (let lessonId = range.start; lessonId <= range.end; lessonId++) {
+                    const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
+                    if (lessonQuestions && Array.isArray(lessonQuestions)) {
+                        allQuestions = [...allQuestions, ...lessonQuestions.map(q => ({
+                            ...q,
+                            lessonId
+                        }))];
+                    }
+                }
             }
         }
     } else {
-        // Fallback to original range-based approach for SMP or 'all' subjects
+        // Fallback to original range-based approach (shouldn't reach here normally)
+        console.log(`🎮 Fallback: Using range ${startId}-${endId}`);
         for (let lessonId = startId; lessonId <= endId; lessonId++) {
             const lessonQuestions = questions[lessonId] || questions[String(lessonId)];
             if (lessonQuestions && Array.isArray(lessonQuestions)) {

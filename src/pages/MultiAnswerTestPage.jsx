@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TrueFalseRow from '../components/TrueFalseRow';
+import MultiSelectOptionCard from '../components/MultiSelectOptionCard';
 import ProgressBar from '../components/ProgressBar';
 import HeartDisplay from '../components/HeartDisplay';
 import Button from '../components/Button';
 
-// Sample True/False questions
+// Sample questions with multiple correct answers
 const sampleQuestions = [
     {
         id: 1,
@@ -14,99 +14,95 @@ const sampleQuestions = [
 Dibutuhkan tindakan skala besar untuk berpindah dari kecenderungan tersebut mengingat banyak pihak yang terlibat dalam bidang pekerjaan ini. Masyarakat sektor swasta dan masyarakat sipil perlu mobilisasi untuk menangkap peluang ekonomi lain di luar dari pengelolaan plastik.
 
 Solusi tersebut tidak mudah. Fakta bahwa harga minyak yang rendah mengakibatkan biaya yang dibutuhkan untuk daur ulang plastik jauh lebih mahal daripada memproduksi yang baru. Kondisi lain yang menunjukkan ekonomi di negara berkembang tumbuh lebih besar menjadikan penggunaan plastik juga meningkat. Solusi yang dibutuhkan adalah cara kita menggunakan plastik. Misalnya dengan mengurangi penggunaan plastik dalam kemasan atau menggunakannya kembali sebanyak yang kita bisa.`,
-        question: `"Solusi tersebut tidak mudah."
-
-Mengapa penulis menggunakan kalimat tersebut pada teks?`,
-        instruction: "Tentukan Benar atau Salah untuk setiap pernyataan berikut!",
-        trueLabel: "Benar",
-        falseLabel: "Salah",
-        statements: [
-            {
-                text: "Menginformasikan kepada pembaca bahwa pemecahan masalah sampah merupakan tanggung jawab utama kita sebagai masyarakat sipil sehingga sulit untuk diselesaikan.",
-                correctAnswer: false
-            },
-            {
-                text: "Menunjukkan kepada pembaca bahwa permasalahan sampah plastik sangat rumit dan tidak bisa diselesaikan dalam jangka waktu singkat.",
-                correctAnswer: true
-            },
-            {
-                text: "Membuktikan kepada pembaca bahwa permasalahan sampah yang rumit disebabkan pemecahan masalah yang bergantung pada perekonomian negara berkembang.",
-                correctAnswer: false
-            }
-        ]
+        question: "Mengapa lautan menghadapi ancaman pada 2050?",
+        options: [
+            "Sampah plastik di laut akan lebih banyak daripada jumlah ikan.",
+            "Lautan akan terus mengalami pemanasan dan semakin asam.",
+            "Manusia terus memompa lebih banyak CO₂ ke atmosfer.",
+            "Jumlah ikan yang terancam punah semakin banyak.",
+            "Penggunaan plastik terus meningkat dan tidak dikelola dengan baik"
+        ],
+        correctAnswers: [0, 1, 2, 4],
     },
     {
         id: 2,
+        readingPassage: `Pemanasan global adalah fenomena meningkatnya suhu rata-rata atmosfer, laut, dan daratan bumi. Penyebab utama pemanasan global adalah meningkatnya konsentrasi gas rumah kaca di atmosfer akibat aktivitas manusia.
+
+Gas rumah kaca utama meliputi karbon dioksida (CO₂), metana (CH₄), dan dinitrogen oksida (N₂O). Pembakaran bahan bakar fosil dan deforestasi adalah kontributor utama emisi CO₂. Sektor pertanian dan peternakan menghasilkan metana dalam jumlah besar.
+
+Dampak pemanasan global meliputi mencairnya es di kutub, naiknya permukaan air laut, perubahan pola cuaca, dan kepunahan spesies. Para ilmuwan sepakat bahwa tindakan segera diperlukan untuk mengurangi emisi gas rumah kaca.`,
+        question: "Berdasarkan teks di atas, apa saja penyebab utama pemanasan global?",
+        options: [
+            "Pembakaran bahan bakar fosil",
+            "Deforestasi atau penebangan hutan",
+            "Aktivitas pertanian dan peternakan",
+            "Naiknya permukaan air laut",
+            "Mencairnya es di kutub"
+        ],
+        correctAnswers: [0, 1, 2],
+    },
+    {
+        id: 3,
         readingPassage: null,
-        referenceText: null,
-        question: "Tentukan apakah pernyataan berikut tentang bilangan prima benar atau salah.",
-        instruction: "Tentukan Benar atau Salah untuk setiap pernyataan berikut!",
-        trueLabel: "Benar",
-        falseLabel: "Salah",
-        statements: [
-            {
-                text: "Bilangan 2 adalah bilangan prima genap.",
-                correctAnswer: true
-            },
-            {
-                text: "Semua bilangan ganjil adalah bilangan prima.",
-                correctAnswer: false
-            },
-            {
-                text: "Bilangan 1 adalah bilangan prima terkecil.",
-                correctAnswer: false
-            },
-            {
-                text: "Bilangan prima hanya bisa dibagi oleh 1 dan dirinya sendiri.",
-                correctAnswer: true
-            }
-        ]
+        question: "Manakah yang termasuk bilangan prima?",
+        options: [
+            "2",
+            "3",
+            "4",
+            "5",
+            "9"
+        ],
+        correctAnswers: [0, 1, 3],
     }
 ];
 
-function TrueFalseTestPage() {
+function MultiAnswerTestPage() {
     const navigate = useNavigate();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState({}); // { statementIndex: true/false }
+    const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [isAnswered, setIsAnswered] = useState(false);
-    const [results, setResults] = useState({}); // { statementIndex: true/false (correct or not) }
     const [isCorrect, setIsCorrect] = useState(null);
     const [hearts, setHearts] = useState(5);
+    const [score, setScore] = useState(0);
     const [showShake, setShowShake] = useState(false);
     const [questionKey, setQuestionKey] = useState(0);
 
     const currentQuestion = sampleQuestions[currentQuestionIndex];
     const totalQuestions = sampleQuestions.length;
-    const totalStatements = currentQuestion.statements.length;
-    const answeredCount = Object.keys(answers).length;
 
-    const handleAnswerChange = (statementIndex, value) => {
+    const handleToggleAnswer = (index) => {
         if (isAnswered) return;
-        setAnswers(prev => ({
-            ...prev,
-            [statementIndex]: value
-        }));
+
+        setSelectedAnswers(prev => {
+            if (prev.includes(index)) {
+                return prev.filter(i => i !== index);
+            } else {
+                return [...prev, index];
+            }
+        });
     };
 
     const handleCheck = () => {
-        if (answeredCount < totalStatements) return;
+        if (selectedAnswers.length === 0) return;
 
-        // Check each statement
-        const newResults = {};
+        const correctSet = new Set(currentQuestion.correctAnswers);
+        const selectedSet = new Set(selectedAnswers);
+
+        // Check if all correct answers are selected and no wrong answers
         let allCorrect = true;
-
-        currentQuestion.statements.forEach((statement, index) => {
-            const userAnswer = answers[index];
-            const isStatementCorrect = userAnswer === statement.correctAnswer;
-            newResults[index] = isStatementCorrect;
-            if (!isStatementCorrect) allCorrect = false;
+        selectedAnswers.forEach(idx => {
+            if (!correctSet.has(idx)) allCorrect = false;
+        });
+        currentQuestion.correctAnswers.forEach(idx => {
+            if (!selectedSet.has(idx)) allCorrect = false;
         });
 
-        setResults(newResults);
         setIsCorrect(allCorrect);
         setIsAnswered(true);
 
-        if (!allCorrect) {
+        if (allCorrect) {
+            setScore(prev => prev + 1);
+        } else {
             setHearts(prev => Math.max(0, prev - 1));
             setShowShake(true);
             setTimeout(() => setShowShake(false), 500);
@@ -116,8 +112,7 @@ function TrueFalseTestPage() {
     const handleNext = () => {
         if (currentQuestionIndex < totalQuestions - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
-            setAnswers({});
-            setResults({});
+            setSelectedAnswers([]);
             setIsAnswered(false);
             setIsCorrect(null);
             setQuestionKey(prev => prev + 1);
@@ -130,11 +125,28 @@ function TrueFalseTestPage() {
         navigate('/home');
     };
 
-    const canCheck = answeredCount === totalStatements;
+    const getOptionState = (index) => {
+        if (!isAnswered) return null;
+
+        const isSelected = selectedAnswers.includes(index);
+        const isCorrectAnswer = currentQuestion.correctAnswers.includes(index);
+
+        if (isSelected && isCorrectAnswer) return true;
+        if (isSelected && !isCorrectAnswer) return false;
+        if (!isSelected && isCorrectAnswer) return 'missed';
+        return null;
+    };
+
+    const canCheck = selectedAnswers.length > 0;
+
+    // Get correct answers text for display
+    const correctAnswersText = currentQuestion.correctAnswers
+        .map(idx => currentQuestion.options[idx])
+        .join(', ');
 
     return (
         <div className="bg-background min-h-screen flex flex-col relative">
-            {/* Top Bar */}
+            {/* Top Bar - Same as LessonPage */}
             <div className="flex items-center justify-between px-4 py-3 bg-background shrink-0">
                 <button
                     onClick={handleClose}
@@ -155,19 +167,19 @@ function TrueFalseTestPage() {
             </div>
 
             {/* Main Content */}
-            <div className={`flex-1 overflow-y-auto no-scrollbar p-4 flex flex-col items-center w-full max-w-2xl mx-auto ${isAnswered && !isCorrect ? 'pb-72' : 'pb-28'}`}>
+            <div className={`flex-1 overflow-y-auto no-scrollbar p-4 flex flex-col items-center w-full max-w-md mx-auto ${isAnswered && !isCorrect ? 'pb-72' : 'pb-28'}`}>
                 {/* Question Type Badge */}
                 <div className="w-full mb-2">
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
-                        <span className="material-symbols-outlined text-sm">fact_check</span>
-                        Benar / Salah
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
+                        <span className="material-symbols-outlined text-sm">checklist</span>
+                        Pilihan Ganda (Lebih dari 1)
                     </span>
                 </div>
 
                 {/* Question Section */}
-                <div className="w-full mb-4">
+                <div className="w-full mb-6">
                     <h2 className="text-lg font-bold text-text-main mb-4 leading-tight">
-                        {currentQuestion.instruction}
+                        Pilihlah jawaban yang benar! Jawaban benar lebih dari satu.
                     </h2>
 
                     {/* Reading Passage (if exists) */}
@@ -187,64 +199,32 @@ function TrueFalseTestPage() {
                     {/* Question Card */}
                     <div
                         key={`q-${questionKey}`}
-                        className="bg-surface rounded-2xl shadow-soft overflow-hidden border border-border mb-4 animate-fadeIn"
+                        className="bg-surface rounded-2xl shadow-soft overflow-hidden border border-border mb-6 animate-fadeIn"
                     >
                         <div className="p-5">
-                            <p className="text-lg font-bold text-text-main leading-tight whitespace-pre-line">
+                            <p className="text-xl font-bold text-text-main leading-tight">
                                 {currentQuestion.question}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                {/* True/False Table */}
+                {/* Multiple Choice Options */}
                 <div
-                    key={`tf-${questionKey}`}
-                    className={`w-full bg-surface rounded-2xl shadow-soft border border-border overflow-hidden animate-fadeIn ${showShake ? 'animate-shake' : ''}`}
+                    key={`opts-${questionKey}`}
+                    className={`w-full flex flex-col gap-3 pb-4 stagger-children ${showShake ? 'animate-shake' : ''}`}
                 >
-                    {/* Table Header */}
-                    <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 border-b border-border">
-                        <div className="flex-1 min-w-0">
-                            <span className="text-sm font-bold text-text-secondary uppercase tracking-wider">
-                                Pernyataan
-                            </span>
-                        </div>
-                        <div className="w-12 text-center">
-                            <span className="text-xs font-bold text-text-secondary uppercase">
-                                {currentQuestion.trueLabel}
-                            </span>
-                        </div>
-                        <div className="w-12 text-center">
-                            <span className="text-xs font-bold text-text-secondary uppercase">
-                                {currentQuestion.falseLabel}
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Statement Rows */}
-                    {currentQuestion.statements.map((statement, index) => (
-                        <TrueFalseRow
+                    {currentQuestion.options.map((option, index) => (
+                        <MultiSelectOptionCard
                             key={`${questionKey}-${index}`}
-                            statement={statement.text}
-                            value={answers[index] ?? null}
-                            correct={isAnswered ? results[index] : null}
-                            correctAnswer={statement.correctAnswer}
-                            onChange={(val) => handleAnswerChange(index, val)}
+                            text={option}
+                            selected={selectedAnswers.includes(index)}
+                            correct={getOptionState(index)}
+                            onClick={() => handleToggleAnswer(index)}
                             disabled={isAnswered}
-                            trueLabel={currentQuestion.trueLabel}
-                            falseLabel={currentQuestion.falseLabel}
                         />
                     ))}
                 </div>
-
-                {/* Progress indicator */}
-                {!isAnswered && (
-                    <div className="w-full mt-4 text-center">
-                        <span className="text-sm text-text-secondary">
-                            {answeredCount} dari {totalStatements} pernyataan dijawab
-                        </span>
-                    </div>
-                )}
             </div>
 
             {/* Correct Answer - Bottom Sheet (Green) */}
@@ -259,10 +239,10 @@ function TrueFalseTestPage() {
                             </div>
                             <div>
                                 <h3 className="text-primary text-xl font-bold tracking-tight">
-                                    Semua Jawaban Benar! 🎉
+                                    Jawaban Benar! 🎉
                                 </h3>
                                 <p className="text-green-700 text-sm">
-                                    Kamu berhasil menentukan semua pernyataan dengan tepat!
+                                    Kamu berhasil memilih semua jawaban yang benar!
                                 </p>
                             </div>
                         </div>
@@ -290,11 +270,26 @@ function TrueFalseTestPage() {
                             </div>
                             <div>
                                 <h3 className="text-[#c26d2b] text-xl font-bold tracking-tight">
-                                    Ada Jawaban yang Kurang Tepat
+                                    Jawaban Kurang Tepat
                                 </h3>
                                 <p className="text-[#a67c52] text-sm">
-                                    Perhatikan jawaban yang benar di atas. 💪
+                                    Jangan menyerah, tetap semangat! 💪
                                 </p>
+                            </div>
+                        </div>
+
+                        {/* Correct Answer Card */}
+                        <div className="bg-surface rounded-2xl p-4 border border-border mb-4 shadow-sm">
+                            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-2">
+                                Jawaban yang benar:
+                            </p>
+                            <div className="flex flex-col gap-1">
+                                {currentQuestion.correctAnswers.map((idx, i) => (
+                                    <p key={i} className="text-primary text-sm font-medium leading-relaxed flex items-start gap-2">
+                                        <span className="material-symbols-outlined text-sm mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                        {currentQuestion.options[idx]}
+                                    </p>
+                                ))}
                             </div>
                         </div>
 
@@ -337,4 +332,4 @@ function TrueFalseTestPage() {
     );
 }
 
-export default TrueFalseTestPage;
+export default MultiAnswerTestPage;
