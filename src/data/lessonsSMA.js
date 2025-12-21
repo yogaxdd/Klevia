@@ -164,40 +164,40 @@ export const lessonsSMA = [
     { id: 11904, title: "Indeks Harga dan Inflasi", subject: "ekonomi", grade: 11, description: "Menghitung inflasi", questionsCount: 5, xpReward: 75, order: 4 },
     { id: 11905, title: "Kebijakan Moneter dan Fiskal", subject: "ekonomi", grade: 11, description: "Instrumen kebijakan", questionsCount: 6, xpReward: 80, order: 5 },
 
-    // SOSIOLOGI - Kelas 11
-    { id: 12001, title: "Kelompok Sosial", subject: "sosiologi", grade: 11, description: "Jenis-jenis kelompok sosial", questionsCount: 5, xpReward: 75, order: 1 },
-    { id: 12002, title: "Masalah Sosial", subject: "sosiologi", grade: 11, description: "Kemiskinan dan kriminalitas", questionsCount: 5, xpReward: 75, order: 2 },
-    { id: 12003, title: "Konflik Sosial", subject: "sosiologi", grade: 11, description: "Penyebab dan dampak konflik", questionsCount: 5, xpReward: 75, order: 3 },
-    { id: 12004, title: "Mobilitas Sosial", subject: "sosiologi", grade: 11, description: "Mobilitas vertikal dan horizontal", questionsCount: 5, xpReward: 75, order: 4 },
-    { id: 12005, title: "Struktur Sosial", subject: "sosiologi", grade: 11, description: "Diferensiasi dan stratifikasi", questionsCount: 5, xpReward: 75, order: 5 },
+    // SOSIOLOGI - Kelas 11 (6-digit ID to avoid conflict with Kelas 12)
+    { id: 111001, title: "Kelompok Sosial", subject: "sosiologi", grade: 11, description: "Jenis-jenis kelompok sosial", questionsCount: 5, xpReward: 75, order: 1 },
+    { id: 111002, title: "Masalah Sosial", subject: "sosiologi", grade: 11, description: "Kemiskinan dan kriminalitas", questionsCount: 5, xpReward: 75, order: 2 },
+    { id: 111003, title: "Konflik Sosial", subject: "sosiologi", grade: 11, description: "Penyebab dan dampak konflik", questionsCount: 5, xpReward: 75, order: 3 },
+    { id: 111004, title: "Mobilitas Sosial", subject: "sosiologi", grade: 11, description: "Mobilitas vertikal dan horizontal", questionsCount: 5, xpReward: 75, order: 4 },
+    { id: 111005, title: "Struktur Sosial", subject: "sosiologi", grade: 11, description: "Diferensiasi dan stratifikasi", questionsCount: 5, xpReward: 75, order: 5 },
 
-    // GEOGRAFI - Kelas 11
-    { id: 12101, title: "Flora dan Fauna Indonesia", subject: "geografi", grade: 11, description: "Persebaran flora fauna", questionsCount: 5, xpReward: 75, order: 1 },
-    { id: 12102, title: "Sumber Daya Alam", subject: "geografi", grade: 11, description: "Potensi SDA Indonesia", questionsCount: 5, xpReward: 75, order: 2 },
-    { id: 12103, title: "Ketahanan Pangan", subject: "geografi", grade: 11, description: "Pertanian dan kelautan", questionsCount: 5, xpReward: 75, order: 3 },
-    { id: 12104, title: "Industri", subject: "geografi", grade: 11, description: "Klasifikasi industri", questionsCount: 5, xpReward: 75, order: 4 },
-    { id: 12105, title: "Energi Terbarukan", subject: "geografi", grade: 11, description: "Sumber energi alternatif", questionsCount: 5, xpReward: 75, order: 5 },
+    // GEOGRAFI - Kelas 11 (6-digit ID to avoid conflict with Kelas 12)
+    { id: 111101, title: "Flora dan Fauna Indonesia", subject: "geografi", grade: 11, description: "Persebaran flora fauna", questionsCount: 5, xpReward: 75, order: 1 },
+    { id: 111102, title: "Sumber Daya Alam", subject: "geografi", grade: 11, description: "Potensi SDA Indonesia", questionsCount: 5, xpReward: 75, order: 2 },
+    { id: 111103, title: "Ketahanan Pangan", subject: "geografi", grade: 11, description: "Pertanian dan kelautan", questionsCount: 5, xpReward: 75, order: 3 },
+    { id: 111104, title: "Industri", subject: "geografi", grade: 11, description: "Klasifikasi industri", questionsCount: 5, xpReward: 75, order: 4 },
+    { id: 111105, title: "Energi Terbarukan", subject: "geografi", grade: 11, description: "Sumber energi alternatif", questionsCount: 5, xpReward: 75, order: 5 },
 
-    // SEJARAH - Kelas 11
-    { id: 12201, title: "Kolonialisme di Indonesia", subject: "sejarah", grade: 11, description: "VOC dan pemerintah kolonial", questionsCount: 6, xpReward: 80, order: 1 },
-    { id: 12202, title: "Pergerakan Nasional", subject: "sejarah", grade: 11, description: "Organisasi pergerakan", questionsCount: 5, xpReward: 75, order: 2 },
-    { id: 12203, title: "Pendudukan Jepang", subject: "sejarah", grade: 11, description: "Indonesia masa Jepang", questionsCount: 5, xpReward: 75, order: 3 },
-    { id: 12204, title: "Proklamasi Kemerdekaan", subject: "sejarah", grade: 11, description: "Peristiwa proklamasi", questionsCount: 5, xpReward: 75, order: 4 },
-    { id: 12205, title: "Revolusi Kemerdekaan", subject: "sejarah", grade: 11, description: "Perjuangan mempertahankan kemerdekaan", questionsCount: 5, xpReward: 75, order: 5 },
+    // SEJARAH - Kelas 11 (6-digit ID to avoid conflict with Kelas 12)
+    { id: 111201, title: "Kolonialisme di Indonesia", subject: "sejarah", grade: 11, description: "VOC dan pemerintah kolonial", questionsCount: 6, xpReward: 80, order: 1 },
+    { id: 111202, title: "Pergerakan Nasional", subject: "sejarah", grade: 11, description: "Organisasi pergerakan", questionsCount: 5, xpReward: 75, order: 2 },
+    { id: 111203, title: "Pendudukan Jepang", subject: "sejarah", grade: 11, description: "Indonesia masa Jepang", questionsCount: 5, xpReward: 75, order: 3 },
+    { id: 111204, title: "Proklamasi Kemerdekaan", subject: "sejarah", grade: 11, description: "Peristiwa proklamasi", questionsCount: 5, xpReward: 75, order: 4 },
+    { id: 111205, title: "Revolusi Kemerdekaan", subject: "sejarah", grade: 11, description: "Perjuangan mempertahankan kemerdekaan", questionsCount: 5, xpReward: 75, order: 5 },
 
-    // PKN - Kelas 11
-    { id: 12301, title: "Pelanggaran HAM", subject: "pkn", grade: 11, description: "Kasus pelanggaran HAM", questionsCount: 5, xpReward: 75, order: 1 },
-    { id: 12302, title: "Demokrasi Indonesia", subject: "pkn", grade: 11, description: "Sistem demokrasi Pancasila", questionsCount: 5, xpReward: 75, order: 2 },
-    { id: 12303, title: "Sistem Hukum Indonesia", subject: "pkn", grade: 11, description: "Tata hukum nasional", questionsCount: 5, xpReward: 75, order: 3 },
-    { id: 12304, title: "Dinamika Peran Indonesia", subject: "pkn", grade: 11, description: "Indonesia di dunia internasional", questionsCount: 5, xpReward: 75, order: 4 },
-    { id: 12305, title: "Ancaman Terhadap Negara", subject: "pkn", grade: 11, description: "Ancaman militer dan non-militer", questionsCount: 5, xpReward: 75, order: 5 },
+    // PKN - Kelas 11 (6-digit ID to avoid conflict with Kelas 12)
+    { id: 111301, title: "Pelanggaran HAM", subject: "pkn", grade: 11, description: "Kasus pelanggaran HAM", questionsCount: 5, xpReward: 75, order: 1 },
+    { id: 111302, title: "Demokrasi Indonesia", subject: "pkn", grade: 11, description: "Sistem demokrasi Pancasila", questionsCount: 5, xpReward: 75, order: 2 },
+    { id: 111303, title: "Sistem Hukum Indonesia", subject: "pkn", grade: 11, description: "Tata hukum nasional", questionsCount: 5, xpReward: 75, order: 3 },
+    { id: 111304, title: "Dinamika Peran Indonesia", subject: "pkn", grade: 11, description: "Indonesia di dunia internasional", questionsCount: 5, xpReward: 75, order: 4 },
+    { id: 111305, title: "Ancaman Terhadap Negara", subject: "pkn", grade: 11, description: "Ancaman militer dan non-militer", questionsCount: 5, xpReward: 75, order: 5 },
 
-    // INFORMATIKA - Kelas 11
-    { id: 12401, title: "Pemrograman Dasar", subject: "informatika", grade: 11, description: "Variabel dan tipe data", questionsCount: 5, xpReward: 75, order: 1 },
-    { id: 12402, title: "Struktur Kontrol", subject: "informatika", grade: 11, description: "If-else dan looping", questionsCount: 6, xpReward: 80, order: 2 },
-    { id: 12403, title: "Array dan Fungsi", subject: "informatika", grade: 11, description: "Struktur data dasar", questionsCount: 5, xpReward: 75, order: 3 },
-    { id: 12404, title: "Basis Data", subject: "informatika", grade: 11, description: "Pengenalan database", questionsCount: 5, xpReward: 75, order: 4 },
-    { id: 12405, title: "Keamanan Informasi", subject: "informatika", grade: 11, description: "Enkripsi dan keamanan data", questionsCount: 5, xpReward: 75, order: 5 },
+    // INFORMATIKA - Kelas 11 (6-digit ID to avoid conflict with Kelas 12)
+    { id: 111401, title: "Pemrograman Dasar", subject: "informatika", grade: 11, description: "Variabel dan tipe data", questionsCount: 5, xpReward: 75, order: 1 },
+    { id: 111402, title: "Struktur Kontrol", subject: "informatika", grade: 11, description: "If-else dan looping", questionsCount: 6, xpReward: 80, order: 2 },
+    { id: 111403, title: "Array dan Fungsi", subject: "informatika", grade: 11, description: "Struktur data dasar", questionsCount: 5, xpReward: 75, order: 3 },
+    { id: 111404, title: "Basis Data", subject: "informatika", grade: 11, description: "Pengenalan database", questionsCount: 5, xpReward: 75, order: 4 },
+    { id: 111405, title: "Keamanan Informasi", subject: "informatika", grade: 11, description: "Enkripsi dan keamanan data", questionsCount: 5, xpReward: 75, order: 5 },
 
     // ============================================
     // KELAS 12

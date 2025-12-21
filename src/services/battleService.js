@@ -154,6 +154,7 @@ function getQuestionsForClass(kelas, count = 10, subject = 'all') {
             'informatika': { start: 11201, end: 11207 },
         },
         // Kelas 11 - SMA (from lessonsSMA.js lines 117-200)
+        // NOTE: Subjects after ekonomi use 6-digit IDs (111xxx) to avoid conflict with Kelas 12
         11: {
             'matematika': { start: 11301, end: 11307 },
             'bahasa': { start: 11401, end: 11405 },
@@ -162,14 +163,13 @@ function getQuestionsForClass(kelas, count = 10, subject = 'all') {
             'kimia': { start: 11701, end: 11705 },
             'fisika': { start: 11801, end: 11805 },
             'ekonomi': { start: 11901, end: 11905 },
-            'sosiologi': { start: 12001, end: 12005 },
-            'geografi': { start: 12101, end: 12105 },
-            'sejarah': { start: 12201, end: 12205 },
-            'pkn': { start: 12301, end: 12305 },
-            'informatika': { start: 12401, end: 12405 },
+            'sosiologi': { start: 111001, end: 111005 },
+            'geografi': { start: 111101, end: 111105 },
+            'sejarah': { start: 111201, end: 111205 },
+            'pkn': { start: 111301, end: 111305 },
+            'informatika': { start: 111401, end: 111405 },
         },
         // Kelas 12 - SMA (from lessonsSMA.js lines 207-255)
-        // NOTE: Some IDs overlap with Kelas 11 (conflict in data), but questions are imported last so they override
         12: {
             'matematika': { start: 12301, end: 12303 },
             'bahasa': { start: 12401, end: 12403 },

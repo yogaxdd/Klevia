@@ -339,36 +339,36 @@ const questionsSMAKelas11 = {
         { question: "Operasi pasar terbuka adalah...", options: ["Jual beli surat berharga oleh BI", "Mengatur pajak", "Mengatur ekspor", "Mengatur upah"], correctAnswer: 0 },
     ],
 
-    // SOSIOLOGI - Kelas 11
-    12001: [ // Kelompok Sosial
+    // SOSIOLOGI - Kelas 11 (6-digit ID to match lessonsSMA.js)
+    111001: [ // Kelompok Sosial
         { question: "Kelompok sosial adalah...", options: ["Kumpulan orang yang berinteraksi teratur", "Kumpulan benda", "Individu tunggal", "Organisasi formal saja"], correctAnswer: 0 },
         { question: "In-group adalah kelompok dimana individu...", options: ["Merasa menjadi bagiannya", "Merasa asing", "Tidak berinteraksi", "Berkonflik"], correctAnswer: 0 },
         { question: "Contoh primary group adalah...", options: ["Keluarga", "Perusahaan", "Negara", "Partai politik"], correctAnswer: 0 },
         { question: "Gemeinschaft adalah ikatan yang berdasarkan...", options: ["Perasaan dan kekeluargaan", "Kontrak formal", "Kepentingan ekonomi", "Hukum tertulis"], correctAnswer: 0 },
         { question: "Kelompok referensi adalah...", options: ["Kelompok yang dijadikan acuan perilaku", "Kelompok kerja", "Kelompok bermain", "Kelompok agama"], correctAnswer: 0 },
     ],
-    12002: [ // Masalah Sosial
+    111002: [ // Masalah Sosial
         { question: "Masalah sosial adalah kondisi yang...", options: ["Dianggap tidak diinginkan masyarakat", "Normal di masyarakat", "Diinginkan semua orang", "Tidak perlu diatasi"], correctAnswer: 0 },
         { question: "Kemiskinan absolut adalah kondisi...", options: ["Tidak mampu memenuhi kebutuhan dasar", "Lebih miskin dari tetangga", "Sementara saja", "Tidak bekerja"], correctAnswer: 0 },
         { question: "Kriminalitas disebabkan oleh faktor...", options: ["Sosial, ekonomi, dan individu", "Alam saja", "Cuaca", "Lokasi geografis"], correctAnswer: 0 },
         { question: "Upaya mengatasi masalah sosial disebut...", options: ["Intervensi sosial", "Eksklusi sosial", "Degradasi sosial", "Isolasi sosial"], correctAnswer: 0 },
         { question: "Disorganisasi keluarga adalah contoh masalah sosial tingkat...", options: ["Mikro", "Makro", "Global", "Regional"], correctAnswer: 0 },
     ],
-    12003: [ // Konflik Sosial
+    111003: [ // Konflik Sosial
         { question: "Konflik sosial adalah...", options: ["Pertentangan antar individu/kelompok", "Kerja sama", "Akomodasi", "Asimilasi"], correctAnswer: 0 },
         { question: "Faktor penyebab konflik adalah...", options: ["Perbedaan kepentingan", "Kesamaan tujuan", "Kerja sama", "Solidaritas"], correctAnswer: 0 },
         { question: "Penyelesaian konflik dengan pihak ketiga yang keputusannya mengikat disebut...", options: ["Arbitrasi", "Mediasi", "Konsiliasi", "Negosiasi"], correctAnswer: 0 },
         { question: "Dampak positif konflik adalah...", options: ["Memperkuat solidaritas in-group", "Kerugian materi", "Korban jiwa", "Disintegrasi"], correctAnswer: 0 },
         { question: "Konflik horizontal terjadi antara...", options: ["Kelompok setara", "Atasan dan bawahan", "Pemerintah dan rakyat", "Negara dan warga"], correctAnswer: 0 },
     ],
-    12004: [ // Mobilitas Sosial
+    111004: [ // Mobilitas Sosial
         { question: "Mobilitas sosial adalah...", options: ["Perpindahan status sosial", "Perpindahan tempat tinggal", "Perubahan pekerjaan saja", "Perpindahan negara"], correctAnswer: 0 },
         { question: "Mobilitas vertikal naik contohnya adalah...", options: ["Karyawan menjadi manajer", "Pindah ke kota lain", "Ganti pekerjaan setara", "Pensiun"], correctAnswer: 0 },
         { question: "Saluran mobilitas sosial yang paling umum adalah...", options: ["Pendidikan", "Jenis kelamin", "Usia", "Tempat lahir"], correctAnswer: 0 },
         { question: "Mobilitas horizontal adalah perpindahan status...", options: ["Setara/sederajat", "Naik", "Turun", "Generasi"], correctAnswer: 0 },
         { question: "Faktor penghambat mobilitas sosial adalah...", options: ["Diskriminasi", "Pendidikan tinggi", "Kerja keras", "Bakat"], correctAnswer: 0 },
     ],
-    12005: [ // Struktur Sosial
+    111005: [ // Struktur Sosial
         { question: "Struktur sosial adalah...", options: ["Susunan atau tatanan hubungan sosial", "Bangunan fisik", "Organisasi formal", "Kelompok informal"], correctAnswer: 0 },
         { question: "Diferensiasi sosial adalah perbedaan secara...", options: ["Horizontal/setara", "Vertikal", "Hirarkis", "Bertingkat"], correctAnswer: 0 },
         { question: "Stratifikasi sosial adalah perbedaan secara...", options: ["Vertikal/bertingkat", "Horizontal", "Setara", "Merata"], correctAnswer: 0 },
@@ -376,36 +376,36 @@ const questionsSMAKelas11 = {
         { question: "Kelas sosial berdasarkan pada...", options: ["Kekayaan, pendidikan, pekerjaan", "Jenis kelamin", "Usia", "Tempat tinggal"], correctAnswer: 0 },
     ],
 
-    // GEOGRAFI - Kelas 11
-    12101: [ // Flora dan Fauna Indonesia
+    // GEOGRAFI - Kelas 11 (6-digit ID to match lessonsSMA.js)
+    111101: [ // Flora dan Fauna Indonesia
         { question: "Garis Wallace memisahkan fauna...", options: ["Asia dan Australia", "Asia dan Afrika", "Australia dan Amerika", "Afrika dan Australia"], correctAnswer: 0 },
         { question: "Komodo termasuk fauna tipe...", options: ["Peralihan", "Asiatis", "Australis", "Oriental"], correctAnswer: 0 },
         { question: "Hutan hujan tropis banyak terdapat di...", options: ["Kalimantan dan Papua", "Jawa", "Nusa Tenggara", "Maluku"], correctAnswer: 0 },
         { question: "Rafflesia arnoldii adalah flora endemik di...", options: ["Sumatera", "Jawa", "Sulawesi", "Papua"], correctAnswer: 0 },
         { question: "Faktor yang mempengaruhi persebaran flora adalah...", options: ["Iklim, tanah, ketinggian", "Warna tanah", "Nama tempat", "Jumlah penduduk"], correctAnswer: 0 },
     ],
-    12102: [ // Sumber Daya Alam
+    111102: [ // Sumber Daya Alam
         { question: "Sumber daya alam yang dapat diperbaharui contohnya adalah...", options: ["Hutan", "Minyak bumi", "Batu bara", "Gas alam"], correctAnswer: 0 },
         { question: "Indonesia kaya akan sumber daya...", options: ["Tambang dan hutan", "Salju", "Gurun pasir", "Tundra"], correctAnswer: 0 },
         { question: "Pemanfaatan SDA yang bijaksana disebut...", options: ["Pembangunan berkelanjutan", "Eksploitasi", "Ekstraksi maksimal", "Penebangan liar"], correctAnswer: 0 },
         { question: "Potensi energi panas bumi di Indonesia tinggi karena...", options: ["Banyak gunung berapi", "Banyak sungai", "Banyak pantai", "Banyak hutan"], correctAnswer: 0 },
         { question: "Cadangan minyak bumi Indonesia terbesar di...", options: ["Sumatera dan Kalimantan", "Jawa", "Bali", "NTT"], correctAnswer: 0 },
     ],
-    12103: [ // Ketahanan Pangan
+    111103: [ // Ketahanan Pangan
         { question: "Ketahanan pangan adalah kondisi dimana...", options: ["Kebutuhan pangan tercukupi", "Tidak ada pertanian", "Import 100%", "Harga mahal"], correctAnswer: 0 },
         { question: "Lumbung pangan Indonesia adalah...", options: ["Jawa", "Papua", "Maluku", "NTT"], correctAnswer: 0 },
         { question: "Diversifikasi pangan bertujuan untuk...", options: ["Mengurangi ketergantungan pada satu jenis", "Menaikkan harga", "Mengurangi produksi", "Ekspor semua"], correctAnswer: 0 },
         { question: "Sawit sebagai sumber...", options: ["Minyak nabati", "Karbohidrat", "Protein hewani", "Vitamin C"], correctAnswer: 0 },
         { question: "Ancaman ketahanan pangan adalah...", options: ["Alih fungsi lahan pertanian", "Pertanian intensif", "Irigasi", "Pupuk organik"], correctAnswer: 0 },
     ],
-    12104: [ // Industri
+    111104: [ // Industri
         { question: "Industri primer berkaitan dengan...", options: ["Pengolahan bahan mentah", "Jasa keuangan", "Perdagangan", "Teknologi informasi"], correctAnswer: 0 },
         { question: "Kawasan industri di Jawa Barat adalah...", options: ["Cikarang dan Karawang", "Yogyakarta", "Semarang", "Surabaya"], correctAnswer: 0 },
         { question: "Faktor lokasi industri adalah...", options: ["Bahan baku, tenaga kerja, pasar", "Cuaca cerah", "Nama kota", "Warna bendera"], correctAnswer: 0 },
         { question: "Aglomerasi industri adalah...", options: ["Pemusatan industri di satu lokasi", "Penyebaran industri", "Penutupan industri", "Industri rumahan"], correctAnswer: 0 },
         { question: "Dampak negatif industrialisasi adalah...", options: ["Polusi lingkungan", "Lapangan kerja", "Produk berkualitas", "Teknologi maju"], correctAnswer: 0 },
     ],
-    12105: [ // Energi Terbarukan
+    111105: [ // Energi Terbarukan
         { question: "Energi terbarukan contohnya adalah...", options: ["Matahari, angin, air", "Minyak bumi", "Batu bara", "Gas alam"], correctAnswer: 0 },
         { question: "Panel surya mengubah energi...", options: ["Matahari menjadi listrik", "Angin menjadi listrik", "Air menjadi listrik", "Panas bumi menjadi uap"], correctAnswer: 0 },
         { question: "Keuntungan energi terbarukan adalah...", options: ["Ramah lingkungan", "Cepat habis", "Polusi tinggi", "Mahal dan langka"], correctAnswer: 0 },
@@ -413,36 +413,36 @@ const questionsSMAKelas11 = {
         { question: "Biodiesel dibuat dari...", options: ["Minyak nabati", "Batu bara", "Gas", "Air"], correctAnswer: 0 },
     ],
 
-    // SEJARAH - Kelas 11
-    12201: [ // Kolonialisme
+    // SEJARAH - Kelas 11 (6-digit ID to match lessonsSMA.js)
+    111201: [ // Kolonialisme
         { question: "VOC didirikan tahun...", options: ["1602", "1800", "1700", "1500"], correctAnswer: 0 },
         { question: "Politik tanam paksa (cultuurstelsel) dilaksanakan pada masa...", options: ["Van den Bosch", "Daendels", "Raffles", "De Jonge"], correctAnswer: 0 },
         { question: "Sistem tanam paksa mewajibkan rakyat menanam...", options: ["Tanaman ekspor", "Padi saja", "Sayuran", "Buah-buahan"], correctAnswer: 0 },
         { question: "VOC dibubarkan tahun...", options: ["1799", "1800", "1700", "1602"], correctAnswer: 0 },
         { question: "Politik etis diusulkan oleh...", options: ["Van Deventer", "Van den Bosch", "Daendels", "Raffles"], correctAnswer: 0 },
     ],
-    12202: [ // Pergerakan Nasional
+    111202: [ // Pergerakan Nasional
         { question: "Budi Utomo didirikan tahun...", options: ["1908", "1912", "1928", "1945"], correctAnswer: 0 },
         { question: "Sumpah Pemuda diikrarkan pada...", options: ["28 Oktober 1928", "17 Agustus 1928", "1 Juni 1945", "17 Agustus 1945"], correctAnswer: 0 },
         { question: "Sarekat Islam awalnya bernama...", options: ["Sarekat Dagang Islam", "Budi Utomo", "PNI", "Muhammadiyah"], correctAnswer: 0 },
         { question: "Pendiri Muhammadiyah adalah...", options: ["KH Ahmad Dahlan", "Ki Hajar Dewantara", "Dr. Sutomo", "HOS Tjokroaminoto"], correctAnswer: 0 },
         { question: "Trikoro Dharmo adalah organisasi pemuda dari...", options: ["Jawa", "Sumatera", "Sulawesi", "Kalimantan"], correctAnswer: 0 },
     ],
-    12203: [ // Pendudukan Jepang
+    111203: [ // Pendudukan Jepang
         { question: "Jepang menduduki Indonesia tahun...", options: ["1942", "1941", "1943", "1945"], correctAnswer: 0 },
         { question: "Romusha adalah...", options: ["Kerja paksa", "Organisasi pemuda", "Tentara", "Petani"], correctAnswer: 0 },
         { question: "PETA adalah tentara bentukan...", options: ["Jepang", "Belanda", "Inggris", "Indonesia merdeka"], correctAnswer: 0 },
         { question: "Jepang menyerah pada...", options: ["15 Agustus 1945", "17 Agustus 1945", "1 Juni 1945", "22 Juni 1945"], correctAnswer: 0 },
         { question: "Tujuan Jepang menduduki Indonesia adalah...", options: ["Menguasai sumber daya", "Memerdekakan Indonesia", "Membangun industri", "Pendidikan"], correctAnswer: 0 },
     ],
-    12204: [ // Proklamasi
+    111204: [ // Proklamasi
         { question: "Proklamasi kemerdekaan dibacakan pada...", options: ["17 Agustus 1945", "18 Agustus 1945", "15 Agustus 1945", "1 Juni 1945"], correctAnswer: 0 },
         { question: "Teks proklamasi ditandatangani oleh...", options: ["Soekarno-Hatta", "Soekarno-Soeharto", "Hatta-Syahrir", "Tan Malaka-Sjahrir"], correctAnswer: 0 },
         { question: "Peristiwa Rengasdengklok terjadi pada...", options: ["16 Agustus 1945", "17 Agustus 1945", "15 Agustus 1945", "18 Agustus 1945"], correctAnswer: 0 },
         { question: "Tokoh pemuda yang mendesak proklamasi adalah...", options: ["Sukarni, Chaerul Saleh, Wikana", "Bung Karno, Bung Hatta", "Syahrir, Amir", "Sudirman, Nasution"], correctAnswer: 0 },
         { question: "Proklamasi dibacakan di...", options: ["Jalan Pegangsaan Timur 56 Jakarta", "Istana Merdeka", "Gedung DPR", "Lapangan Monas"], correctAnswer: 0 },
     ],
-    12205: [ // Revolusi Kemerdekaan
+    111205: [ // Revolusi Kemerdekaan
         { question: "Pertempuran 10 November 1945 terjadi di...", options: ["Surabaya", "Jakarta", "Bandung", "Semarang"], correctAnswer: 0 },
         { question: "Arek-arek Suroboyo dipimpin oleh...", options: ["Bung Tomo", "Sudirman", "Nasution", "Siliwangi"], correctAnswer: 0 },
         { question: "Bandung Lautan Api terjadi pada...", options: ["23 Maret 1946", "10 November 1945", "17 Agustus 1945", "1 Maret 1946"], correctAnswer: 0 },
@@ -450,36 +450,36 @@ const questionsSMAKelas11 = {
         { question: "Konferensi Meja Bundar menghasilkan pengakuan kedaulatan pada...", options: ["27 Desember 1949", "17 Agustus 1945", "1 Januari 1950", "28 Oktober 1945"], correctAnswer: 0 },
     ],
 
-    // PKN - Kelas 11
-    12301: [ // Demokrasi
+    // PKN - Kelas 11 (6-digit ID to match lessonsSMA.js)
+    111301: [ // Demokrasi
         { question: "Demokrasi berasal dari kata demos dan kratos yang artinya...", options: ["Rakyat dan kekuasaan", "Raja dan rakyat", "Negara dan hukum", "Pemimpin dan rakyat"], correctAnswer: 0 },
         { question: "Prinsip demokrasi Pancasila adalah...", options: ["Kerakyatan yang dipimpin hikmat kebijaksanaan", "Kekuasaan mutlak pemimpin", "Liberal tanpa batas", "Komunis"], correctAnswer: 0 },
         { question: "Pemilu adalah wujud...", options: ["Kedaulatan rakyat", "Kekuasaan presiden", "Hak veto", "Kekuasaan militer"], correctAnswer: 0 },
         { question: "Ciri demokrasi adalah...", options: ["Kebebasan berpendapat", "Diktatorisme", "Kekuasaan tunggal", "Tidak ada pemilu"], correctAnswer: 0 },
         { question: "Lembaga perwakilan rakyat di Indonesia adalah...", options: ["DPR", "MA", "MK", "BPK"], correctAnswer: 0 },
     ],
-    12302: [ // HAM
+    111302: [ // HAM
         { question: "HAM adalah singkatan dari...", options: ["Hak Asasi Manusia", "Hukum Acara Mahkamah", "Hubungan Antar Manusia", "Hasil Aktivitas Manusia"], correctAnswer: 0 },
         { question: "HAM bersifat...", options: ["Universal", "Lokal", "Temporal", "Terbatas"], correctAnswer: 0 },
         { question: "Deklarasi Universal HAM dikeluarkan tahun...", options: ["1948", "1945", "1950", "1955"], correctAnswer: 0 },
         { question: "Lembaga HAM di Indonesia adalah...", options: ["Komnas HAM", "KPK", "BPK", "MA"], correctAnswer: 0 },
         { question: "Contoh hak sipil adalah...", options: ["Hak hidup", "Hak memilih", "Hak bekerja", "Hak belajar"], correctAnswer: 0 },
     ],
-    12303: [ // Otonomi Daerah
+    111303: [ // Otonomi Daerah
         { question: "Otonomi daerah diatur dalam...", options: ["UU No. 23 Tahun 2014", "UUD 1945 saja", "Keppres", "Perda"], correctAnswer: 0 },
         { question: "Kepala daerah provinsi adalah...", options: ["Gubernur", "Bupati", "Walikota", "Camat"], correctAnswer: 0 },
         { question: "Tujuan otonomi daerah adalah...", options: ["Mempercepat pembangunan daerah", "Memusatkan kekuasaan", "Menghapus pemerintahan", "Mengurangi anggaran"], correctAnswer: 0 },
         { question: "Desentralisasi adalah...", options: ["Penyerahan wewenang ke daerah", "Pemusatan wewenang", "Penghapusan daerah", "Pembubaran DPRD"], correctAnswer: 0 },
         { question: "DPRD adalah lembaga...", options: ["Legislatif daerah", "Eksekutif daerah", "Yudikatif daerah", "Pengawas keuangan"], correctAnswer: 0 },
     ],
-    12304: [ // Ancaman Negara
+    111304: [ // Ancaman Negara
         { question: "Ancaman militer adalah ancaman menggunakan...", options: ["Kekuatan bersenjata", "Demonstrasi damai", "Kritik media", "Protes mahasiswa"], correctAnswer: 0 },
         { question: "Terorisme termasuk ancaman...", options: ["Non-militer", "Militer murni", "Alam", "Ekonomi saja"], correctAnswer: 0 },
         { question: "Bela negara dilakukan oleh...", options: ["Setiap warga negara", "Tentara saja", "Polisi saja", "Pemerintah saja"], correctAnswer: 0 },
         { question: "Korupsi adalah ancaman di bidang...", options: ["Sosial budaya dan ekonomi", "Militer", "Bencana alam", "Geologi"], correctAnswer: 0 },
         { question: "TNI berfungsi sebagai...", options: ["Alat pertahanan negara", "Pembuat undang-undang", "Penegak hukum sipil", "Pengelola ekonomi"], correctAnswer: 0 },
     ],
-    12305: [ // Persatuan Bangsa
+    111305: [ // Persatuan Bangsa
         { question: "Bhinneka Tunggal Ika artinya...", options: ["Berbeda-beda tetapi tetap satu", "Satu untuk semua", "Bersatu kita teguh", "Merdeka atau mati"], correctAnswer: 0 },
         { question: "Integrasi nasional adalah...", options: ["Penyatuan berbagai kelompok", "Pemisahan daerah", "Konflik antar suku", "Dominasi satu kelompok"], correctAnswer: 0 },
         { question: "Faktor pendorong integrasi nasional adalah...", options: ["Toleransi dan nasionalisme", "Primordialisme", "Etnosentrisme", "Separatisme"], correctAnswer: 0 },
@@ -487,36 +487,36 @@ const questionsSMAKelas11 = {
         { question: "Pancasila berfungsi sebagai...", options: ["Pemersatu bangsa", "Pemecah belah", "Alat dominasi", "Simbol saja"], correctAnswer: 0 },
     ],
 
-    // INFORMATIKA - Kelas 11
-    12401: [ // Sistem Komputer
+    // INFORMATIKA - Kelas 11 (6-digit ID to match lessonsSMA.js)
+    111401: [ // Sistem Komputer
         { question: "CPU adalah singkatan dari...", options: ["Central Processing Unit", "Computer Personal Unit", "Central Program Unit", "Computer Processing Unit"], correctAnswer: 0 },
         { question: "RAM berfungsi untuk...", options: ["Menyimpan data sementara", "Menyimpan data permanen", "Menampilkan gambar", "Mencetak dokumen"], correctAnswer: 0 },
         { question: "Hardisk termasuk...", options: ["Storage", "Input device", "Output device", "Processing device"], correctAnswer: 0 },
         { question: "Sistem operasi contohnya adalah...", options: ["Windows, Linux, MacOS", "Microsoft Word", "Google Chrome", "Adobe Photoshop"], correctAnswer: 0 },
         { question: "BIOS berfungsi untuk...", options: ["Menginisialisasi hardware saat boot", "Menyimpan file", "Menampilkan gambar", "Mengolah data"], correctAnswer: 0 },
     ],
-    12402: [ // Algoritma dan Pemrograman
+    111402: [ // Algoritma dan Pemrograman
         { question: "Algoritma adalah...", options: ["Langkah sistematis menyelesaikan masalah", "Bahasa pemrograman", "Sistem operasi", "Hardware komputer"], correctAnswer: 0 },
         { question: "Flowchart adalah...", options: ["Diagram alir algoritma", "Bahasa pemrograman", "Kode program", "Database"], correctAnswer: 0 },
         { question: "Struktur pengulangan (looping) contohnya adalah...", options: ["For, while, do-while", "If-else", "Switch-case", "Try-catch"], correctAnswer: 0 },
         { question: "Variabel adalah...", options: ["Tempat menyimpan data", "Kode program", "Flowchart", "Algoritma"], correctAnswer: 0 },
         { question: "Pseudocode adalah...", options: ["Deskripsi algoritma mirip bahasa manusia", "Bahasa mesin", "Kode biner", "Database"], correctAnswer: 0 },
     ],
-    12403: [ // Basis Data
+    111403: [ // Basis Data
         { question: "Database adalah...", options: ["Kumpulan data terorganisir", "Program komputer", "Bahasa pemrograman", "Hardware"], correctAnswer: 0 },
         { question: "DBMS adalah singkatan dari...", options: ["Database Management System", "Data Base Manual System", "Database Memory System", "Data Binary Management"], correctAnswer: 0 },
         { question: "SQL adalah bahasa untuk...", options: ["Mengakses database", "Membuat website", "Mendesain grafis", "Membuat animasi"], correctAnswer: 0 },
         { question: "Primary key berfungsi untuk...", options: ["Identifikasi unik setiap record", "Menghapus data", "Mengurutkan data", "Menyimpan gambar"], correctAnswer: 0 },
         { question: "Relasi antar tabel dalam database disebut...", options: ["Relationship", "Connection", "Link", "Join saja"], correctAnswer: 0 },
     ],
-    12404: [ // Jaringan Komputer
+    111404: [ // Jaringan Komputer
         { question: "LAN adalah singkatan dari...", options: ["Local Area Network", "Large Area Network", "Long Area Network", "Limited Area Network"], correctAnswer: 0 },
         { question: "Internet adalah jaringan...", options: ["Global yang menghubungkan banyak jaringan", "Lokal satu gedung", "Satu komputer", "Tanpa kabel saja"], correctAnswer: 0 },
         { question: "Router berfungsi untuk...", options: ["Menghubungkan antar jaringan", "Menyimpan data", "Menampilkan gambar", "Mencetak dokumen"], correctAnswer: 0 },
         { question: "IP Address adalah...", options: ["Alamat unik perangkat dalam jaringan", "Nama website", "Password jaringan", "Kecepatan internet"], correctAnswer: 0 },
         { question: "Protokol HTTP digunakan untuk...", options: ["Mengakses website", "Mengirim email", "Transfer file", "Remote desktop"], correctAnswer: 0 },
     ],
-    12405: [ // Keamanan Data
+    111405: [ // Keamanan Data
         { question: "Enkripsi adalah proses...", options: ["Mengubah data menjadi kode rahasia", "Menghapus data", "Menyalin data", "Menampilkan data"], correctAnswer: 0 },
         { question: "Password yang kuat sebaiknya...", options: ["Kombinasi huruf, angka, simbol", "Nama sendiri", "Tanggal lahir", "Angka berurutan"], correctAnswer: 0 },
         { question: "Malware adalah...", options: ["Perangkat lunak berbahaya", "Aplikasi berguna", "Sistem operasi", "Browser"], correctAnswer: 0 },
